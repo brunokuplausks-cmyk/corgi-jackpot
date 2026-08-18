@@ -32,7 +32,9 @@
       font-weight: bold;
     }
 
-    /* LOGIN */
+    /* =========================
+       LOGIN
+       ========================= */
 
     #loginScreen {
       min-height: 100vh;
@@ -68,27 +70,24 @@
       padding: 15px 35px;
     }
 
-    /* GAME */
+    /* =========================
+       GAME
+       ========================= */
 
     #gameScreen {
       display: none;
       padding: 25px;
     }
 
-    .gameLayout {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      gap: 25px;
-      flex-wrap: wrap;
-    }
-
     .machine {
       width: 100%;
-      max-width: 850px;
+      max-width: 900px;
+      margin: 0 auto;
+
       background: #790909;
       border: 8px solid gold;
       border-radius: 30px;
+
       padding: 25px;
     }
 
@@ -97,17 +96,25 @@
     }
 
     .onlineStatus {
+      display: inline-block;
       margin-top: 8px;
       font-size: 14px;
       color: #ddd;
     }
 
+    /* =========================
+       SLOT
+       ========================= */
+
     .slotWindow {
       max-width: 720px;
       margin: 25px auto;
+
       background: #111;
+
       border: 6px solid #d4af37;
       border-radius: 18px;
+
       padding: 12px;
     }
 
@@ -126,13 +133,15 @@
     .symbol {
       background: white;
       color: black;
+
       border: 4px solid #d4af37;
       border-radius: 12px;
+
       font-size: 55px;
 
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
 
       transition:
         background 0.2s,
@@ -158,21 +167,61 @@
       }
     }
 
+    /* =========================
+       CONTROLS
+       ========================= */
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+
+      margin-top: 15px;
+    }
+
     .spinButton {
       background: #159447;
       color: white;
+
       font-size: 32px;
+
       padding: 17px 65px;
+
+      min-width: 210px;
     }
 
     .spinButton:hover {
       background: #18ac52;
     }
 
-    .spinButton:disabled {
-      background: #555;
-      cursor: not-allowed;
+    .spinButton.spinningNow {
+      background: #d88700;
     }
+
+    .autoButton {
+      background: #333;
+      color: white;
+
+      border: 2px solid #777;
+
+      font-size: 15px;
+
+      padding: 12px 18px;
+
+      min-width: 110px;
+    }
+
+    .autoButton.active {
+      background: gold;
+      color: black;
+      border-color: gold;
+    }
+
+    /* =========================
+       SCORE / MESSAGE
+       ========================= */
 
     .scoreBox {
       font-size: 26px;
@@ -186,34 +235,45 @@
       margin-top: 15px;
     }
 
-    .paytable {
-      margin-top: 20px;
-      background: #500606;
-      border-radius: 15px;
-      padding: 15px;
-      line-height: 1.7;
-    }
-
-    /* LEADERBOARD */
+    /* =========================
+       LEADERBOARD
+       ========================= */
 
     .leaderboard {
-      width: 310px;
+      max-width: 720px;
+
+      margin: 25px auto 0;
+
       background: #262626;
-      border: 5px solid gold;
-      border-radius: 20px;
+
+      border: 4px solid gold;
+      border-radius: 18px;
+
       padding: 20px;
+    }
+
+    .leaderboard h2 {
+      margin-top: 0;
     }
 
     .playerRow {
       display: flex;
       justify-content: space-between;
+
       border-bottom: 1px solid #555;
-      padding: 12px 5px;
+
+      padding: 12px 8px;
+
       font-size: 18px;
+    }
+
+    .playerRow:last-child {
+      border-bottom: none;
     }
 
     .currentPlayerRow {
       color: gold;
+      font-weight: bold;
     }
 
     .resetInfo {
@@ -221,6 +281,28 @@
       font-size: 13px;
       margin-top: 15px;
     }
+
+    /* =========================
+       PAYTABLE
+       ========================= */
+
+    .paytable {
+      max-width: 720px;
+
+      margin: 20px auto 0;
+
+      background: #500606;
+
+      border-radius: 15px;
+
+      padding: 18px;
+
+      line-height: 1.8;
+    }
+
+    /* =========================
+       JACKPOT FLASH
+       ========================= */
 
     .grandPrize {
       animation: jackpotFlash 0.25s alternate 10;
@@ -236,9 +318,14 @@
       }
     }
 
+    /* =========================
+       MOBILE
+       ========================= */
+
     @media (max-width: 700px) {
+
       #gameScreen {
-        padding: 10px;
+        padding: 8px;
       }
 
       .machine {
@@ -259,11 +346,12 @@
 
       .spinButton {
         font-size: 24px;
-        padding: 14px 40px;
+        padding: 14px 30px;
+        min-width: 170px;
       }
 
-      .leaderboard {
-        width: 100%;
+      .autoButton {
+        font-size: 13px;
       }
     }
   </style>
@@ -271,7 +359,9 @@
 
 <body>
 
-  <!-- LOGIN -->
+  <!-- =========================
+       LOGIN
+       ========================= -->
 
   <div id="loginScreen">
 
@@ -295,7 +385,10 @@
         START GAME
       </button>
 
-      <div class="onlineStatus" id="loginStatus">
+      <div
+        class="onlineStatus"
+        id="loginStatus"
+      >
         Connecting to leaderboard...
       </div>
 
@@ -304,42 +397,52 @@
   </div>
 
 
-  <!-- GAME -->
+  <!-- =========================
+       GAME
+       ========================= -->
 
   <div id="gameScreen">
 
-    <div class="gameLayout">
+    <div
+      class="machine"
+      id="machine"
+    >
 
-      <div
-        class="machine"
-        id="machine"
-      >
-
-        <h1>🐶 CORGI JACKPOT 🐶</h1>
-
-        <div class="playerInfo">
-
-          Player:
-          <strong id="playerName"></strong>
-
-          <br>
-
-          <span class="onlineStatus" id="onlineStatus">
-            Online leaderboard
-          </span>
-
-        </div>
+      <h1>🐶 CORGI JACKPOT 🐶</h1>
 
 
-        <div class="slotWindow">
+      <div class="playerInfo">
 
-          <div
-            class="reels"
-            id="reels"
-          ></div>
+        Player:
+        <strong id="playerName"></strong>
 
-        </div>
+        <br>
 
+        <span
+          class="onlineStatus"
+          id="onlineStatus"
+        >
+          Online leaderboard
+        </span>
+
+      </div>
+
+
+      <!-- SLOT -->
+
+      <div class="slotWindow">
+
+        <div
+          class="reels"
+          id="reels"
+        ></div>
+
+      </div>
+
+
+      <!-- CONTROLS -->
+
+      <div class="controls">
 
         <button
           class="spinButton"
@@ -349,57 +452,35 @@
         </button>
 
 
-        <div class="scoreBox">
-
-          Score:
-          <strong id="score">0</strong>
-
-        </div>
-
-
-        <div id="message">
-          Good luck!
-        </div>
-
-
-        <div class="paytable">
-
-          <strong>PAYTABLE</strong>
-
-          <br>
-
-          3 adjacent matching symbols = 10 points
-
-          <br>
-
-          4 adjacent matching symbols = 40 points
-
-          <br>
-
-          5 matching symbols = 150 points
-
-          <br>
-
-          🐶 🐶 🐶 🐶 🐶 = 500 points
-
-          <br><br>
-
-          A winning group can appear anywhere on a horizontal row.
-
-          <br>
-
-          Any 🐶 anywhere = Corgi Rain!
-
-        </div>
+        <button
+          class="autoButton"
+          id="autoButton"
+          aria-pressed="false"
+        >
+          AUTO SPIN
+        </button>
 
       </div>
 
 
-      <!-- LEADERBOARD -->
+      <div class="scoreBox">
+
+        Score:
+        <strong id="score">0</strong>
+
+      </div>
+
+
+      <div id="message">
+        Good luck!
+      </div>
+
+
+      <!-- LEADERBOARD MOVED UP -->
 
       <div class="leaderboard">
 
-        <h2>🏆 TODAY</h2>
+        <h2>🏆 TODAY'S LEADERBOARD</h2>
 
         <div id="leaderboardList">
           Loading...
@@ -418,14 +499,56 @@
 
       </div>
 
+
+      <!-- DESCRIPTION AFTER LEADERBOARD -->
+
+      <div class="paytable">
+
+        <strong>PAYTABLE</strong>
+
+        <br>
+
+        3 adjacent matching symbols = 10 points
+
+        <br>
+
+        4 adjacent matching symbols = 40 points
+
+        <br>
+
+        5 matching symbols = 150 points
+
+        <br>
+
+        🐶 🐶 🐶 🐶 🐶 = 500 points
+
+        <br><br>
+
+        A winning group can appear anywhere
+        on a horizontal row.
+
+        <br>
+
+        Any 🐶 anywhere on screen =
+        Corgi Rain!
+
+        <br><br>
+
+        Press SPIN again while spinning
+        to reveal the result immediately.
+
+      </div>
+
     </div>
 
   </div>
 
 
-  <!-- SUPABASE LIBRARY -->
+  <!-- SUPABASE -->
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+  ></script>
 
 
   <script>
@@ -436,6 +559,7 @@
 
     const SUPABASE_URL =
       "https://kurxfpmsxivousohtyej.supabase.co";
+
 
     const SUPABASE_KEY =
       "sb_publishable_klORT8rMBmD8AoQXebvTtQ_wD_idXs4";
@@ -469,6 +593,8 @@
       spinSpeed: 70,
 
       reelStopDelay: 450,
+
+      autoSpinDelay: 500,
 
       resetTimeZone:
         "Europe/Zurich"
@@ -517,6 +643,12 @@
 
       spinning: false,
 
+      autoSpin: false,
+
+      fastFinish: false,
+
+      skipWait: null,
+
       dayKey: ""
 
     };
@@ -551,6 +683,11 @@
       spinButton:
         document.getElementById(
           "spinButton"
+        ),
+
+      autoButton:
+        document.getElementById(
+          "autoButton"
         ),
 
       playerName:
@@ -667,7 +804,7 @@
 
 
     /* =====================================
-       EVENTS
+       BUTTONS
        ===================================== */
 
     elements.startButton
@@ -680,7 +817,14 @@
     elements.spinButton
       .addEventListener(
         "click",
-        spin
+        handleSpinButton
+      );
+
+
+    elements.autoButton
+      .addEventListener(
+        "click",
+        toggleAutoSpin
       );
 
 
@@ -702,6 +846,105 @@
         }
 
       );
+
+
+    /* =====================================
+       SPIN BUTTON BEHAVIOUR
+       ===================================== */
+
+    function handleSpinButton() {
+
+      /*
+        Already spinning?
+
+        Second press means:
+        SHOW RESULT NOW.
+      */
+
+      if (
+        game.spinning
+      ) {
+
+        game.fastFinish =
+          true;
+
+
+        if (
+          game.skipWait
+        ) {
+
+          game.skipWait();
+
+        }
+
+
+        elements.spinButton
+          .textContent =
+          "FAST!";
+
+        return;
+
+      }
+
+
+      spin();
+
+    }
+
+
+    /* =====================================
+       AUTO SPIN
+       ===================================== */
+
+    function toggleAutoSpin() {
+
+      game.autoSpin =
+        !game.autoSpin;
+
+
+      elements.autoButton
+        .classList.toggle(
+          "active",
+          game.autoSpin
+        );
+
+
+      elements.autoButton
+        .setAttribute(
+          "aria-pressed",
+          String(
+            game.autoSpin
+          )
+        );
+
+
+      elements.autoButton
+        .textContent =
+
+        game.autoSpin
+          ?
+          "AUTO: ON"
+          :
+          "AUTO SPIN";
+
+
+      /*
+        If auto is switched ON
+        while machine is idle,
+        start immediately.
+      */
+
+      if (
+        game.autoSpin
+        &&
+        !game.spinning
+      ) {
+
+        spin();
+
+      }
+
+    }
 
 
     /* =====================================
@@ -733,7 +976,8 @@
         true;
 
 
-      elements.loginStatus.textContent =
+      elements.loginStatus
+        .textContent =
         "Loading player...";
 
 
@@ -828,7 +1072,9 @@
               });
 
 
-          if (insertError) {
+          if (
+            insertError
+          ) {
 
             throw insertError;
 
@@ -838,8 +1084,11 @@
 
 
         localStorage.setItem(
+
           "corgiLastNickname",
+
           game.player
+
         );
 
 
@@ -870,7 +1119,9 @@
 
       }
 
-      catch (error) {
+      catch (
+        error
+      ) {
 
         console.error(
           error
@@ -879,11 +1130,11 @@
 
         elements.loginStatus
           .textContent =
-          "❌ Could not connect to leaderboard.";
+          "❌ Could not connect.";
 
 
         alert(
-          "Could not connect to the online leaderboard. Please try again."
+          "Could not connect to the online leaderboard."
         );
 
       }
@@ -1004,8 +1255,23 @@
         true;
 
 
-      elements.spinButton.disabled =
-        true;
+      game.fastFinish =
+        false;
+
+
+      game.skipWait =
+        null;
+
+
+      elements.spinButton
+        .classList.add(
+          "spinningNow"
+        );
+
+
+      elements.spinButton
+        .textContent =
+        "STOP / FAST";
 
 
       clearHighlights();
@@ -1024,15 +1290,57 @@
         startAllReels();
 
 
+      let finishedInstantly =
+        false;
+
+
       for (
         let reel = 0;
         reel < SETTINGS.reels;
         reel++
       ) {
 
-        await wait(
+        await waitForReelStop(
           SETTINGS.reelStopDelay
         );
+
+
+        /*
+          User clicked SPIN again.
+          Stop everything immediately.
+        */
+
+        if (
+          game.fastFinish
+        ) {
+
+          for (
+            let remaining = reel;
+            remaining <
+              SETTINGS.reels;
+            remaining++
+          ) {
+
+            clearInterval(
+              intervals[remaining]
+            );
+
+
+            stopReel(
+              remaining,
+              result[remaining]
+            );
+
+          }
+
+
+          finishedInstantly =
+            true;
+
+
+          break;
+
+        }
 
 
         clearInterval(
@@ -1048,9 +1356,30 @@
       }
 
 
-      await wait(
-        300
+      /*
+        Make absolutely sure
+        all animation timers stop.
+      */
+
+      intervals.forEach(
+
+        interval =>
+          clearInterval(
+            interval
+          )
+
       );
+
+
+      if (
+        !finishedInstantly
+      ) {
+
+        await wait(
+          250
+        );
+
+      }
 
 
       await evaluateSpin(
@@ -1058,18 +1387,134 @@
       );
 
 
-      elements.spinButton.disabled =
-        false;
-
-
       game.spinning =
         false;
+
+
+      game.fastFinish =
+        false;
+
+
+      game.skipWait =
+        null;
+
+
+      elements.spinButton
+        .classList.remove(
+          "spinningNow"
+        );
+
+
+      elements.spinButton
+        .textContent =
+        "SPIN";
+
+
+      /*
+        AUTO SPIN:
+
+        If still ON,
+        start another spin.
+      */
+
+      if (
+        game.autoSpin
+      ) {
+
+        await wait(
+          SETTINGS.autoSpinDelay
+        );
+
+
+        if (
+          game.autoSpin
+          &&
+          !game.spinning
+        ) {
+
+          spin();
+
+        }
+
+      }
 
     }
 
 
     /* =====================================
-       SPIN ANIMATION
+       CANCELLABLE WAIT
+       ===================================== */
+
+    function waitForReelStop(
+      milliseconds
+    ) {
+
+      return new Promise(
+
+        resolve => {
+
+          let finished =
+            false;
+
+
+          const timer =
+
+            setTimeout(
+
+              finish,
+
+              milliseconds
+
+            );
+
+
+          function finish() {
+
+            if (
+              finished
+            ) {
+
+              return;
+
+            }
+
+
+            finished =
+              true;
+
+
+            clearTimeout(
+              timer
+            );
+
+
+            game.skipWait =
+              null;
+
+
+            resolve();
+
+          }
+
+
+          /*
+            Store this function so
+            pressing SPIN again can
+            cancel the wait immediately.
+          */
+
+          game.skipWait =
+            finish;
+
+        }
+
+      );
+
+    }
+
+
+    /* =====================================
+       REEL ANIMATION
        ===================================== */
 
     function startAllReels() {
@@ -1172,7 +1617,7 @@
 
 
     /* =====================================
-       CHECK SPIN
+       EVALUATE SPIN
        ===================================== */
 
     async function evaluateSpin(
@@ -1264,7 +1709,7 @@
       ) {
 
         showMessage(
-          "⚠️ Score could not be saved online. Check your connection."
+          "⚠️ Score could not be saved online."
         );
 
         return;
@@ -1298,7 +1743,7 @@
 
         showMessage(
 
-          "🐶 CORGI! No points, but enjoy the Corgi rain!"
+          "🐶 CORGI! Enjoy the Corgi rain!"
 
         );
 
@@ -1333,7 +1778,8 @@
 
 
       while (
-        start < line.length
+        start <
+        line.length
       ) {
 
         const symbol =
@@ -1453,7 +1899,7 @@
 
 
     /* =====================================
-       SAVE SCORE ONLINE
+       SAVE SCORE
        ===================================== */
 
     async function saveOnlineScore() {
@@ -1522,7 +1968,6 @@
       ) {
 
         console.error(
-          "Score save error:",
           error
         );
 
@@ -1540,7 +1985,7 @@
 
 
     /* =====================================
-       ONLINE LEADERBOARD
+       LEADERBOARD
        ===================================== */
 
     async function updateLeaderboard() {
@@ -1697,7 +2142,6 @@
       ) {
 
         console.error(
-          "Leaderboard error:",
           error
         );
 
@@ -1712,7 +2156,7 @@
 
 
     /* =====================================
-       NEW DAY CHECK
+       NEW DAY
        ===================================== */
 
     async function checkNewDay() {
@@ -1812,6 +2256,7 @@
 
 
         updateScore();
+
 
         await updateLeaderboard();
 
@@ -1958,14 +2403,6 @@
         );
 
 
-      /*
-        Exactly 00:00:00 still
-        belongs to yesterday.
-
-        At 00:00:01 the new
-        leaderboard begins.
-      */
-
       if (
 
         Number(parts.hour)
@@ -2023,13 +2460,9 @@
 
 
     function highlightGroup(
-
       row,
-
       startReel,
-
       matches
-
     ) {
 
       for (
@@ -2288,8 +2721,7 @@
     function flashMachine() {
 
       elements.machine
-        .classList
-        .add(
+        .classList.add(
           "grandPrize"
         );
 
@@ -2373,8 +2805,8 @@
 
 
     /*
-      Refresh leaderboard every
-      10 seconds while playing.
+      Update shared leaderboard
+      every 10 seconds.
     */
 
     setInterval(
