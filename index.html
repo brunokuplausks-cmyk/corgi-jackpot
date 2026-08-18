@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Corgi Jackpot</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #141414;
+      color: white;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    h1,
+    h2 {
+      color: gold;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      border-radius: 12px;
+      font-weight: bold;
+    }
+
+    /* LOGIN */
+
+    #loginScreen {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .loginBox {
+      width: 100%;
+      max-width: 500px;
+      background: #790909;
+      border: 7px solid gold;
+      border-radius: 30px;
+      padding: 40px;
+    }
+
+    .loginBox input {
+      width: 100%;
+      padding: 15px;
+      font-size: 22px;
+      text-align: center;
+      border: none;
+      border-radius: 12px;
+      margin: 20px 0;
+    }
+
+    .startButton {
+      background: gold;
+      color: black;
+      font-size: 24px;
+      padding: 15px 35px;
+    }
+
+    /* GAME */
+
+    #gameScreen {
+      display: none;
+      padding: 25px;
+    }
+
+    .gameLayout {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    .machine {
+      width: 100%;
+      max-width: 850px;
+      background: #790909;
+      border: 8px solid gold;
+      border-radius: 30px;
+      padding: 25px;
+    }
+
+    .playerInfo {
+      font-size: 20px;
+    }
+
+    .slotWindow {
+      max-width: 720px;
+      margin: 25px auto;
+      background: #111;
+      border: 6px solid #d4af37;
+      border-radius: 18px;
+      padding: 12px;
+    }
+
+    .reels {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+
+    .reelColumn {
+      display: grid;
+      grid-template-rows: repeat(3, 100px);
+      gap: 6px;
+    }
+
+    .symbol {
+      background: white;
+      color: black;
+      border: 4px solid #d4af37;
+      border-radius: 12px;
+      font-size: 55px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      transition:
+        background 0.2s,
+        transform 0.2s;
+    }
+
+    .symbol.winner {
+      background: #fff4a8;
+      transform: scale(1.05);
+    }
+
+    .symbol.spinning {
+      animation: reelShake 0.07s infinite alternate;
+    }
+
+    @keyframes reelShake {
+      from {
+        transform: translateY(-6px);
+      }
+
+      to {
+        transform: translateY(6px);
+      }
+    }
+
+    /* BUTTON */
+
+    .spinButton {
+      background: #159447;
+      color: white;
+      font-size: 32px;
+      padding: 17px 65px;
+    }
+
+    .spinButton:hover {
+      background: #18ac52;
+    }
+
+    .spinButton:disabled {
+      background: #555;
+      cursor: not-allowed;
+    }
+
+    /* SCORE */
+
+    .scoreBox {
+      font-size: 26px;
+      margin-top: 20px;
+    }
+
+    #message {
+      color: gold;
+      font-size: 24px;
+      min-height: 40px;
+      margin-top: 15px;
+    }
+
+    /* PAYTABLE */
+
+    .paytable {
+      margin-top: 20px;
+      background: #500606;
+      border-radius: 15px;
+      padding: 15px;
+      line-height: 1.7;
+    }
+
+    /* LEADERBOARD */
+
+    .leaderboard {
+      width: 300px;
+      background: #262626;
+      border: 5px solid gold;
+      border-radius: 20px;
+      padding: 20px;
+    }
+
+    .playerRow {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #555;
+      padding: 12px 5px;
+      font-size: 18px;
+    }
+
+    .resetInfo {
+      color: #aaa;
+      font-size: 13px;
+      margin-top: 15px;
+    }
+
+    /* JACKPOT FLASH */
+
+    .grandPrize {
+      animation: jackpotFlash 0.25s alternate 10;
+    }
+
+    @keyframes jackpotFlash {
+      from {
+        background: #790909;
+      }
+
+      to {
+        background: #d49b00;
+      }
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 700px) {
+      #gameScreen {
+        padding: 10px;
+      }
+
+      .machine {
+        padding: 12px;
+      }
+
+      .slotWindow {
+        padding: 6px;
+      }
+
+      .reelColumn {
+        grid-template-rows: repeat(3, 70px);
+      }
+
+      .symbol {
+        font-size: 38px;
+      }
+
+      .spinButton {
+        font-size: 24px;
+        padding: 14px 40px;
+      }
+
+      .leaderboard {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- LOGIN -->
+
+  <div id="loginScreen">
+    <div class="loginBox">
+
+      <h1>🐶 CORGI JACKPOT 🐶</h1>
+
+      <h2>Enter your nickname</h2>
+
+      <input
+        id="nicknameInput"
+        type="text"
+        maxlength="15"
+        placeholder="Example: Peter"
+      >
+
+      <button
+        class="startButton"
+        id="startButton"
+      >
+        START GAME
+      </button>
+
+    </div>
+  </div>
+
+
+  <!-- GAME -->
+
+  <div id="gameScreen">
+
+    <div class="gameLayout">
+
+      <div
+        class="machine"
+        id="machine"
+      >
+
+        <h1>🐶 CORGI JACKPOT 🐶</h1>
+
+        <div class="playerInfo">
+          Player:
+          <strong id="playerName"></strong>
+        </div>
+
+
+        <div class="slotWindow">
+          <div
+            class="reels"
+            id="reels"
+          ></div>
+        </div>
+
+
+        <button
+          class="spinButton"
+          id="spinButton"
+        >
+          SPIN
+        </button>
+
+
+        <div class="scoreBox">
+          Score:
+          <strong id="score">0</strong>
+        </div>
+
+
+        <div id="message">
+          Good luck!
+        </div>
+
+
+        <div class="paytable">
+
+          <strong>PAYTABLE</strong>
+
+          <br>
+
+          3 adjacent matching symbols = 10 points
+
+          <br>
+
+          4 adjacent matching symbols = 40 points
+
+          <br>
+
+          5 matching symbols = 150 points
+
+          <br>
+
+          🐶 🐶 🐶 🐶 🐶 = 500 points
+
+          <br><br>
+
+          A winning group can appear anywhere on a horizontal row.
+
+          <br>
+
+          Any 🐶 anywhere on screen = Corgi Rain!
+
+        </div>
+
+      </div>
+
+
+      <div class="leaderboard">
+
+        <h2>🏆 LEADERBOARD</h2>
+
+        <div id="leaderboardList"></div>
+
+        <div class="resetInfo">
+          Daily reset:
+          00:00:01 Europe/Zurich
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    /* =====================================
+       SETTINGS
+       ===================================== */
+
+    const SETTINGS = {
+      reels: 5,
+      rows: 3,
+
+      payouts: {
+        3: 10,
+        4: 40,
+        5: 150
+      },
+
+      corgiJackpot: 500,
+
+      spinSpeed: 70,
+      reelStopDelay: 450,
+
+      resetTimeZone: "Europe/Zurich",
+
+      storageKeys: {
+        players: "corgiPlayers",
+        resetDate: "corgiResetDate"
+      }
+    };
+
+
+    /* =====================================
+       SYMBOL CHANCES
+       ===================================== */
+
+    const SYMBOLS = [
+      { symbol: "🍒", weight: 22 },
+      { symbol: "🍋", weight: 20 },
+      { symbol: "🍊", weight: 18 },
+      { symbol: "🍇", weight: 16 },
+      { symbol: "🍉", weight: 14 },
+      { symbol: "🔔", weight: 10 },
+      { symbol: "⭐", weight: 8 },
+      { symbol: "7️⃣", weight: 6 },
+      { symbol: "💎", weight: 5 },
+      { symbol: "🐶", weight: 5 }
+    ];
+
+
+    /* =====================================
+       GAME STATE
+       ===================================== */
+
+    const game = {
+      player: "",
+      score: 0,
+      spinning: false
+    };
+
+
+    /* =====================================
+       ELEMENTS
+       ===================================== */
+
+    const elements = {
+      loginScreen:
+        document.getElementById("loginScreen"),
+
+      gameScreen:
+        document.getElementById("gameScreen"),
+
+      nicknameInput:
+        document.getElementById("nicknameInput"),
+
+      startButton:
+        document.getElementById("startButton"),
+
+      spinButton:
+        document.getElementById("spinButton"),
+
+      playerName:
+        document.getElementById("playerName"),
+
+      score:
+        document.getElementById("score"),
+
+      message:
+        document.getElementById("message"),
+
+      reels:
+        document.getElementById("reels"),
+
+      leaderboard:
+        document.getElementById("leaderboardList"),
+
+      machine:
+        document.getElementById("machine")
+    };
+
+
+    /* =====================================
+       BUILD MACHINE
+       ===================================== */
+
+    function buildMachine() {
+      elements.reels.innerHTML = "";
+
+      for (
+        let reel = 0;
+        reel < SETTINGS.reels;
+        reel++
+      ) {
+        const column =
+          document.createElement("div");
+
+        column.className =
+          "reelColumn";
+
+        for (
+          let row = 0;
+          row < SETTINGS.rows;
+          row++
+        ) {
+          const cell =
+            document.createElement("div");
+
+          cell.className =
+            "symbol";
+
+          cell.dataset.reel =
+            reel;
+
+          cell.dataset.row =
+            row;
+
+          cell.textContent =
+            randomSymbol();
+
+          column.appendChild(
+            cell
+          );
+        }
+
+        elements.reels.appendChild(
+          column
+        );
+      }
+    }
+
+
+    /* =====================================
+       EVENTS
+       ===================================== */
+
+    elements.startButton
+      .addEventListener(
+        "click",
+        startGame
+      );
+
+
+    elements.spinButton
+      .addEventListener(
+        "click",
+        spin
+      );
+
+
+    elements.nicknameInput
+      .addEventListener(
+        "keydown",
+        event => {
+          if (event.key === "Enter") {
+            startGame();
+          }
+        }
+      );
+
+
+    /* =====================================
+       START GAME
+       ===================================== */
+
+    function startGame() {
+      checkDailyReset();
+
+      const nickname =
+        elements.nicknameInput
+          .value
+          .trim();
+
+      if (!nickname) {
+        alert(
+          "Please enter a nickname!"
+        );
+
+        return;
+      }
+
+      game.player =
+        nickname;
+
+      const players =
+        getPlayers();
+
+      game.score =
+        players[game.player]
+        ??
+        0;
+
+      players[game.player] =
+        game.score;
+
+      savePlayers(
+        players
+      );
+
+      elements.loginScreen
+        .style.display =
+        "none";
+
+      elements.gameScreen
+        .style.display =
+        "block";
+
+      elements.playerName
+        .textContent =
+        game.player;
+
+      updateScore();
+      updateLeaderboard();
+    }
+
+
+    /* =====================================
+       WEIGHTED RANDOM SYMBOL
+       ===================================== */
+
+    function randomSymbol() {
+      const totalWeight =
+        SYMBOLS.reduce(
+          (total, item) =>
+            total + item.weight,
+          0
+        );
+
+      let random =
+        Math.random()
+        *
+        totalWeight;
+
+      for (
+        const item
+        of SYMBOLS
+      ) {
+        random -=
+          item.weight;
+
+        if (random <= 0) {
+          return item.symbol;
+        }
+      }
+
+      return SYMBOLS[0].symbol;
+    }
+
+
+    /* =====================================
+       CREATE RESULT
+       ===================================== */
+
+    function createResult() {
+      return Array.from(
+        {
+          length:
+            SETTINGS.reels
+        },
+
+        () =>
+          Array.from(
+            {
+              length:
+                SETTINGS.rows
+            },
+
+            () =>
+              randomSymbol()
+          )
+      );
+    }
+
+
+    /* =====================================
+       SPIN
+       ===================================== */
+
+    async function spin() {
+      if (game.spinning) {
+        return;
+      }
+
+      checkDailyReset();
+
+      game.spinning =
+        true;
+
+      elements.spinButton.disabled =
+        true;
+
+      clearHighlights();
+
+      showMessage(
+        "Spinning..."
+      );
+
+      const result =
+        createResult();
+
+      const intervals =
+        startAllReels();
+
+      for (
+        let reel = 0;
+        reel < SETTINGS.reels;
+        reel++
+      ) {
+        await wait(
+          SETTINGS.reelStopDelay
+        );
+
+        clearInterval(
+          intervals[reel]
+        );
+
+        stopReel(
+          reel,
+          result[reel]
+        );
+      }
+
+      await wait(
+        300
+      );
+
+      evaluateSpin(
+        result
+      );
+
+      elements.spinButton.disabled =
+        false;
+
+      game.spinning =
+        false;
+    }
+
+
+    /* =====================================
+       REEL ANIMATION
+       ===================================== */
+
+    function startAllReels() {
+      const intervals =
+        [];
+
+      for (
+        let reel = 0;
+        reel < SETTINGS.reels;
+        reel++
+      ) {
+        const interval =
+          setInterval(
+            () =>
+              animateReel(
+                reel
+              ),
+
+            SETTINGS.spinSpeed
+          );
+
+        intervals.push(
+          interval
+        );
+      }
+
+      return intervals;
+    }
+
+
+    function animateReel(
+      reel
+    ) {
+      for (
+        let row = 0;
+        row < SETTINGS.rows;
+        row++
+      ) {
+        const cell =
+          getCell(
+            reel,
+            row
+          );
+
+        cell.textContent =
+          randomSymbol();
+
+        cell.classList.add(
+          "spinning"
+        );
+      }
+    }
+
+
+    function stopReel(
+      reel,
+      symbols
+    ) {
+      for (
+        let row = 0;
+        row < SETTINGS.rows;
+        row++
+      ) {
+        const cell =
+          getCell(
+            reel,
+            row
+          );
+
+        cell.classList.remove(
+          "spinning"
+        );
+
+        cell.textContent =
+          symbols[row];
+      }
+    }
+
+
+    /* =====================================
+       EVALUATE WHOLE SPIN
+       ===================================== */
+
+    function evaluateSpin(
+      result
+    ) {
+      let totalWin = 0;
+      let winningGroups = 0;
+
+      const hasCorgi =
+        result
+          .flat()
+          .includes(
+            "🐶"
+          );
+
+      if (hasCorgi) {
+        corgiRain();
+      }
+
+      for (
+        let row = 0;
+        row < SETTINGS.rows;
+        row++
+      ) {
+        const line =
+          result.map(
+            reel =>
+              reel[row]
+          );
+
+        const wins =
+          evaluateRow(
+            line,
+            row
+          );
+
+        for (
+          const win
+          of wins
+        ) {
+          totalWin +=
+            win.points;
+
+          winningGroups++;
+        }
+      }
+
+      game.score +=
+        totalWin;
+
+      saveCurrentScore();
+      updateScore();
+      updateLeaderboard();
+
+      if (totalWin > 0) {
+        showMessage(
+          `🎉 You won ${totalWin} points from ${winningGroups} winning group(s)!`
+        );
+      }
+
+      else if (hasCorgi) {
+        showMessage(
+          "🐶 CORGI! No points this spin, but enjoy the Corgi rain!"
+        );
+      }
+
+      else {
+        showMessage(
+          "No win — try again!"
+        );
+      }
+    }
+
+
+    /* =====================================
+       CHECK ONE HORIZONTAL ROW
+       ===================================== */
+
+    function evaluateRow(
+      line,
+      row
+    ) {
+      const wins =
+        [];
+
+      let start =
+        0;
+
+      while (
+        start < line.length
+      ) {
+        const symbol =
+          line[start];
+
+        let end =
+          start + 1;
+
+        while (
+          end < line.length
+          &&
+          line[end] === symbol
+        ) {
+          end++;
+        }
+
+        const matches =
+          end - start;
+
+        if (
+          matches >= 3
+        ) {
+          let points = 0;
+
+          if (
+            matches === 5
+            &&
+            symbol === "🐶"
+          ) {
+            points =
+              SETTINGS.corgiJackpot;
+
+            giantCorgiParty();
+            flashMachine();
+          }
+
+          else {
+            points =
+              SETTINGS
+                .payouts[matches]
+              ??
+              0;
+
+            if (
+              matches === 5
+            ) {
+              confetti();
+              flashMachine();
+            }
+          }
+
+          highlightGroup(
+            row,
+            start,
+            matches
+          );
+
+          wins.push({
+            symbol,
+            matches,
+            points
+          });
+        }
+
+        start =
+          end;
+      }
+
+      return wins;
+    }
+
+
+    /* =====================================
+       CELLS / HIGHLIGHTS
+       ===================================== */
+
+    function getCell(
+      reel,
+      row
+    ) {
+      return document.querySelector(
+        `[data-reel="${reel}"][data-row="${row}"]`
+      );
+    }
+
+
+    function highlightGroup(
+      row,
+      startReel,
+      matches
+    ) {
+      for (
+        let reel = startReel;
+        reel < startReel + matches;
+        reel++
+      ) {
+        getCell(
+          reel,
+          row
+        )
+        .classList
+        .add(
+          "winner"
+        );
+      }
+    }
+
+
+    function clearHighlights() {
+      document
+        .querySelectorAll(
+          ".symbol"
+        )
+        .forEach(
+          cell =>
+            cell.classList.remove(
+              "winner"
+            )
+        );
+    }
+
+
+    /* =====================================
+       SCORE
+       ===================================== */
+
+    function updateScore() {
+      elements.score
+        .textContent =
+        game.score;
+    }
+
+
+    function saveCurrentScore() {
+      if (!game.player) {
+        return;
+      }
+
+      const players =
+        getPlayers();
+
+      players[game.player] =
+        game.score;
+
+      savePlayers(
+        players
+      );
+    }
+
+
+    /* =====================================
+       STORAGE
+       ===================================== */
+
+    function getPlayers() {
+      const saved =
+        localStorage.getItem(
+          SETTINGS
+            .storageKeys
+            .players
+        );
+
+      if (!saved) {
+        return {};
+      }
+
+      try {
+        const parsed =
+          JSON.parse(
+            saved
+          );
+
+        if (
+          typeof parsed
+            ===
+            "object"
+          &&
+          parsed !== null
+          &&
+          !Array.isArray(
+            parsed
+          )
+        ) {
+          return parsed;
+        }
+
+        return {};
+      }
+
+      catch {
+        return {};
+      }
+    }
+
+
+    function savePlayers(
+      players
+    ) {
+      localStorage.setItem(
+        SETTINGS
+          .storageKeys
+          .players,
+
+        JSON.stringify(
+          players
+        )
+      );
+    }
+
+
+    /* =====================================
+       LEADERBOARD
+       ===================================== */
+
+    function updateLeaderboard() {
+      const players =
+        Object.entries(
+          getPlayers()
+        );
+
+      players.sort(
+        (a, b) =>
+          Number(b[1])
+          -
+          Number(a[1])
+      );
+
+      elements.leaderboard
+        .innerHTML =
+        "";
+
+      players
+        .slice(
+          0,
+          10
+        )
+        .forEach(
+          (
+            [name, points],
+            index
+          ) => {
+            const row =
+              document.createElement(
+                "div"
+              );
+
+            row.className =
+              "playerRow";
+
+            const nameElement =
+              document.createElement(
+                "span"
+              );
+
+            const scoreElement =
+              document.createElement(
+                "strong"
+              );
+
+            nameElement.textContent =
+              `${index + 1}. ${name}`;
+
+            scoreElement.textContent =
+              Number(points);
+
+            row.append(
+              nameElement,
+              scoreElement
+            );
+
+            elements.leaderboard
+              .appendChild(
+                row
+              );
+          }
+        );
+    }
+
+
+    /* =====================================
+       ZURICH RESET LOGIC
+       ===================================== */
+
+    function getZurichTimeParts() {
+      const formatter =
+        new Intl.DateTimeFormat(
+          "en-GB",
+          {
+            timeZone:
+              SETTINGS.resetTimeZone,
+
+            year:
+              "numeric",
+
+            month:
+              "2-digit",
+
+            day:
+              "2-digit",
+
+            hour:
+              "2-digit",
+
+            minute:
+              "2-digit",
+
+            second:
+              "2-digit",
+
+            hourCycle:
+              "h23"
+          }
+        );
+
+      const parts =
+        formatter
+          .formatToParts(
+            new Date()
+          );
+
+      const values =
+        {};
+
+      for (
+        const part
+        of parts
+      ) {
+        if (
+          part.type !==
+          "literal"
+        ) {
+          values[part.type] =
+            part.value;
+        }
+      }
+
+      return {
+        year:
+          Number(values.year),
+
+        month:
+          Number(values.month),
+
+        day:
+          Number(values.day),
+
+        hour:
+          Number(values.hour),
+
+        minute:
+          Number(values.minute),
+
+        second:
+          Number(values.second)
+      };
+    }
+
+
+    function getZurichDateKey() {
+      const time =
+        getZurichTimeParts();
+
+      const month =
+        String(
+          time.month
+        )
+        .padStart(
+          2,
+          "0"
+        );
+
+      const day =
+        String(
+          time.day
+        )
+        .padStart(
+          2,
+          "0"
+        );
+
+      return (
+        time.year
+        +
+        "-"
+        +
+        month
+        +
+        "-"
+        +
+        day
+      );
+    }
+
+
+    function hasResetTimePassedToday() {
+      const time =
+        getZurichTimeParts();
+
+      if (time.hour > 0) {
+        return true;
+      }
+
+      if (time.minute > 0) {
+        return true;
+      }
+
+      return (
+        time.second >= 1
+      );
+    }
+
+
+    function checkDailyReset() {
+      const currentDate =
+        getZurichDateKey();
+
+      const storedDate =
+        localStorage.getItem(
+          SETTINGS
+            .storageKeys
+            .resetDate
+        );
+
+      if (!storedDate) {
+        localStorage.setItem(
+          SETTINGS
+            .storageKeys
+            .resetDate,
+
+          currentDate
+        );
+
+        return;
+      }
+
+      if (
+        storedDate !==
+          currentDate
+        &&
+        hasResetTimePassedToday()
+      ) {
+        localStorage.removeItem(
+          SETTINGS
+            .storageKeys
+            .players
+        );
+
+        localStorage.setItem(
+          SETTINGS
+            .storageKeys
+            .resetDate,
+
+          currentDate
+        );
+
+        game.score =
+          0;
+
+        if (game.player) {
+          saveCurrentScore();
+        }
+
+        updateScore();
+        updateLeaderboard();
+
+        showMessage(
+          "🌙 New day! The leaderboard has been reset."
+        );
+      }
+    }
+
+
+    setInterval(
+      checkDailyReset,
+      1000
+    );
+
+
+    /* =====================================
+       EFFECTS
+       ===================================== */
+
+    function corgiRain() {
+      rain(
+        ["🐶"],
+        45
+      );
+    }
+
+
+    function confetti() {
+      rain(
+        [
+          "🎉",
+          "🎊",
+          "✨",
+          "⭐",
+          "💰",
+          "💎"
+        ],
+        80
+      );
+    }
+
+
+    function giantCorgiParty() {
+      confetti();
+
+      rain(
+        ["🐶"],
+        130
+      );
+    }
+
+
+    function rain(
+      possibleSymbols,
+      amount
+    ) {
+      for (
+        let i = 0;
+        i < amount;
+        i++
+      ) {
+        const symbol =
+          possibleSymbols[
+            Math.floor(
+              Math.random()
+              *
+              possibleSymbols.length
+            )
+          ];
+
+        createFallingItem(
+          symbol
+        );
+      }
+    }
+
+
+    function createFallingItem(
+      symbol
+    ) {
+      const item =
+        document.createElement(
+          "div"
+        );
+
+      const duration =
+        2500
+        +
+        Math.random()
+        *
+        2000;
+
+      item.textContent =
+        symbol;
+
+      item.style.position =
+        "fixed";
+
+      item.style.left =
+        Math.random()
+        *
+        100
+        +
+        "vw";
+
+      item.style.top =
+        "-80px";
+
+      item.style.fontSize =
+        (
+          25
+          +
+          Math.random()
+          *
+          45
+        )
+        +
+        "px";
+
+      item.style.zIndex =
+        "9999";
+
+      item.style.pointerEvents =
+        "none";
+
+      item.style.transition =
+        `top ${duration}ms linear, transform ${duration}ms linear`;
+
+      document.body.appendChild(
+        item
+      );
+
+      requestAnimationFrame(
+        () => {
+          item.style.top =
+            "110vh";
+
+          item.style.transform =
+            `rotate(${Math.random() * 1200}deg)`;
+        }
+      );
+
+      setTimeout(
+        () =>
+          item.remove(),
+
+        duration + 300
+      );
+    }
+
+
+    function flashMachine() {
+      elements.machine
+        .classList.add(
+          "grandPrize"
+        );
+
+      setTimeout(
+        () =>
+          elements.machine
+            .classList.remove(
+              "grandPrize"
+            ),
+
+        3000
+      );
+    }
+
+
+    /* =====================================
+       HELPERS
+       ===================================== */
+
+    function showMessage(
+      text
+    ) {
+      elements.message
+        .textContent =
+        text;
+    }
+
+
+    function wait(
+      milliseconds
+    ) {
+      return new Promise(
+        resolve =>
+          setTimeout(
+            resolve,
+            milliseconds
+          )
+      );
+    }
+
+
+    /* =====================================
+       STARTUP
+       ===================================== */
+
+    buildMachine();
+    checkDailyReset();
+
+  </script>
+
+</body>
+</html>
