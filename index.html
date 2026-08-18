@@ -96,6 +96,12 @@
       font-size: 20px;
     }
 
+    .onlineStatus {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #ddd;
+    }
+
     .slotWindow {
       max-width: 720px;
       margin: 25px auto;
@@ -152,8 +158,6 @@
       }
     }
 
-    /* BUTTON */
-
     .spinButton {
       background: #159447;
       color: white;
@@ -170,8 +174,6 @@
       cursor: not-allowed;
     }
 
-    /* SCORE */
-
     .scoreBox {
       font-size: 26px;
       margin-top: 20px;
@@ -184,8 +186,6 @@
       margin-top: 15px;
     }
 
-    /* PAYTABLE */
-
     .paytable {
       margin-top: 20px;
       background: #500606;
@@ -197,7 +197,7 @@
     /* LEADERBOARD */
 
     .leaderboard {
-      width: 300px;
+      width: 310px;
       background: #262626;
       border: 5px solid gold;
       border-radius: 20px;
@@ -212,13 +212,15 @@
       font-size: 18px;
     }
 
+    .currentPlayerRow {
+      color: gold;
+    }
+
     .resetInfo {
       color: #aaa;
       font-size: 13px;
       margin-top: 15px;
     }
-
-    /* JACKPOT FLASH */
 
     .grandPrize {
       animation: jackpotFlash 0.25s alternate 10;
@@ -233,8 +235,6 @@
         background: #d49b00;
       }
     }
-
-    /* MOBILE */
 
     @media (max-width: 700px) {
       #gameScreen {
@@ -274,6 +274,7 @@
   <!-- LOGIN -->
 
   <div id="loginScreen">
+
     <div class="loginBox">
 
       <h1>🐶 CORGI JACKPOT 🐶</h1>
@@ -294,7 +295,12 @@
         START GAME
       </button>
 
+      <div class="onlineStatus" id="loginStatus">
+        Connecting to leaderboard...
+      </div>
+
     </div>
+
   </div>
 
 
@@ -312,16 +318,26 @@
         <h1>🐶 CORGI JACKPOT 🐶</h1>
 
         <div class="playerInfo">
+
           Player:
           <strong id="playerName"></strong>
+
+          <br>
+
+          <span class="onlineStatus" id="onlineStatus">
+            Online leaderboard
+          </span>
+
         </div>
 
 
         <div class="slotWindow">
+
           <div
             class="reels"
             id="reels"
           ></div>
+
         </div>
 
 
@@ -334,8 +350,10 @@
 
 
         <div class="scoreBox">
+
           Score:
           <strong id="score">0</strong>
+
         </div>
 
 
@@ -370,22 +388,32 @@
 
           <br>
 
-          Any 🐶 anywhere on screen = Corgi Rain!
+          Any 🐶 anywhere = Corgi Rain!
 
         </div>
 
       </div>
 
 
+      <!-- LEADERBOARD -->
+
       <div class="leaderboard">
 
-        <h2>🏆 LEADERBOARD</h2>
+        <h2>🏆 TODAY</h2>
 
-        <div id="leaderboardList"></div>
+        <div id="leaderboardList">
+          Loading...
+        </div>
 
         <div class="resetInfo">
-          Daily reset:
+
+          Shared online leaderboard
+
+          <br>
+
+          New leaderboard every day at
           00:00:01 Europe/Zurich
+
         </div>
 
       </div>
@@ -395,14 +423,39 @@
   </div>
 
 
+  <!-- SUPABASE LIBRARY -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
   <script>
+
+    /* =====================================
+       SUPABASE
+       ===================================== */
+
+    const SUPABASE_URL =
+      "https://kurxfpmsxivousohtyej.supabase.co";
+
+    const SUPABASE_KEY =
+      "sb_publishable_klORT8rMBmD8AoQXebvTtQ_wD_idXs4";
+
+
+    const db =
+      supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+      );
+
 
     /* =====================================
        SETTINGS
        ===================================== */
 
     const SETTINGS = {
+
       reels: 5,
+
       rows: 3,
 
       payouts: {
@@ -414,14 +467,12 @@
       corgiJackpot: 500,
 
       spinSpeed: 70,
+
       reelStopDelay: 450,
 
-      resetTimeZone: "Europe/Zurich",
+      resetTimeZone:
+        "Europe/Zurich"
 
-      storageKeys: {
-        players: "corgiPlayers",
-        resetDate: "corgiResetDate"
-      }
     };
 
 
@@ -430,16 +481,27 @@
        ===================================== */
 
     const SYMBOLS = [
+
       { symbol: "🍒", weight: 22 },
+
       { symbol: "🍋", weight: 20 },
+
       { symbol: "🍊", weight: 18 },
+
       { symbol: "🍇", weight: 16 },
+
       { symbol: "🍉", weight: 14 },
+
       { symbol: "🔔", weight: 10 },
+
       { symbol: "⭐", weight: 8 },
+
       { symbol: "7️⃣", weight: 6 },
+
       { symbol: "💎", weight: 5 },
+
       { symbol: "🐶", weight: 5 }
+
     ];
 
 
@@ -448,9 +510,15 @@
        ===================================== */
 
     const game = {
+
       player: "",
+
       score: 0,
-      spinning: false
+
+      spinning: false,
+
+      dayKey: ""
+
     };
 
 
@@ -459,38 +527,72 @@
        ===================================== */
 
     const elements = {
+
       loginScreen:
-        document.getElementById("loginScreen"),
+        document.getElementById(
+          "loginScreen"
+        ),
 
       gameScreen:
-        document.getElementById("gameScreen"),
+        document.getElementById(
+          "gameScreen"
+        ),
 
       nicknameInput:
-        document.getElementById("nicknameInput"),
+        document.getElementById(
+          "nicknameInput"
+        ),
 
       startButton:
-        document.getElementById("startButton"),
+        document.getElementById(
+          "startButton"
+        ),
 
       spinButton:
-        document.getElementById("spinButton"),
+        document.getElementById(
+          "spinButton"
+        ),
 
       playerName:
-        document.getElementById("playerName"),
+        document.getElementById(
+          "playerName"
+        ),
 
       score:
-        document.getElementById("score"),
+        document.getElementById(
+          "score"
+        ),
 
       message:
-        document.getElementById("message"),
+        document.getElementById(
+          "message"
+        ),
 
       reels:
-        document.getElementById("reels"),
+        document.getElementById(
+          "reels"
+        ),
 
       leaderboard:
-        document.getElementById("leaderboardList"),
+        document.getElementById(
+          "leaderboardList"
+        ),
 
       machine:
-        document.getElementById("machine")
+        document.getElementById(
+          "machine"
+        ),
+
+      loginStatus:
+        document.getElementById(
+          "loginStatus"
+        ),
+
+      onlineStatus:
+        document.getElementById(
+          "onlineStatus"
+        )
+
     };
 
 
@@ -499,48 +601,68 @@
        ===================================== */
 
     function buildMachine() {
-      elements.reels.innerHTML = "";
+
+      elements.reels.innerHTML =
+        "";
+
 
       for (
         let reel = 0;
         reel < SETTINGS.reels;
         reel++
       ) {
+
         const column =
-          document.createElement("div");
+          document.createElement(
+            "div"
+          );
+
 
         column.className =
           "reelColumn";
+
 
         for (
           let row = 0;
           row < SETTINGS.rows;
           row++
         ) {
+
           const cell =
-            document.createElement("div");
+            document.createElement(
+              "div"
+            );
+
 
           cell.className =
             "symbol";
 
+
           cell.dataset.reel =
             reel;
+
 
           cell.dataset.row =
             row;
 
+
           cell.textContent =
             randomSymbol();
+
 
           column.appendChild(
             cell
           );
+
         }
+
 
         elements.reels.appendChild(
           column
         );
+
       }
+
     }
 
 
@@ -564,12 +686,21 @@
 
     elements.nicknameInput
       .addEventListener(
+
         "keydown",
+
         event => {
-          if (event.key === "Enter") {
+
+          if (
+            event.key === "Enter"
+          ) {
+
             startGame();
+
           }
+
         }
+
       );
 
 
@@ -577,87 +708,245 @@
        START GAME
        ===================================== */
 
-    function startGame() {
-      checkDailyReset();
+    async function startGame() {
 
       const nickname =
-        elements.nicknameInput
+
+        elements
+          .nicknameInput
           .value
           .trim();
 
+
       if (!nickname) {
+
         alert(
           "Please enter a nickname!"
         );
 
         return;
+
       }
+
+
+      elements.startButton.disabled =
+        true;
+
+
+      elements.loginStatus.textContent =
+        "Loading player...";
+
 
       game.player =
         nickname;
 
-      const players =
-        getPlayers();
 
-      game.score =
-        players[game.player]
-        ??
-        0;
+      game.dayKey =
+        getActiveZurichDayKey();
 
-      players[game.player] =
-        game.score;
 
-      savePlayers(
-        players
-      );
+      try {
 
-      elements.loginScreen
-        .style.display =
-        "none";
+        const {
+          data,
+          error
+        } =
 
-      elements.gameScreen
-        .style.display =
-        "block";
+          await db
 
-      elements.playerName
-        .textContent =
-        game.player;
+            .from(
+              "Players"
+            )
 
-      updateScore();
-      updateLeaderboard();
+            .select(
+              "score"
+            )
+
+            .eq(
+              "nickname",
+              game.player
+            )
+
+            .eq(
+              "day_key",
+              game.dayKey
+            )
+
+            .maybeSingle();
+
+
+        if (error) {
+
+          throw error;
+
+        }
+
+
+        if (data) {
+
+          game.score =
+            Number(
+              data.score
+            )
+            ||
+            0;
+
+        }
+
+        else {
+
+          game.score =
+            0;
+
+
+          const {
+            error:
+              insertError
+          } =
+
+            await db
+
+              .from(
+                "Players"
+              )
+
+              .insert({
+
+                nickname:
+                  game.player,
+
+                score:
+                  0,
+
+                day_key:
+                  game.dayKey,
+
+                updated_at:
+                  new Date()
+                    .toISOString()
+
+              });
+
+
+          if (insertError) {
+
+            throw insertError;
+
+          }
+
+        }
+
+
+        localStorage.setItem(
+          "corgiLastNickname",
+          game.player
+        );
+
+
+        elements.loginScreen
+          .style.display =
+          "none";
+
+
+        elements.gameScreen
+          .style.display =
+          "block";
+
+
+        elements.playerName
+          .textContent =
+          game.player;
+
+
+        elements.onlineStatus
+          .textContent =
+          "🟢 Connected to online leaderboard";
+
+
+        updateScore();
+
+
+        await updateLeaderboard();
+
+      }
+
+      catch (error) {
+
+        console.error(
+          error
+        );
+
+
+        elements.loginStatus
+          .textContent =
+          "❌ Could not connect to leaderboard.";
+
+
+        alert(
+          "Could not connect to the online leaderboard. Please try again."
+        );
+
+      }
+
+
+      elements.startButton.disabled =
+        false;
+
     }
 
 
     /* =====================================
-       WEIGHTED RANDOM SYMBOL
+       RANDOM SYMBOL
        ===================================== */
 
     function randomSymbol() {
+
       const totalWeight =
+
         SYMBOLS.reduce(
-          (total, item) =>
-            total + item.weight,
+
+          (
+            total,
+            item
+          ) =>
+
+            total +
+            item.weight,
+
           0
+
         );
 
+
       let random =
+
         Math.random()
         *
         totalWeight;
+
 
       for (
         const item
         of SYMBOLS
       ) {
+
         random -=
           item.weight;
 
-        if (random <= 0) {
+
+        if (
+          random <= 0
+        ) {
+
           return item.symbol;
+
         }
+
       }
 
+
       return SYMBOLS[0].symbol;
+
     }
 
 
@@ -666,14 +955,18 @@
        ===================================== */
 
     function createResult() {
+
       return Array.from(
+
         {
           length:
             SETTINGS.reels
         },
 
         () =>
+
           Array.from(
+
             {
               length:
                 SETTINGS.rows
@@ -681,8 +974,11 @@
 
             () =>
               randomSymbol()
+
           )
+
       );
+
     }
 
 
@@ -691,118 +987,156 @@
        ===================================== */
 
     async function spin() {
-      if (game.spinning) {
+
+      if (
+        game.spinning
+      ) {
+
         return;
+
       }
 
-      checkDailyReset();
+
+      await checkNewDay();
+
 
       game.spinning =
         true;
 
+
       elements.spinButton.disabled =
         true;
 
+
       clearHighlights();
+
 
       showMessage(
         "Spinning..."
       );
 
+
       const result =
         createResult();
 
+
       const intervals =
         startAllReels();
+
 
       for (
         let reel = 0;
         reel < SETTINGS.reels;
         reel++
       ) {
+
         await wait(
           SETTINGS.reelStopDelay
         );
+
 
         clearInterval(
           intervals[reel]
         );
 
+
         stopReel(
           reel,
           result[reel]
         );
+
       }
+
 
       await wait(
         300
       );
 
-      evaluateSpin(
+
+      await evaluateSpin(
         result
       );
+
 
       elements.spinButton.disabled =
         false;
 
+
       game.spinning =
         false;
+
     }
 
 
     /* =====================================
-       REEL ANIMATION
+       SPIN ANIMATION
        ===================================== */
 
     function startAllReels() {
+
       const intervals =
         [];
+
 
       for (
         let reel = 0;
         reel < SETTINGS.reels;
         reel++
       ) {
+
         const interval =
+
           setInterval(
+
             () =>
               animateReel(
                 reel
               ),
 
             SETTINGS.spinSpeed
+
           );
+
 
         intervals.push(
           interval
         );
+
       }
 
+
       return intervals;
+
     }
 
 
     function animateReel(
       reel
     ) {
+
       for (
         let row = 0;
         row < SETTINGS.rows;
         row++
       ) {
+
         const cell =
           getCell(
             reel,
             row
           );
 
+
         cell.textContent =
           randomSymbol();
+
 
         cell.classList.add(
           "spinning"
         );
+
       }
+
     }
 
 
@@ -810,214 +1144,908 @@
       reel,
       symbols
     ) {
+
       for (
         let row = 0;
         row < SETTINGS.rows;
         row++
       ) {
+
         const cell =
           getCell(
             reel,
             row
           );
 
+
         cell.classList.remove(
           "spinning"
         );
 
+
         cell.textContent =
           symbols[row];
+
       }
+
     }
 
 
     /* =====================================
-       EVALUATE WHOLE SPIN
+       CHECK SPIN
        ===================================== */
 
-    function evaluateSpin(
+    async function evaluateSpin(
       result
     ) {
-      let totalWin = 0;
-      let winningGroups = 0;
+
+      let totalWin =
+        0;
+
+
+      let winningGroups =
+        0;
+
 
       const hasCorgi =
+
         result
           .flat()
           .includes(
             "🐶"
           );
 
-      if (hasCorgi) {
+
+      if (
+        hasCorgi
+      ) {
+
         corgiRain();
+
       }
+
 
       for (
         let row = 0;
         row < SETTINGS.rows;
         row++
       ) {
+
         const line =
+
           result.map(
+
             reel =>
               reel[row]
+
           );
 
+
         const wins =
+
           evaluateRow(
             line,
             row
           );
 
+
         for (
           const win
           of wins
         ) {
+
           totalWin +=
             win.points;
 
+
           winningGroups++;
+
         }
+
       }
+
 
       game.score +=
         totalWin;
 
-      saveCurrentScore();
-      updateScore();
-      updateLeaderboard();
 
-      if (totalWin > 0) {
+      updateScore();
+
+
+      const saved =
+        await saveOnlineScore();
+
+
+      await updateLeaderboard();
+
+
+      if (
+        !saved
+      ) {
+
         showMessage(
-          `🎉 You won ${totalWin} points from ${winningGroups} winning group(s)!`
+          "⚠️ Score could not be saved online. Check your connection."
         );
+
+        return;
+
       }
 
-      else if (hasCorgi) {
+
+      if (
+        totalWin > 0
+      ) {
+
         showMessage(
-          "🐶 CORGI! No points this spin, but enjoy the Corgi rain!"
+
+          "🎉 You won "
+          +
+          totalWin
+          +
+          " points from "
+          +
+          winningGroups
+          +
+          " winning group(s)!"
+
         );
+
+      }
+
+      else if (
+        hasCorgi
+      ) {
+
+        showMessage(
+
+          "🐶 CORGI! No points, but enjoy the Corgi rain!"
+
+        );
+
       }
 
       else {
+
         showMessage(
           "No win — try again!"
         );
+
       }
+
     }
 
 
     /* =====================================
-       CHECK ONE HORIZONTAL ROW
+       CHECK ROW
        ===================================== */
 
     function evaluateRow(
       line,
       row
     ) {
+
       const wins =
         [];
+
 
       let start =
         0;
 
+
       while (
         start < line.length
       ) {
+
         const symbol =
           line[start];
+
 
         let end =
           start + 1;
 
+
         while (
-          end < line.length
+
+          end <
+            line.length
+
           &&
-          line[end] === symbol
+
+          line[end]
+            ===
+            symbol
+
         ) {
+
           end++;
+
         }
+
 
         const matches =
           end - start;
 
+
         if (
           matches >= 3
         ) {
-          let points = 0;
+
+          let points =
+            0;
+
 
           if (
+
             matches === 5
             &&
             symbol === "🐶"
+
           ) {
+
             points =
-              SETTINGS.corgiJackpot;
+              SETTINGS
+                .corgiJackpot;
+
 
             giantCorgiParty();
+
             flashMachine();
+
           }
 
           else {
+
             points =
+
               SETTINGS
                 .payouts[matches]
+
               ??
               0;
+
 
             if (
               matches === 5
             ) {
+
               confetti();
+
               flashMachine();
+
             }
+
           }
 
+
           highlightGroup(
+
             row,
+
             start,
+
             matches
+
           );
 
+
           wins.push({
+
             symbol,
+
             matches,
+
             points
+
           });
+
         }
+
 
         start =
           end;
+
       }
 
+
       return wins;
+
     }
 
 
     /* =====================================
-       CELLS / HIGHLIGHTS
+       SAVE SCORE ONLINE
+       ===================================== */
+
+    async function saveOnlineScore() {
+
+      try {
+
+        const {
+          error
+        } =
+
+          await db
+
+            .from(
+              "Players"
+            )
+
+            .upsert(
+
+              {
+
+                nickname:
+                  game.player,
+
+                score:
+                  game.score,
+
+                day_key:
+                  game.dayKey,
+
+                updated_at:
+                  new Date()
+                    .toISOString()
+
+              },
+
+              {
+
+                onConflict:
+                  "nickname,day_key"
+
+              }
+
+            );
+
+
+        if (
+          error
+        ) {
+
+          throw error;
+
+        }
+
+
+        elements.onlineStatus
+          .textContent =
+          "🟢 Score saved online";
+
+
+        return true;
+
+      }
+
+      catch (
+        error
+      ) {
+
+        console.error(
+          "Score save error:",
+          error
+        );
+
+
+        elements.onlineStatus
+          .textContent =
+          "🔴 Score not saved";
+
+
+        return false;
+
+      }
+
+    }
+
+
+    /* =====================================
+       ONLINE LEADERBOARD
+       ===================================== */
+
+    async function updateLeaderboard() {
+
+      const currentDay =
+        getActiveZurichDayKey();
+
+
+      try {
+
+        const {
+          data,
+          error
+        } =
+
+          await db
+
+            .from(
+              "Players"
+            )
+
+            .select(
+              "nickname, score"
+            )
+
+            .eq(
+              "day_key",
+              currentDay
+            )
+
+            .order(
+              "score",
+              {
+                ascending:
+                  false
+              }
+            )
+
+            .limit(
+              10
+            );
+
+
+        if (
+          error
+        ) {
+
+          throw error;
+
+        }
+
+
+        elements.leaderboard
+          .innerHTML =
+          "";
+
+
+        if (
+          !data
+          ||
+          data.length === 0
+        ) {
+
+          elements.leaderboard
+            .textContent =
+            "No players yet.";
+
+          return;
+
+        }
+
+
+        data.forEach(
+
+          (
+            player,
+            index
+          ) => {
+
+            const row =
+
+              document
+                .createElement(
+                  "div"
+                );
+
+
+            row.className =
+              "playerRow";
+
+
+            if (
+
+              player.nickname
+              ===
+              game.player
+
+            ) {
+
+              row.classList.add(
+                "currentPlayerRow"
+              );
+
+            }
+
+
+            const name =
+
+              document
+                .createElement(
+                  "span"
+                );
+
+
+            const points =
+
+              document
+                .createElement(
+                  "strong"
+                );
+
+
+            name.textContent =
+
+              `${index + 1}. ${player.nickname}`;
+
+
+            points.textContent =
+
+              Number(
+                player.score
+              );
+
+
+            row.append(
+              name,
+              points
+            );
+
+
+            elements.leaderboard
+              .appendChild(
+                row
+              );
+
+          }
+
+        );
+
+      }
+
+      catch (
+        error
+      ) {
+
+        console.error(
+          "Leaderboard error:",
+          error
+        );
+
+
+        elements.leaderboard
+          .textContent =
+          "Could not load leaderboard.";
+
+      }
+
+    }
+
+
+    /* =====================================
+       NEW DAY CHECK
+       ===================================== */
+
+    async function checkNewDay() {
+
+      if (
+        !game.player
+      ) {
+
+        return;
+
+      }
+
+
+      const newDayKey =
+        getActiveZurichDayKey();
+
+
+      if (
+        newDayKey
+        ===
+        game.dayKey
+      ) {
+
+        return;
+
+      }
+
+
+      game.dayKey =
+        newDayKey;
+
+
+      game.score =
+        0;
+
+
+      updateScore();
+
+
+      try {
+
+        const {
+          data,
+          error
+        } =
+
+          await db
+
+            .from(
+              "Players"
+            )
+
+            .select(
+              "score"
+            )
+
+            .eq(
+              "nickname",
+              game.player
+            )
+
+            .eq(
+              "day_key",
+              game.dayKey
+            )
+
+            .maybeSingle();
+
+
+        if (
+          error
+        ) {
+
+          throw error;
+
+        }
+
+
+        if (
+          data
+        ) {
+
+          game.score =
+            Number(
+              data.score
+            )
+            ||
+            0;
+
+        }
+
+        else {
+
+          await saveOnlineScore();
+
+        }
+
+
+        updateScore();
+
+        await updateLeaderboard();
+
+
+        showMessage(
+          "🌙 New day! Today's leaderboard has started."
+        );
+
+      }
+
+      catch (
+        error
+      ) {
+
+        console.error(
+          error
+        );
+
+      }
+
+    }
+
+
+    /* =====================================
+       ZURICH DAY
+       ===================================== */
+
+    function getZurichParts(
+      date =
+        new Date()
+    ) {
+
+      const formatter =
+
+        new Intl
+          .DateTimeFormat(
+
+            "en-GB",
+
+            {
+
+              timeZone:
+                SETTINGS
+                  .resetTimeZone,
+
+              year:
+                "numeric",
+
+              month:
+                "2-digit",
+
+              day:
+                "2-digit",
+
+              hour:
+                "2-digit",
+
+              minute:
+                "2-digit",
+
+              second:
+                "2-digit",
+
+              hourCycle:
+                "h23"
+
+            }
+
+          );
+
+
+      const parts =
+
+        formatter
+          .formatToParts(
+            date
+          );
+
+
+      const values =
+        {};
+
+
+      for (
+        const part
+        of parts
+      ) {
+
+        if (
+          part.type
+          !==
+          "literal"
+        ) {
+
+          values[part.type] =
+            part.value;
+
+        }
+
+      }
+
+
+      return values;
+
+    }
+
+
+    function formatZurichDate(
+      date
+    ) {
+
+      const parts =
+        getZurichParts(
+          date
+        );
+
+
+      return (
+
+        parts.year
+        +
+        "-"
+        +
+        parts.month
+        +
+        "-"
+        +
+        parts.day
+
+      );
+
+    }
+
+
+    function getActiveZurichDayKey() {
+
+      const now =
+        new Date();
+
+
+      const parts =
+        getZurichParts(
+          now
+        );
+
+
+      /*
+        Exactly 00:00:00 still
+        belongs to yesterday.
+
+        At 00:00:01 the new
+        leaderboard begins.
+      */
+
+      if (
+
+        Number(parts.hour)
+          === 0
+
+        &&
+
+        Number(parts.minute)
+          === 0
+
+        &&
+
+        Number(parts.second)
+          === 0
+
+      ) {
+
+        return formatZurichDate(
+
+          new Date(
+            now.getTime()
+            -
+            1000
+          )
+
+        );
+
+      }
+
+
+      return formatZurichDate(
+        now
+      );
+
+    }
+
+
+    /* =====================================
+       HIGHLIGHTS
        ===================================== */
 
     function getCell(
       reel,
       row
     ) {
-      return document.querySelector(
-        `[data-reel="${reel}"][data-row="${row}"]`
-      );
+
+      return document
+        .querySelector(
+
+          `[data-reel="${reel}"][data-row="${row}"]`
+
+        );
+
     }
 
 
     function highlightGroup(
+
       row,
+
       startReel,
+
       matches
+
     ) {
+
       for (
-        let reel = startReel;
-        reel < startReel + matches;
+
+        let reel =
+          startReel;
+
+        reel <
+          startReel
+          +
+          matches;
+
         reel++
+
       ) {
+
         getCell(
           reel,
           row
@@ -1026,21 +2054,30 @@
         .add(
           "winner"
         );
+
       }
+
     }
 
 
     function clearHighlights() {
+
       document
         .querySelectorAll(
           ".symbol"
         )
         .forEach(
+
           cell =>
-            cell.classList.remove(
-              "winner"
-            )
+
+            cell
+              .classList
+              .remove(
+                "winner"
+              )
+
         );
+
     }
 
 
@@ -1049,355 +2086,12 @@
        ===================================== */
 
     function updateScore() {
+
       elements.score
         .textContent =
         game.score;
+
     }
-
-
-    function saveCurrentScore() {
-      if (!game.player) {
-        return;
-      }
-
-      const players =
-        getPlayers();
-
-      players[game.player] =
-        game.score;
-
-      savePlayers(
-        players
-      );
-    }
-
-
-    /* =====================================
-       STORAGE
-       ===================================== */
-
-    function getPlayers() {
-      const saved =
-        localStorage.getItem(
-          SETTINGS
-            .storageKeys
-            .players
-        );
-
-      if (!saved) {
-        return {};
-      }
-
-      try {
-        const parsed =
-          JSON.parse(
-            saved
-          );
-
-        if (
-          typeof parsed
-            ===
-            "object"
-          &&
-          parsed !== null
-          &&
-          !Array.isArray(
-            parsed
-          )
-        ) {
-          return parsed;
-        }
-
-        return {};
-      }
-
-      catch {
-        return {};
-      }
-    }
-
-
-    function savePlayers(
-      players
-    ) {
-      localStorage.setItem(
-        SETTINGS
-          .storageKeys
-          .players,
-
-        JSON.stringify(
-          players
-        )
-      );
-    }
-
-
-    /* =====================================
-       LEADERBOARD
-       ===================================== */
-
-    function updateLeaderboard() {
-      const players =
-        Object.entries(
-          getPlayers()
-        );
-
-      players.sort(
-        (a, b) =>
-          Number(b[1])
-          -
-          Number(a[1])
-      );
-
-      elements.leaderboard
-        .innerHTML =
-        "";
-
-      players
-        .slice(
-          0,
-          10
-        )
-        .forEach(
-          (
-            [name, points],
-            index
-          ) => {
-            const row =
-              document.createElement(
-                "div"
-              );
-
-            row.className =
-              "playerRow";
-
-            const nameElement =
-              document.createElement(
-                "span"
-              );
-
-            const scoreElement =
-              document.createElement(
-                "strong"
-              );
-
-            nameElement.textContent =
-              `${index + 1}. ${name}`;
-
-            scoreElement.textContent =
-              Number(points);
-
-            row.append(
-              nameElement,
-              scoreElement
-            );
-
-            elements.leaderboard
-              .appendChild(
-                row
-              );
-          }
-        );
-    }
-
-
-    /* =====================================
-       ZURICH RESET LOGIC
-       ===================================== */
-
-    function getZurichTimeParts() {
-      const formatter =
-        new Intl.DateTimeFormat(
-          "en-GB",
-          {
-            timeZone:
-              SETTINGS.resetTimeZone,
-
-            year:
-              "numeric",
-
-            month:
-              "2-digit",
-
-            day:
-              "2-digit",
-
-            hour:
-              "2-digit",
-
-            minute:
-              "2-digit",
-
-            second:
-              "2-digit",
-
-            hourCycle:
-              "h23"
-          }
-        );
-
-      const parts =
-        formatter
-          .formatToParts(
-            new Date()
-          );
-
-      const values =
-        {};
-
-      for (
-        const part
-        of parts
-      ) {
-        if (
-          part.type !==
-          "literal"
-        ) {
-          values[part.type] =
-            part.value;
-        }
-      }
-
-      return {
-        year:
-          Number(values.year),
-
-        month:
-          Number(values.month),
-
-        day:
-          Number(values.day),
-
-        hour:
-          Number(values.hour),
-
-        minute:
-          Number(values.minute),
-
-        second:
-          Number(values.second)
-      };
-    }
-
-
-    function getZurichDateKey() {
-      const time =
-        getZurichTimeParts();
-
-      const month =
-        String(
-          time.month
-        )
-        .padStart(
-          2,
-          "0"
-        );
-
-      const day =
-        String(
-          time.day
-        )
-        .padStart(
-          2,
-          "0"
-        );
-
-      return (
-        time.year
-        +
-        "-"
-        +
-        month
-        +
-        "-"
-        +
-        day
-      );
-    }
-
-
-    function hasResetTimePassedToday() {
-      const time =
-        getZurichTimeParts();
-
-      if (time.hour > 0) {
-        return true;
-      }
-
-      if (time.minute > 0) {
-        return true;
-      }
-
-      return (
-        time.second >= 1
-      );
-    }
-
-
-    function checkDailyReset() {
-      const currentDate =
-        getZurichDateKey();
-
-      const storedDate =
-        localStorage.getItem(
-          SETTINGS
-            .storageKeys
-            .resetDate
-        );
-
-      if (!storedDate) {
-        localStorage.setItem(
-          SETTINGS
-            .storageKeys
-            .resetDate,
-
-          currentDate
-        );
-
-        return;
-      }
-
-      if (
-        storedDate !==
-          currentDate
-        &&
-        hasResetTimePassedToday()
-      ) {
-        localStorage.removeItem(
-          SETTINGS
-            .storageKeys
-            .players
-        );
-
-        localStorage.setItem(
-          SETTINGS
-            .storageKeys
-            .resetDate,
-
-          currentDate
-        );
-
-        game.score =
-          0;
-
-        if (game.player) {
-          saveCurrentScore();
-        }
-
-        updateScore();
-        updateLeaderboard();
-
-        showMessage(
-          "🌙 New day! The leaderboard has been reset."
-        );
-      }
-    }
-
-
-    setInterval(
-      checkDailyReset,
-      1000
-    );
 
 
     /* =====================================
@@ -1405,15 +2099,19 @@
        ===================================== */
 
     function corgiRain() {
+
       rain(
         ["🐶"],
         45
       );
+
     }
 
 
     function confetti() {
+
       rain(
+
         [
           "🎉",
           "🎊",
@@ -1422,18 +2120,24 @@
           "💰",
           "💎"
         ],
+
         80
+
       );
+
     }
 
 
     function giantCorgiParty() {
+
       confetti();
+
 
       rain(
         ["🐶"],
         130
       );
+
     }
 
 
@@ -1441,59 +2145,81 @@
       possibleSymbols,
       amount
     ) {
+
       for (
         let i = 0;
         i < amount;
         i++
       ) {
+
         const symbol =
+
           possibleSymbols[
+
             Math.floor(
+
               Math.random()
               *
               possibleSymbols.length
+
             )
+
           ];
+
 
         createFallingItem(
           symbol
         );
+
       }
+
     }
 
 
     function createFallingItem(
       symbol
     ) {
+
       const item =
-        document.createElement(
-          "div"
-        );
+
+        document
+          .createElement(
+            "div"
+          );
+
 
       const duration =
+
         2500
         +
         Math.random()
         *
         2000;
 
+
       item.textContent =
         symbol;
+
 
       item.style.position =
         "fixed";
 
+
       item.style.left =
+
         Math.random()
         *
         100
         +
         "vw";
 
+
       item.style.top =
         "-80px";
 
+
       item.style.fontSize =
+
         (
           25
           +
@@ -1504,53 +2230,84 @@
         +
         "px";
 
+
       item.style.zIndex =
         "9999";
+
 
       item.style.pointerEvents =
         "none";
 
+
       item.style.transition =
-        `top ${duration}ms linear, transform ${duration}ms linear`;
+
+        `top ${duration}ms linear,
+         transform ${duration}ms linear`;
+
 
       document.body.appendChild(
         item
       );
 
+
       requestAnimationFrame(
+
         () => {
+
           item.style.top =
             "110vh";
 
+
           item.style.transform =
-            `rotate(${Math.random() * 1200}deg)`;
+
+            `rotate(${
+              Math.random()
+              *
+              1200
+            }deg)`;
+
         }
+
       );
 
+
       setTimeout(
+
         () =>
           item.remove(),
 
-        duration + 300
+        duration
+        +
+        300
+
       );
+
     }
 
 
     function flashMachine() {
+
       elements.machine
-        .classList.add(
+        .classList
+        .add(
           "grandPrize"
         );
 
+
       setTimeout(
+
         () =>
+
           elements.machine
-            .classList.remove(
+            .classList
+            .remove(
               "grandPrize"
             ),
 
         3000
+
       );
+
     }
 
 
@@ -1561,22 +2318,29 @@
     function showMessage(
       text
     ) {
+
       elements.message
         .textContent =
         text;
+
     }
 
 
     function wait(
       milliseconds
     ) {
+
       return new Promise(
+
         resolve =>
+
           setTimeout(
             resolve,
             milliseconds
           )
+
       );
+
     }
 
 
@@ -1585,7 +2349,53 @@
        ===================================== */
 
     buildMachine();
-    checkDailyReset();
+
+
+    const savedNickname =
+
+      localStorage.getItem(
+        "corgiLastNickname"
+      );
+
+
+    if (
+      savedNickname
+    ) {
+
+      elements.nicknameInput.value =
+        savedNickname;
+
+    }
+
+
+    elements.loginStatus.textContent =
+      "🟢 Online leaderboard ready";
+
+
+    /*
+      Refresh leaderboard every
+      10 seconds while playing.
+    */
+
+    setInterval(
+
+      async () => {
+
+        if (
+          game.player
+        ) {
+
+          await checkNewDay();
+
+          await updateLeaderboard();
+
+        }
+
+      },
+
+      10000
+
+    );
 
   </script>
 
