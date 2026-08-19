@@ -3,1222 +3,1323 @@
 
 <head>
 
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
-  <title>Corgi Jackpot</title>
+<title>Corgi Jackpot</title>
 
-  <style>
+<style>
 
-    * {
-      box-sizing: border-box;
-    }
+* {
+  box-sizing: border-box;
+}
 
-    body {
-      margin: 0;
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
 
-      background:
-        radial-gradient(
-          circle at top,
-          #161616,
-          #000
-        );
+body {
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  overflow-x: hidden;
 
-      color: white;
+  background:
+    #080604
+    url("background.png")
+    center top / cover
+    fixed;
+}
 
-      font-family:
-        Arial,
-        sans-serif;
+button,
+input {
+  font-family: inherit;
+}
 
-      text-align: center;
 
-      overflow-x: hidden;
-    }
+/* =====================================================
+   LOGIN
+   ===================================================== */
 
-    button {
-      font-family: inherit;
-    }
+#loginScreen {
 
+  position: fixed;
 
-    /* =====================================================
-       LOGIN
-       ===================================================== */
+  inset: 0;
 
-    #loginScreen {
-      min-height: 100vh;
+  z-index: 20000;
 
-      display: flex;
+  display: flex;
 
-      align-items: center;
+  align-items: center;
 
-      justify-content: center;
+  justify-content: center;
 
-      padding: 20px;
+  overflow: hidden;
 
-      background:
-        radial-gradient(
-          circle at center,
-          #17120a,
-          #030303
-        );
-    }
+  background:
+    #080604
+    url("background.png")
+    center / cover
+    no-repeat;
 
-    .loginBox {
-      width:
-        min(
-          500px,
-          94vw
-        );
+}
 
-      padding:
-        40px;
 
-      background:
-        #080808;
+/*
+  The complete login design is now your PNG.
+*/
 
-      border:
-        3px solid
-        #b59036;
+.loginMachine {
 
-      border-radius:
-        20px;
+  position: relative;
 
-      box-shadow:
-        0 0 40px
-        rgba(
-          255,
-          190,
-          40,
-          0.15
-        );
-    }
+  width:
+    min(
+      1100px,
+      100vw
+    );
 
-    .loginBox h1 {
-      color:
-        #e8b84e;
+  aspect-ratio:
+    1448 / 1086;
 
-      letter-spacing:
-        3px;
-    }
+  flex: 0 0 auto;
 
-    .loginBox input {
-      width:
-        100%;
+  background:
+    url("loginpage.png")
+    center / 100% 100%
+    no-repeat;
 
-      margin:
-        20px 0;
+}
 
-      padding:
-        15px;
 
-      border:
-        2px solid
-        #9d7c31;
+/*
+  Nickname field positioned directly over
+  the empty field built into loginpage.png.
+*/
 
-      border-radius:
-        8px;
+#nicknameInput {
 
-      background:
-        #111;
+  position: absolute;
 
-      color:
-        white;
+  left: 27.0%;
 
-      text-align:
-        center;
+  top: 51.55%;
 
-      font-size:
-        21px;
-    }
+  width: 44.1%;
 
-    .startLoginButton {
-      padding:
-        14px 35px;
+  height: 8.5%;
 
-      background:
-        linear-gradient(
-          #e1d6bc,
-          #807667
-        );
+  z-index: 10;
 
-      border:
-        3px solid
-        #222;
+  margin: 0;
 
-      border-radius:
-        6px;
+  padding:
+    0 4%;
 
-      color:
-        #111;
+  border: 0;
 
-      font-size:
-        20px;
+  outline: 0;
 
-      font-weight:
-        bold;
+  border-radius: 10px;
 
-      cursor:
-        pointer;
-    }
+  background:
+    transparent;
 
-    #loginStatus {
-      margin-top:
-        15px;
+  color:
+    #f4d77c;
 
-      color:
-        #aaa;
+  text-align:
+    center;
 
-      font-size:
-        13px;
-    }
+  font-family:
+    "Courier New",
+    monospace;
 
+  font-size:
+    clamp(
+      16px,
+      2.2vw,
+      29px
+    );
 
-    /* =====================================================
-       GAME SCREEN
-       ===================================================== */
+  font-weight:
+    bold;
 
-    #gameScreen {
-      display:
-        none;
+  letter-spacing:
+    2px;
 
-      width:
-        100%;
+  text-shadow:
+    0 0 7px
+    rgba(
+      255,
+      190,
+      40,
+      0.7
+    );
 
-      padding:
-        15px
-        10px
-        60px;
-    }
+}
 
 
-    /* =====================================================
-       MAIN MACHINE
-       ===================================================== */
+/*
+  Very subtle highlight only while typing.
+*/
 
-    .machine {
-      position:
-        relative;
+#nicknameInput:focus {
 
-      width:
-        min(
-          1100px,
-          98vw
-        );
+  background:
+    rgba(
+      255,
+      190,
+      45,
+      0.025
+    );
 
-      margin:
-        auto;
+  box-shadow:
+    inset
+    0 0 18px
+    rgba(
+      255,
+      190,
+      40,
+      0.08
+    );
 
-      aspect-ratio:
-        1448 / 1086;
+}
 
-      background-image:
-        url("slot-frame.png");
 
-      background-size:
-        100% 100%;
+/*
+  Invisible clickable button over
+  the START GAME button in the image.
+*/
 
-      background-repeat:
-        no-repeat;
+#startLoginButton {
 
-      background-position:
-        center;
+  position: absolute;
 
-      overflow:
-        hidden;
+  left: 32.1%;
 
-      user-select:
-        none;
-    }
+  top: 64.0%;
 
+  width: 34.1%;
 
-    /* =====================================================
-       REELS
-       ===================================================== */
+  height: 10.3%;
 
-    .slotArea {
-      position:
-        absolute;
+  z-index: 12;
 
-      left:
-        15.70%;
+  padding: 0;
 
-      top:
-        14.90%;
+  border: 0;
 
-      width:
-        67%;
+  background: transparent;
 
-      height:
-        44.8%;
+  cursor: pointer;
 
-      overflow:
-        hidden;
+}
 
-      background:
-        #030303;
 
-      border-radius:
-        5px;
+#startLoginButton:active {
 
-      z-index:
-        10;
-    }
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(
+        255,
+        230,
+        130,
+        0.15
+      ),
+      transparent 70%
+    );
 
-    .reels {
-      position:
-        absolute;
+}
 
-      inset:
-        0;
 
-      display:
-        grid;
+/* =====================================================
+   GAME PAGE
+   ===================================================== */
 
-      grid-template-columns:
-        repeat(
-          5,
-          minmax(
-            0,
-            1fr
-          )
-        );
-    }
+#gameScreen {
 
-    .reelColumn {
-      display:
-        grid;
+  display: none;
 
-      grid-template-rows:
-        repeat(
-          3,
-          minmax(
-            0,
-            1fr
-          )
-        );
+  width: 100%;
 
-      border-right:
-        1px solid
-        #4d3a16;
-    }
+  min-height: 100vh;
 
-    .reelColumn:last-child {
-      border-right:
-        none;
-    }
+  padding:
+    15px
+    10px
+    60px;
 
-    .symbol {
-      display:
-        flex;
+  background:
+    linear-gradient(
+      rgba(
+        0,
+        0,
+        0,
+        0.10
+      ),
+      rgba(
+        0,
+        0,
+        0,
+        0.18
+      )
+    ),
+    url("background.png")
+    center top / cover
+    fixed;
 
-      align-items:
-        center;
+}
 
-      justify-content:
-        center;
 
-      overflow:
-        hidden;
+/* =====================================================
+   MAIN MACHINE
+   ===================================================== */
 
-      background:
-        radial-gradient(
-          circle,
-          #151515,
-          #010101 78%
-        );
+.machine {
 
-      border-bottom:
-        1px solid
-        #4c3816;
+  position: relative;
 
-      transition:
-        background 0.15s,
-        transform 0.15s,
-        filter 0.15s;
-    }
+  width:
+    min(
+      1100px,
+      98vw
+    );
 
-    .symbol img {
-      display:
-        block;
+  margin:
+    auto;
 
-      max-width:
-        78%;
+  aspect-ratio:
+    1448 / 1086;
 
-      max-height:
-        78%;
+  background:
+    url("slot-frame.png")
+    center / 100% 100%
+    no-repeat;
 
-      width:
-        auto;
+  overflow: hidden;
 
-      height:
-        auto;
+  user-select: none;
 
-      object-fit:
-        contain;
-    }
+}
 
-    .symbol.corgi img {
-      max-width:
-        88%;
 
-      max-height:
-        88%;
-    }
+/* =====================================================
+   REEL WINDOW
 
-    .symbol.spinning {
-      filter:
-        blur(2px);
+   IMPORTANT:
+   Everything is strictly contained here.
+   ===================================================== */
 
-      animation:
-        reelShake
-        0.065s
-        infinite
-        alternate;
-    }
+.slotArea {
 
-    @keyframes reelShake {
+  position: absolute;
 
-      from {
-        transform:
-          translateY(-6px);
-      }
+  left: 15.70%;
 
-      to {
-        transform:
-          translateY(6px);
-      }
+  top: 14.90%;
 
-    }
+  width: 67%;
 
-    .symbol.winner {
-      background:
-        radial-gradient(
-          circle,
-          #856717,
-          #100d03
-        );
+  height: 44.8%;
 
-      box-shadow:
-        inset
-        0 0 25px
-        gold;
-    }
+  min-width: 0;
 
+  min-height: 0;
 
-    /* =====================================================
-       PAYLINES
-       ===================================================== */
+  overflow: hidden;
 
-    #paylineOverlay {
-      position:
-        absolute;
+  contain: layout paint;
 
-      inset:
-        0;
+  background: #020202;
 
-      width:
-        100%;
+  border-radius: 5px;
 
-      height:
-        100%;
+  z-index: 10;
 
-      z-index:
-        20;
+}
 
-      pointer-events:
-        none;
-    }
 
-    .payline {
-      fill:
-        none;
+/*
+  Hard fixed grid.
+*/
 
-      stroke-width:
-        4;
+.reels {
 
-      stroke-linecap:
-        round;
+  position: absolute;
 
-      stroke-linejoin:
-        round;
+  inset: 0;
 
-      opacity:
-        0;
+  width: 100%;
 
-      transition:
-        opacity
-        0.18s;
-    }
+  height: 100%;
 
-    .payline.active {
-      opacity:
-        0.95;
-    }
+  min-width: 0;
 
-    .line1 {
-      stroke: #4ca3ff;
-    }
+  min-height: 0;
 
-    .line2 {
-      stroke: #ff3838;
-    }
+  display: grid;
 
-    .line3 {
-      stroke: #30ce36;
-    }
-
-    .line4 {
-      stroke: #f1e62e;
-    }
-
-    .line5 {
-      stroke: #ff7bd8;
-    }
-
-    .line6 {
-      stroke: #ff8e26;
-    }
-
-    .line7 {
-      stroke: #a965ff;
-    }
-
-    .line8 {
-      stroke: #58df83;
-    }
-
-    .line9 {
-      stroke: #ff55ae;
-    }
-
-
-    /* =====================================================
-       BROKEN GLASS
-       REELS ONLY
-       ===================================================== */
-
-    .brokenGlassOverlay {
-      position:
-        absolute;
-
-      inset:
-        0;
-
-      width:
-        100%;
-
-      height:
-        100%;
-
-      object-fit:
-        fill;
-
-      pointer-events:
-        none;
-
-      z-index:
-        100;
-
-      opacity:
-        0;
-
-      visibility:
-        hidden;
-    }
-
-    .brokenGlassOverlay.active {
-      visibility:
-        visible;
-
-      opacity:
-        1;
-
-      animation:
-        glassImpact
-        0.35s
-        ease-out;
-    }
-
-    @keyframes glassImpact {
-
-      0% {
-        opacity: 0;
-        transform: scale(1.14);
-      }
-
-      45% {
-        opacity: 1;
-        transform: scale(0.98);
-      }
-
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-
-    }
-
-
-    /* =====================================================
-       MESSAGE
-       ===================================================== */
-
-    .message {
-      position:
-        absolute;
-
-      left:
-        11.25%;
-
-      top:
-        63.50%;
-
-      width:
-        49.3%;
-
-      height:
-        6.4%;
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        center;
-
-      padding:
-        4px
-        10px;
-
-      overflow:
-        hidden;
-
-      color:
-        #f2ff26;
-
-      font-family:
-        "Courier New",
-        monospace;
-
-      font-size:
-        clamp(
-          11px,
-          1.6vw,
-          21px
-        );
-
-      letter-spacing:
-        1px;
-
-      line-height:
-        1;
-
-      text-shadow:
-        0 0 5px
-        #dfff00;
-
-      z-index:
-        30;
-    }
-
-
-    /* =====================================================
-       SPINS LEFT
-       ===================================================== */
-
-    .spinsLeftDisplay {
-      position:
-        absolute;
-
-      left:
-        11.25%;
-
-      top:
-        74.58%;
-
-      width:
-        16.5%;
-
-      height:
-        4%;
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        center;
-
-      color:
-        #f2ff26;
-
-      font-family:
-        "Courier New",
-        monospace;
-
-      font-size:
-        clamp(
-          14px,
-          2.4vw,
-          30px
-        );
-
-      line-height:
-        1;
-
-      text-shadow:
-        0 0 7px
-        #dfff00;
-
-      z-index:
-        30;
-    }
-
-
-    /* =====================================================
-       WIN / TOTAL SCORE
-       ===================================================== */
-
-    .scoreDisplay {
-      position:
-        absolute;
-
-      left:
-        39.45%;
-
-      top:
-        74.58%;
-
-      width:
-        18.4%;
-
-      height:
-        4%;
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        center;
-
-      color:
-        #f2ff26;
-
-      font-family:
-        "Courier New",
-        monospace;
-
-      font-size:
-        clamp(
-          14px,
-          2.4vw,
-          30px
-        );
-
-      line-height:
-        1;
-
-      text-shadow:
-        0 0 7px
-        #dfff00;
-
-      z-index:
-        30;
-    }
-
-
-    /* =====================================================
-       MAIN BUTTONS
-       ===================================================== */
-
-    .frameHotspot {
-      position:
-        absolute;
-
-      padding:
-        0;
-
-      background:
-        transparent;
-
-      border:
-        none;
-
-      cursor:
-        pointer;
-
-      z-index:
-        65;
-    }
-
-    .startHotspot {
-      left:
-        65.3%;
-
-      top:
-        82%;
-
-      width:
-        13.5%;
-
-      height:
-        9.5%;
-    }
-
-    .autoHotspot {
-      left:
-        78.5%;
-
-      top:
-        82%;
-
-      width:
-        12.3%;
-
-      height:
-        9.5%;
-    }
-
-    .frameHotspot.disabled {
-      cursor:
-        not-allowed;
-    }
-
-
-    /* =====================================================
-       LOWER INFO MACHINE
-       ===================================================== */
-
-    .infoMachine {
-      position:
-        relative;
-
-      width:
-        min(
-          1100px,
-          98vw
-        );
-
-      margin:
-        12px
-        auto
-        30px;
-
-      aspect-ratio:
-        1211 / 1299;
-
-      background-image:
-        url("leaderboard.png");
-
-      background-size:
-        100% 100%;
-
-      background-position:
-        center;
-
-      background-repeat:
-        no-repeat;
-
-      overflow:
-        hidden;
-
-      user-select:
-        none;
-    }
-
-
-    /* =====================================================
-       LEADERBOARD
-       ===================================================== */
-
-    .infoLeaderboard {
-      position:
-        absolute;
-
-      left:
-        7.4%;
-
-      top:
-        9.8%;
-
-      width:
-        85.2%;
-
-      height:
-        36%;
-
-      padding:
-        2.5%
-        3.2%;
-
-      overflow-y:
-        auto;
-
-      color:
-        #f2ff26;
-
-      font-family:
-        "Courier New",
-        monospace;
-
-      z-index:
-        20;
-    }
-
-    .leaderHead,
-    .playerRow {
-      display:
-        grid;
-
-      grid-template-columns:
+  grid-template-columns:
+    repeat(
+      5,
+      minmax(
+        0,
         1fr
-        22%
-        25%;
-
-      gap:
-        8px;
-
-      align-items:
-        center;
-    }
-
-    .leaderHead {
-      padding:
-        0
-        2px
-        9px;
-
-      margin-bottom:
-        5px;
-
-      border-bottom:
-        1px solid
-        rgba(
-          230,
-          190,
-          65,
-          0.35
-        );
-
-      color:
-        #d5bc61;
-
-      font-size:
-        clamp(
-          9px,
-          1.1vw,
-          14px
-        );
-
-      letter-spacing:
-        1px;
-    }
-
-    .playerRow {
-      padding:
-        9px
-        2px;
-
-      border-bottom:
-        1px solid
-        rgba(
-          255,
-          255,
-          255,
-          0.10
-        );
-
-      color:
-        #f2ff26;
-
-      font-size:
-        clamp(
-          11px,
-          1.45vw,
-          18px
-        );
-
-      text-shadow:
-        0 0 5px
-        rgba(
-          223,
-          255,
-          0,
-          0.55
-        );
-    }
-
-    .leaderHead span:first-child,
-    .playerRow span:first-child {
-      text-align:
-        left;
-    }
-
-    .leaderHead span:not(:first-child),
-    .playerRow span:not(:first-child),
-    .playerRow strong {
-      text-align:
-        right;
-    }
-
-    .currentPlayerRow {
-      color:
-        #fff36a;
-
-      text-shadow:
-        0 0 8px
-        #dfff00;
-
-      font-weight:
-        bold;
-    }
-
+      )
+    );
 
-    /* =====================================================
-       GAME INFORMATION
-       ===================================================== */
+  overflow: hidden;
 
-    .gameInformation {
-      position:
-        absolute;
+}
 
-      left:
-        8.2%;
 
-      top:
-        55.2%;
+/*
+  Each reel must never grow according
+  to its image dimensions.
+*/
 
-      width:
-        83.6%;
+.reelColumn {
 
-      height:
-        28.8%;
+  width: 100%;
 
-      display:
-        flex;
+  height: 100%;
 
-      flex-direction:
-        column;
+  min-width: 0;
 
-      align-items:
-        center;
+  min-height: 0;
 
-      justify-content:
-        center;
+  display: grid;
 
-      color:
-        #f2ff26;
+  grid-template-rows:
+    repeat(
+      3,
+      minmax(
+        0,
+        1fr
+      )
+    );
 
-      font-family:
-        "Courier New",
-        monospace;
+  overflow: hidden;
 
-      font-size:
-        clamp(
-          9px,
-          1.15vw,
-          15px
-        );
+  border-right:
+    1px solid
+    #4d3a16;
 
-      line-height:
-        1.42;
+}
 
-      text-shadow:
-        0 0 5px
-        rgba(
-          223,
-          255,
-          0,
-          0.5
-        );
+.reelColumn:last-child {
+  border-right: none;
+}
 
-      z-index:
-        20;
-    }
 
-    .gameInfoLine,
-    .gameInfoBonus {
-      width:
-        100%;
+/*
+  Critical fix:
+  fixed cell boundaries.
+*/
 
-      text-align:
-        center;
-    }
+.symbol {
 
-    .gameInfoBonus {
-      color:
-        #fff36a;
-    }
+  position: relative;
 
-    .gameInfoSpacer {
-      height:
-        clamp(
-          4px,
-          0.7vw,
-          9px
-        );
-    }
+  width: 100%;
 
+  height: 100%;
 
-    /* =====================================================
-       LOWER BUTTONS
-       ===================================================== */
+  min-width: 0;
 
-    .infoButtonHotspot {
-      position:
-        absolute;
+  min-height: 0;
 
-      padding:
-        0;
+  max-width: 100%;
 
-      border:
-        none;
+  max-height: 100%;
 
-      background:
-        transparent;
+  display: flex;
 
-      cursor:
-        pointer;
+  align-items: center;
 
-      z-index:
-        60;
-    }
+  justify-content: center;
 
-    .corgiRainHotspot {
-      left:
-        26.1%;
+  overflow: hidden;
 
-      top:
-        88.2%;
+  background:
+    radial-gradient(
+      circle,
+      #101010,
+      #010101 80%
+    );
 
-      width:
-        20.4%;
+  border-bottom:
+    1px solid
+    #4c3816;
 
-      height:
-        7.9%;
-    }
+}
 
-    .destroyHotspot {
-      left:
-        51.5%;
 
-      top:
-        88.2%;
+/*
+  The PNG can NEVER dictate
+  reel-cell dimensions now.
+*/
 
-      width:
-        22.6%;
+.symbol img {
 
-      height:
-        7.9%;
-    }
+  display: block;
 
+  flex:
+    0 0 auto;
 
-    /* =====================================================
-       CORGI PARTICLES
-       ===================================================== */
+  width: auto;
 
-    .fallingCorgi {
-      position:
-        fixed;
+  height: auto;
 
-      left:
-        0;
+  max-width: 72%;
 
-      top:
-        0;
+  max-height: 72%;
 
-      width:
-        clamp(
-          50px,
-          7vw,
-          100px
-        );
+  min-width: 0;
 
-      z-index:
-        9999;
+  min-height: 0;
 
-      pointer-events:
-        none;
+  object-fit: contain;
 
-      object-fit:
-        contain;
+  object-position: center;
 
-      will-change:
-        transform;
-    }
+  transform: none;
 
+}
 
-    /* =====================================================
-       JACKPOT FLASH
-       ===================================================== */
 
-    .jackpotFlash {
-      animation:
-        jackpotFlash
-        0.2s
-        alternate
-        12;
-    }
+/*
+  Wider graphics such as the jet benefit
+  from a little more horizontal room.
+*/
 
-    @keyframes jackpotFlash {
+.symbol[data-symbol="PRIVATE_JET"] img {
 
-      from {
-        filter:
-          brightness(1);
-      }
+  max-width: 91%;
 
-      to {
-        filter:
-          brightness(1.6)
-          saturate(1.7);
-      }
+  max-height: 67%;
 
-    }
+}
 
 
-    /* =====================================================
-       MOBILE
-       ===================================================== */
+.symbol[data-symbol="MONEY"] img {
 
-    @media
-    (max-width: 600px) {
+  max-width: 84%;
 
-      #gameScreen {
-        padding-left:
-          0;
+  max-height: 72%;
 
-        padding-right:
-          0;
-      }
+}
 
-      .machine,
-      .infoMachine {
-        width:
-          100vw;
-      }
 
-      .leaderHead,
-      .playerRow {
-        grid-template-columns:
-          1fr
-          22%
-          27%;
-      }
+.symbol[data-symbol="CORGI"] img {
 
-    }
+  max-width: 82%;
 
-  </style>
+  max-height: 82%;
+
+}
+
+
+/*
+  SPINNING FIX
+
+  No translateY.
+  No reelShake.
+  No "waving".
+
+  Only a light visual blur/brightness effect.
+*/
+
+.symbol.spinning img {
+
+  filter:
+    blur(1.4px)
+    brightness(0.85);
+
+}
+
+
+/*
+  Winner highlight.
+*/
+
+.symbol.winner {
+
+  background:
+    radial-gradient(
+      circle,
+      #83651a,
+      #110d03 75%
+    );
+
+  box-shadow:
+    inset
+    0 0 25px
+    gold;
+
+}
+
+
+/* =====================================================
+   PAYLINES
+   ===================================================== */
+
+#paylineOverlay {
+
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  z-index: 20;
+
+  pointer-events: none;
+
+}
+
+.payline {
+
+  fill: none;
+
+  stroke-width: 4;
+
+  stroke-linecap: round;
+
+  stroke-linejoin: round;
+
+  opacity: 0;
+
+  transition:
+    opacity
+    0.18s;
+
+}
+
+.payline.active {
+  opacity: 0.95;
+}
+
+.line1 {
+  stroke: #4ca3ff;
+}
+
+.line2 {
+  stroke: #ff3838;
+}
+
+.line3 {
+  stroke: #30ce36;
+}
+
+.line4 {
+  stroke: #f1e62e;
+}
+
+.line5 {
+  stroke: #ff7bd8;
+}
+
+.line6 {
+  stroke: #ff8e26;
+}
+
+.line7 {
+  stroke: #a965ff;
+}
+
+.line8 {
+  stroke: #58df83;
+}
+
+.line9 {
+  stroke: #ff55ae;
+}
+
+
+/* =====================================================
+   BROKEN GLASS
+   ===================================================== */
+
+.brokenGlassOverlay {
+
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: fill;
+
+  pointer-events: none;
+
+  z-index: 100;
+
+  opacity: 0;
+
+  visibility: hidden;
+
+}
+
+.brokenGlassOverlay.active {
+
+  visibility: visible;
+
+  opacity: 1;
+
+  animation:
+    glassImpact
+    0.35s
+    ease-out;
+
+}
+
+@keyframes glassImpact {
+
+  0% {
+    opacity: 0;
+    transform: scale(1.08);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(0.99);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+}
+
+
+/* =====================================================
+   MESSAGE
+   ===================================================== */
+
+.message {
+
+  position: absolute;
+
+  left: 11.25%;
+
+  top: 63.50%;
+
+  width: 49.3%;
+
+  height: 6.4%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding:
+    4px
+    10px;
+
+  overflow: hidden;
+
+  color: #f2ff26;
+
+  font-family:
+    "Courier New",
+    monospace;
+
+  font-size:
+    clamp(
+      11px,
+      1.6vw,
+      21px
+    );
+
+  letter-spacing: 1px;
+
+  line-height: 1;
+
+  text-shadow:
+    0 0 5px
+    #dfff00;
+
+  z-index: 30;
+
+}
+
+
+/* =====================================================
+   SPINS LEFT
+   ===================================================== */
+
+.spinsLeftDisplay {
+
+  position: absolute;
+
+  left: 11.25%;
+
+  top: 74.58%;
+
+  width: 16.5%;
+
+  height: 4%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  color: #f2ff26;
+
+  font-family:
+    "Courier New",
+    monospace;
+
+  font-size:
+    clamp(
+      14px,
+      2.4vw,
+      30px
+    );
+
+  line-height: 1;
+
+  text-shadow:
+    0 0 7px
+    #dfff00;
+
+  z-index: 30;
+
+}
+
+
+/* =====================================================
+   WIN / SCORE
+   ===================================================== */
+
+.scoreDisplay {
+
+  position: absolute;
+
+  left: 39.45%;
+
+  top: 74.58%;
+
+  width: 18.4%;
+
+  height: 4%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  color: #f2ff26;
+
+  font-family:
+    "Courier New",
+    monospace;
+
+  font-size:
+    clamp(
+      14px,
+      2.4vw,
+      30px
+    );
+
+  line-height: 1;
+
+  text-shadow:
+    0 0 7px
+    #dfff00;
+
+  z-index: 30;
+
+}
+
+
+/* =====================================================
+   MACHINE BUTTONS
+   ===================================================== */
+
+.frameHotspot {
+
+  position: absolute;
+
+  padding: 0;
+
+  background: transparent;
+
+  border: none;
+
+  cursor: pointer;
+
+  z-index: 65;
+
+}
+
+.startHotspot {
+
+  left: 65.3%;
+
+  top: 82%;
+
+  width: 13.5%;
+
+  height: 9.5%;
+
+}
+
+.autoHotspot {
+
+  left: 78.5%;
+
+  top: 82%;
+
+  width: 12.3%;
+
+  height: 9.5%;
+
+}
+
+.frameHotspot.disabled {
+  cursor: not-allowed;
+}
+
+
+/* =====================================================
+   LOWER MACHINE
+   ===================================================== */
+
+.infoMachine {
+
+  position: relative;
+
+  width:
+    min(
+      1100px,
+      98vw
+    );
+
+  margin:
+    12px
+    auto
+    30px;
+
+  aspect-ratio:
+    1211 / 1299;
+
+  background:
+    url("leaderboard.png")
+    center / 100% 100%
+    no-repeat;
+
+  overflow: hidden;
+
+  user-select: none;
+
+}
+
+
+/* =====================================================
+   LEADERBOARD
+   ===================================================== */
+
+.infoLeaderboard {
+
+  position: absolute;
+
+  left: 7.4%;
+
+  top: 9.8%;
+
+  width: 85.2%;
+
+  height: 36%;
+
+  padding:
+    2.5%
+    3.2%;
+
+  overflow-y: auto;
+
+  color: #f2ff26;
+
+  font-family:
+    "Courier New",
+    monospace;
+
+  z-index: 20;
+
+}
+
+.leaderHead,
+.playerRow {
+
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    22%
+    25%;
+
+  gap: 8px;
+
+  align-items: center;
+
+}
+
+.leaderHead {
+
+  padding:
+    0
+    2px
+    9px;
+
+  margin-bottom: 5px;
+
+  border-bottom:
+    1px solid
+    rgba(
+      230,
+      190,
+      65,
+      0.35
+    );
+
+  color: #d5bc61;
+
+  font-size:
+    clamp(
+      9px,
+      1.1vw,
+      14px
+    );
+
+  letter-spacing: 1px;
+
+}
+
+.playerRow {
+
+  padding:
+    9px
+    2px;
+
+  border-bottom:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.10
+    );
+
+  color: #f2ff26;
+
+  font-size:
+    clamp(
+      11px,
+      1.45vw,
+      18px
+    );
+
+  text-shadow:
+    0 0 5px
+    rgba(
+      223,
+      255,
+      0,
+      0.55
+    );
+
+}
+
+.leaderHead span:first-child,
+.playerRow span:first-child {
+  text-align: left;
+}
+
+.leaderHead span:not(:first-child),
+.playerRow span:not(:first-child),
+.playerRow strong {
+  text-align: right;
+}
+
+.currentPlayerRow {
+
+  color: #fff36a;
+
+  text-shadow:
+    0 0 8px
+    #dfff00;
+
+  font-weight: bold;
+
+}
+
+
+/* =====================================================
+   GAME INFO
+   ===================================================== */
+
+.gameInformation {
+
+  position: absolute;
+
+  left: 8.2%;
+
+  top: 55.2%;
+
+  width: 83.6%;
+
+  height: 28.8%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  color: #f2ff26;
+
+  font-family:
+    "Courier New",
+    monospace;
+
+  font-size:
+    clamp(
+      9px,
+      1.12vw,
+      15px
+    );
+
+  line-height: 1.42;
+
+  text-shadow:
+    0 0 5px
+    rgba(
+      223,
+      255,
+      0,
+      0.5
+    );
+
+  z-index: 20;
+
+}
+
+.gameInfoLine,
+.gameInfoBonus {
+
+  width: 100%;
+
+  text-align: center;
+
+}
+
+.gameInfoBonus {
+  color: #fff36a;
+}
+
+.gameInfoSpacer {
+  height: 7px;
+}
+
+
+/* =====================================================
+   LOWER BUTTONS
+   ===================================================== */
+
+.infoButtonHotspot {
+
+  position: absolute;
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  z-index: 60;
+
+}
+
+.corgiRainHotspot {
+
+  left: 26.1%;
+
+  top: 88.2%;
+
+  width: 20.4%;
+
+  height: 7.9%;
+
+}
+
+.destroyHotspot {
+
+  left: 51.5%;
+
+  top: 88.2%;
+
+  width: 22.6%;
+
+  height: 7.9%;
+
+}
+
+
+/* =====================================================
+   CORGI PARTICLES
+   ===================================================== */
+
+.fallingCorgi {
+
+  position: fixed;
+
+  left: 0;
+
+  top: 0;
+
+  width:
+    clamp(
+      50px,
+      7vw,
+      100px
+    );
+
+  z-index: 9999;
+
+  pointer-events: none;
+
+  object-fit: contain;
+
+  will-change: transform;
+
+}
+
+
+/* =====================================================
+   COIN PARTICLES
+   ===================================================== */
+
+.fallingCoin {
+
+  position: fixed;
+
+  left: 0;
+
+  top: 0;
+
+  width: 70px;
+
+  height: auto;
+
+  object-fit: contain;
+
+  pointer-events: none;
+
+  z-index: 9998;
+
+  will-change: transform;
+
+  filter:
+    drop-shadow(
+      0 5px 5px
+      rgba(
+        0,
+        0,
+        0,
+        0.45
+      )
+    );
+
+}
+
+
+/* =====================================================
+   JACKPOT FLASH
+   ===================================================== */
+
+.jackpotFlash {
+
+  animation:
+    jackpotFlash
+    0.2s
+    alternate
+    12;
+
+}
+
+@keyframes jackpotFlash {
+
+  from {
+    filter: brightness(1);
+  }
+
+  to {
+    filter:
+      brightness(1.55)
+      saturate(1.6);
+  }
+
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media
+(max-width: 600px) {
+
+  #gameScreen {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .machine,
+  .infoMachine {
+    width: 100vw;
+  }
+
+  .loginMachine {
+    width: 100vw;
+  }
+
+  .leaderHead,
+  .playerRow {
+
+    grid-template-columns:
+      1fr
+      22%
+      27%;
+
+  }
+
+}
+
+</style>
 
 </head>
 
@@ -1226,1700 +1327,1312 @@
 <body>
 
 
-  <!-- =====================================================
-       LOGIN
-       ===================================================== -->
+<!-- =====================================================
+     LOGIN
+     ===================================================== -->
 
-  <div id="loginScreen">
+<div id="loginScreen">
 
-    <div class="loginBox">
+  <div class="loginMachine">
 
-      <h1>
-        CORGI JACKPOT
-      </h1>
+    <input
+      id="nicknameInput"
+      maxlength="15"
+      autocomplete="off"
+      aria-label="Nickname"
+    >
 
-      <h2>
-        Enter your nickname
-      </h2>
-
-      <input
-        id="nicknameInput"
-        maxlength="15"
-        autocomplete="off"
-      >
-
-      <br>
-
-      <button
-        id="startLoginButton"
-        class="startLoginButton"
-      >
-        START GAME
-      </button>
-
-      <div id="loginStatus">
-        Connecting...
-      </div>
-
-    </div>
+    <button
+      id="startLoginButton"
+      aria-label="Start game"
+    ></button>
 
   </div>
 
-
-  <!-- =====================================================
-       GAME
-       ===================================================== -->
-
-  <div id="gameScreen">
+</div>
 
 
-    <!-- MAIN MACHINE -->
+<!-- =====================================================
+     GAME
+     ===================================================== -->
+
+<div id="gameScreen">
+
+
+  <div
+    class="machine"
+    id="machine"
+  >
+
+
+    <!-- REELS -->
+
+    <div class="slotArea">
+
+      <div
+        class="reels"
+        id="reels"
+      ></div>
+
+
+      <svg
+        id="paylineOverlay"
+        viewBox="0 0 500 300"
+        preserveAspectRatio="none"
+      >
+
+        <polyline
+          id="line1"
+          class="payline line1"
+          points="50,150 150,150 250,150 350,150 450,150"
+        />
+
+        <polyline
+          id="line2"
+          class="payline line2"
+          points="50,50 150,50 250,50 350,50 450,50"
+        />
+
+        <polyline
+          id="line3"
+          class="payline line3"
+          points="50,250 150,250 250,250 350,250 450,250"
+        />
+
+        <polyline
+          id="line4"
+          class="payline line4"
+          points="50,50 150,150 250,250 350,150 450,50"
+        />
+
+        <polyline
+          id="line5"
+          class="payline line5"
+          points="50,250 150,150 250,50 350,150 450,250"
+        />
+
+        <polyline
+          id="line6"
+          class="payline line6"
+          points="50,50 150,150 250,150 350,150 450,250"
+        />
+
+        <polyline
+          id="line7"
+          class="payline line7"
+          points="50,250 150,150 250,150 350,150 450,50"
+        />
+
+        <polyline
+          id="line8"
+          class="payline line8"
+          points="50,150 150,250 250,150 350,250 450,150"
+        />
+
+        <polyline
+          id="line9"
+          class="payline line9"
+          points="50,150 150,50 250,150 350,50 450,150"
+        />
+
+      </svg>
+
+
+      <img
+        id="brokenGlassOverlay"
+        class="brokenGlassOverlay"
+        src="brokenglass.png"
+        alt=""
+      >
+
+    </div>
+
 
     <div
-      class="machine"
-      id="machine"
+      class="message"
+      id="message"
     >
-
-
-      <!-- REELS -->
-
-      <div class="slotArea">
-
-        <div
-          class="reels"
-          id="reels"
-        ></div>
-
-
-        <svg
-          id="paylineOverlay"
-          viewBox="0 0 500 300"
-          preserveAspectRatio="none"
-        >
-
-          <polyline
-            id="line1"
-            class="payline line1"
-            points="50,150 150,150 250,150 350,150 450,150"
-          />
-
-          <polyline
-            id="line2"
-            class="payline line2"
-            points="50,50 150,50 250,50 350,50 450,50"
-          />
-
-          <polyline
-            id="line3"
-            class="payline line3"
-            points="50,250 150,250 250,250 350,250 450,250"
-          />
-
-          <polyline
-            id="line4"
-            class="payline line4"
-            points="50,50 150,150 250,250 350,150 450,50"
-          />
-
-          <polyline
-            id="line5"
-            class="payline line5"
-            points="50,250 150,150 250,50 350,150 450,250"
-          />
-
-          <polyline
-            id="line6"
-            class="payline line6"
-            points="50,50 150,150 250,150 350,150 450,250"
-          />
-
-          <polyline
-            id="line7"
-            class="payline line7"
-            points="50,250 150,150 250,150 350,150 450,50"
-          />
-
-          <polyline
-            id="line8"
-            class="payline line8"
-            points="50,150 150,250 250,150 350,250 450,150"
-          />
-
-          <polyline
-            id="line9"
-            class="payline line9"
-            points="50,150 150,50 250,150 350,50 450,150"
-          />
-
-        </svg>
-
-
-        <img
-          id="brokenGlassOverlay"
-          class="brokenGlassOverlay"
-          src="brokenglass.png"
-          alt=""
-        >
-
-      </div>
-
-
-      <!-- MESSAGE -->
-
-      <div
-        class="message"
-        id="message"
-      >
-        MAKE YOUR CORGI PROUD.
-      </div>
-
-
-      <!-- SPINS LEFT -->
-
-      <div
-        class="spinsLeftDisplay"
-        id="spinsLeftDisplay"
-      >
-        50
-      </div>
-
-
-      <!-- SCORE -->
-
-      <div
-        class="scoreDisplay"
-        id="scoreDisplay"
-      >
-        0
-      </div>
-
-
-      <!-- START -->
-
-      <button
-        id="spinButton"
-        class="
-          frameHotspot
-          startHotspot
-        "
-        aria-label="Start or skip spin"
-      ></button>
-
-
-      <!-- AUTO -->
-
-      <button
-        id="autoButton"
-        class="
-          frameHotspot
-          autoHotspot
-        "
-        aria-label="Toggle automatic spin"
-      ></button>
-
+      MAKE YOUR CORGI PROUD.
     </div>
 
 
-    <!-- LOWER MACHINE -->
-
-    <section
-      class="infoMachine"
-      id="infoMachine"
+    <div
+      class="spinsLeftDisplay"
+      id="spinsLeftDisplay"
     >
+      50
+    </div>
 
 
-      <!-- LEADERBOARD -->
-
-      <div class="infoLeaderboard">
-
-        <div class="leaderHead">
-
-          <span>
-            PLAYER
-          </span>
-
-          <span>
-            SCORE
-          </span>
-
-          <span>
-            SPINS LEFT
-          </span>
-
-        </div>
-
-        <div id="leaderboardList">
-          Loading...
-        </div>
-
-      </div>
+    <div
+      class="scoreDisplay"
+      id="scoreDisplay"
+    >
+      0
+    </div>
 
 
-      <!-- GAME INFORMATION -->
-
-      <div class="gameInformation">
-
-        <div class="gameInfoLine">
-          EVERY PLAYER STARTS WITH 50 SPINS
-        </div>
-
-        <div class="gameInfoLine">
-          NEW ROUND: 00:00:01 EUROPE/ZURICH
-        </div>
-
-        <div class="gameInfoSpacer"></div>
-
-        <div class="gameInfoLine">
-          WINNING COMBINATIONS MUST START ON REEL 1
-        </div>
-
-        <div class="gameInfoLine">
-          MATCHING SYMBOLS COUNT LEFT → RIGHT ONLY
-        </div>
-
-        <div class="gameInfoSpacer"></div>
-
-        <div class="gameInfoLine">
-          RARER SYMBOLS PAY MORE
-        </div>
-
-        <div class="gameInfoLine">
-          CORGI IS THE HIGHEST-PAYING SYMBOL
-        </div>
-
-        <div class="gameInfoSpacer"></div>
-
-        <div class="gameInfoBonus">
-          3 CORGIS ANYWHERE = +10 SPINS
-        </div>
-
-        <div class="gameInfoBonus">
-          4 CORGIS ANYWHERE = +15 SPINS
-        </div>
-
-        <div class="gameInfoBonus">
-          5+ CORGIS ANYWHERE = +20 SPINS
-        </div>
-
-      </div>
+    <button
+      id="spinButton"
+      class="frameHotspot startHotspot"
+      aria-label="Start or skip"
+    ></button>
 
 
-      <!-- CORGI RAIN -->
-
-      <button
-        id="corgiRainButton"
-        class="
-          infoButtonHotspot
-          corgiRainHotspot
-        "
-        aria-label="Toggle Corgi Rain"
-      ></button>
-
-
-      <!-- DESTROY -->
-
-      <button
-        id="destroyMachineButton"
-        class="
-          infoButtonHotspot
-          destroyHotspot
-        "
-        aria-label="Destroy the machine"
-      ></button>
-
-    </section>
-
+    <button
+      id="autoButton"
+      class="frameHotspot autoHotspot"
+      aria-label="Automatic spin"
+    ></button>
 
   </div>
 
 
-  <!-- =====================================================
-       SUPABASE
-       ===================================================== -->
+  <!-- LOWER MACHINE -->
 
-  <script
-    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-  ></script>
+  <section
+    class="infoMachine"
+    id="infoMachine"
+  >
 
 
-  <script>
+    <div class="infoLeaderboard">
 
+      <div class="leaderHead">
 
-    /* =====================================================
-       DATABASE
-       ===================================================== */
+        <span>
+          PLAYER
+        </span>
 
-    const SUPABASE_URL =
-      "https://kurxfpmsxivousohtyej.supabase.co";
+        <span>
+          SCORE
+        </span>
 
+        <span>
+          SPINS LEFT
+        </span>
 
-    const SUPABASE_KEY =
-      "sb_publishable_klORT8rMBmD8AoQXebvTtQ_wD_idXs4";
+      </div>
 
 
-    const db =
-      supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-      );
+      <div id="leaderboardList">
+        Loading...
+      </div>
 
+    </div>
 
-    /* =====================================================
-       SETTINGS
-       ===================================================== */
 
-    const SETTINGS = {
+    <div class="gameInformation">
 
-      maxSpins:
-        50,
+      <div class="gameInfoLine">
+        EVERY PLAYER STARTS WITH 50 SPINS
+      </div>
 
-      spinSpeed:
-        65,
+      <div class="gameInfoLine">
+        NEW ROUND: 00:00:01 EUROPE/ZURICH
+      </div>
 
-      reelStopDelay:
-        430,
+      <div class="gameInfoSpacer"></div>
 
-      autoSpinDelay:
-        500,
+      <div class="gameInfoLine">
+        WINNING COMBINATIONS START ON REEL 1
+      </div>
 
-      resetTimeZone:
-        "Europe/Zurich"
+      <div class="gameInfoLine">
+        MATCHING SYMBOLS COUNT LEFT → RIGHT
+      </div>
 
-    };
+      <div class="gameInfoSpacer"></div>
 
+      <div class="gameInfoLine">
+        RARER SYMBOLS PAY MORE
+      </div>
 
-    /* =====================================================
-       MAIN FRAME IMAGES
-       ===================================================== */
+      <div class="gameInfoLine">
+        CORGI IS THE HIGHEST-PAYING SYMBOL
+      </div>
 
-    const FRAME_IMAGES = {
+      <div class="gameInfoSpacer"></div>
 
-      normal:
-        "slot-frame.png",
+      <div class="gameInfoBonus">
+        3 CORGIS ANYWHERE = +10 SPINS
+      </div>
 
-      start:
-        "slot-frame-start-on.png",
+      <div class="gameInfoBonus">
+        4 CORGIS ANYWHERE = +15 SPINS
+      </div>
 
-      auto:
-        "slot-frame-automatic-on.png",
+      <div class="gameInfoBonus">
+        5+ CORGIS ANYWHERE = +20 SPINS
+      </div>
 
-      both:
-        "slot-frame-buttons-on.png"
+    </div>
 
-    };
 
+    <button
+      id="corgiRainButton"
+      class="infoButtonHotspot corgiRainHotspot"
+      aria-label="Corgi rain"
+    ></button>
 
-    /* =====================================================
-       LOWER FRAME IMAGES
-       ===================================================== */
 
-    const INFO_FRAME_IMAGES = {
+    <button
+      id="destroyMachineButton"
+      class="infoButtonHotspot destroyHotspot"
+      aria-label="Destroy the machine"
+    ></button>
 
-      normal:
-        "leaderboard.png",
+  </section>
 
-      corgiRain:
-        "corgirain.png",
+</div>
 
-      destroy:
-        "destroy.png"
 
-    };
+<script
+src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+</script>
 
 
-    /* =====================================================
-       NEW SYMBOL SET
+<script>
 
-       Higher weight = more common.
-       Lower weight = rarer.
+/* =====================================================
+   DATABASE
+   ===================================================== */
 
-       Each symbol has its own payout.
-       ===================================================== */
-
-    const SYMBOLS = [
-
-      {
-        id:
-          "DOG_BOWL",
-
-        src:
-          "dog_bowl.png",
-
-        weight:
-          18,
-
-        payouts: {
-          3: 10,
-          4: 25,
-          5: 60
-        }
-      },
-
-      {
-        id:
-          "DOG_TREATS",
-
-        src:
-          "dog_treats.png",
-
-        weight:
-          17,
-
-        payouts: {
-          3: 12,
-          4: 30,
-          5: 70
-        }
-      },
-
-      {
-        id:
-          "DOG_BONE",
-
-        src:
-          "dog_bone.png",
-
-        weight:
-          15,
-
-        payouts: {
-          3: 15,
-          4: 40,
-          5: 90
-        }
-      },
-
-      {
-        id:
-          "PAW",
-
-        src:
-          "paw.png",
-
-        weight:
-          14,
-
-        payouts: {
-          3: 18,
-          4: 50,
-          5: 110
-        }
-      },
-
-      {
-        id:
-          "BELL",
-
-        src:
-          "bell.png",
-
-        weight:
-          12,
-
-        payouts: {
-          3: 20,
-          4: 60,
-          5: 140
-        }
-      },
-
-      {
-        id:
-          "MONEY",
-
-        src:
-          "money.png",
-
-        weight:
-          10,
-
-        payouts: {
-          3: 25,
-          4: 75,
-          5: 180
-        }
-      },
+const SUPABASE_URL =
+  "https://kurxfpmsxivousohtyej.supabase.co";
 
-      {
-        id:
-          "DIAMOND",
 
-        src:
-          "diamond.png",
+const SUPABASE_KEY =
+  "sb_publishable_klORT8rMBmD8AoQXebvTtQ_wD_idXs4";
 
-        weight:
-          8,
 
-        payouts: {
-          3: 30,
-          4: 90,
-          5: 220
-        }
-      },
+const db =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
-      {
-        id:
-          "SEVEN",
 
-        src:
-          "seven.png",
+/* =====================================================
+   SETTINGS
+   ===================================================== */
 
-        weight:
-          7,
+const SETTINGS = {
 
-        payouts: {
-          3: 35,
-          4: 110,
-          5: 280
-        }
-      },
+  maxSpins:
+    50,
 
-      {
-        id:
-          "CROWN",
+  spinSpeed:
+    75,
 
-        src:
-          "crown.png",
+  reelStopDelay:
+    430,
 
-        weight:
-          6,
+  autoSpinDelay:
+    500,
 
-        payouts: {
-          3: 40,
-          4: 130,
-          5: 350
-        }
-      },
-
-      {
-        id:
-          "PRIVATE_JET",
-
-        src:
-          "private_jet.png",
-
-        weight:
-          5,
-
-        payouts: {
-          3: 50,
-          4: 160,
-          5: 450
-        }
-      },
-
-      {
-        id:
-          "CORGI",
-
-        src:
-          "corgi-jackpot.png",
-
-        weight:
-          4,
-
-        payouts: {
-          3: 70,
-          4: 220,
-          5: 600
-        }
-      }
-
-    ];
-
-
-    /* =====================================================
-       PAYLINES
-       ===================================================== */
-
-    const PAYLINES = [
-
-      [1,1,1,1,1],
-
-      [0,0,0,0,0],
-
-      [2,2,2,2,2],
-
-      [0,1,2,1,0],
-
-      [2,1,0,1,2],
-
-      [0,1,1,1,2],
-
-      [2,1,1,1,0],
-
-      [1,2,1,2,1],
-
-      [1,0,1,0,1]
-
-    ];
-
-
-    /* =====================================================
-       MESSAGES
-       ===================================================== */
-
-    const MOTIVATION_PHRASES = [
-
-      "MAKE YOUR CORGI PROUD.",
-      "YOU CAN DO THIS.",
-      "PUSH THE BUTTON.",
-      "FORTUNE FAVORS THE CORGI.",
-      "YOUR JACKPOT IS WAITING.",
-      "ONE MORE SPIN.",
-      "BELIEVE IN THE CORGI.",
-      "TODAY COULD BE YOUR DAY.",
-      "KEEP GOING.",
-      "THE REELS BELIEVE IN YOU.",
-      "A CORGI NEVER GIVES UP.",
-      "YOUR LUCK IS WARMING UP.",
-      "THE NEXT SPIN COULD BE IT.",
-      "STAY PAWSITIVE.",
-      "TRUST THE REELS.",
-      "CHASE THE JACKPOT.",
-      "THE CORGI IS WATCHING.",
-      "KEEP YOUR PAWS CROSSED.",
-      "BIG WIN ENERGY.",
-      "YOU WERE BORN TO SPIN.",
-      "NO FEAR. ONLY CORGI.",
-      "LUCK LOVES CONFIDENCE.",
-      "SPIN LIKE YOU MEAN IT.",
-      "THE REELS ARE LISTENING.",
-      "YOUR MOMENT IS COMING.",
-      "KEEP THE CORGI DREAM ALIVE.",
-      "GOOD THINGS COME TO CORGIS.",
-      "THE NEXT ONE FEELS LUCKY.",
-      "DON'T DISAPPOINT THE CORGI.",
-      "COURAGE. THEN SPIN.",
-      "A GREAT SPIN STARTS HERE.",
-      "LET THE CORGI GUIDE YOU.",
-      "YOUR LUCK HAS NOT LEFT.",
-      "STAY STRONG. STAY CORGI.",
-      "THE REELS OWE YOU ONE.",
-      "KEEP THAT PAW ON THE BUTTON.",
-      "THE CORGI SENSES SOMETHING.",
-      "YOUR BIG WIN IS HIDING.",
-      "SHOW THE REELS WHO'S BOSS.",
-      "THE CORGI BELIEVES IN YOU.",
-      "JUST ONE BEAUTIFUL SPIN.",
-      "LUCK CAN CHANGE IN A SECOND.",
-      "PAWS UP. GAME ON.",
-      "YOU'RE CLOSER THAN YOU THINK.",
-      "MAKE THIS SPIN COUNT.",
-      "THE CORGI DEMANDS COURAGE.",
-      "SPIN. SMILE. REPEAT."
+  resetTimeZone:
+    "Europe/Zurich"
 
-    ];
+};
 
 
-    const CORGI_PHRASES = [
+/* =====================================================
+   FRAME IMAGES
+   ===================================================== */
 
-      "THE CORGI HAS ARRIVED.",
-      "CORGI APPROVES.",
-      "THE CORGI CHOSE YOU.",
-      "PAWS OF FORTUNE!",
-      "CORGI ENERGY DETECTED.",
-      "A LUCKY CORGI APPEARS.",
-      "THE CORGI IS PLEASED.",
-      "CORGI POWER ACTIVATED."
-
-    ];
-
+const FRAME_IMAGES = {
 
-    /* =====================================================
-       GAME STATE
-       ===================================================== */
-
-    const game = {
-
-      player:
-        "",
-
-      score:
-        0,
-
-      spinsUsed:
-        0,
-
-      dayKey:
-        "",
-
-      spinning:
-        false,
-
-      autoSpin:
-        false,
-
-      fastFinish:
-        false,
-
-      skipWait:
-        null,
-
-      startPressed:
-        false,
-
-      corgiRainMode:
-        false,
-
-      corgiRainTimer:
-        null,
-
-      destroyUsed:
-        false,
-
-      destroyPressed:
-        false
-
-    };
-
-
-    /* =====================================================
-       ELEMENTS
-       ===================================================== */
+  normal:
+    "slot-frame.png",
 
-    const el = {
+  start:
+    "slot-frame-start-on.png",
 
-      loginScreen:
-        document.getElementById(
-          "loginScreen"
-        ),
+  auto:
+    "slot-frame-automatic-on.png",
 
-      gameScreen:
-        document.getElementById(
-          "gameScreen"
-        ),
+  both:
+    "slot-frame-buttons-on.png"
 
-      nickname:
-        document.getElementById(
-          "nicknameInput"
-        ),
+};
 
-      startLogin:
-        document.getElementById(
-          "startLoginButton"
-        ),
 
-      spin:
-        document.getElementById(
-          "spinButton"
-        ),
+const INFO_FRAME_IMAGES = {
 
-      auto:
-        document.getElementById(
-          "autoButton"
-        ),
+  normal:
+    "leaderboard.png",
 
-      reels:
-        document.getElementById(
-          "reels"
-        ),
+  corgiRain:
+    "corgirain.png",
 
-      spinsLeftDisplay:
-        document.getElementById(
-          "spinsLeftDisplay"
-        ),
+  destroy:
+    "destroy.png"
 
-      scoreDisplay:
-        document.getElementById(
-          "scoreDisplay"
-        ),
+};
 
-      message:
-        document.getElementById(
-          "message"
-        ),
 
-      leaderboard:
-        document.getElementById(
-          "leaderboardList"
-        ),
+/* =====================================================
+   SYMBOLS + PAYOUTS
+   ===================================================== */
 
-      loginStatus:
-        document.getElementById(
-          "loginStatus"
-        ),
+const SYMBOLS = [
 
-      machine:
-        document.getElementById(
-          "machine"
-        ),
+  {
 
-      infoMachine:
-        document.getElementById(
-          "infoMachine"
-        ),
+    id:
+      "DOG_BOWL",
 
-      corgiRainButton:
-        document.getElementById(
-          "corgiRainButton"
-        ),
+    src:
+      "dog_bowl.png",
 
-      destroyMachineButton:
-        document.getElementById(
-          "destroyMachineButton"
-        ),
+    weight:
+      18,
 
-      brokenGlass:
-        document.getElementById(
-          "brokenGlassOverlay"
-        )
-
-    };
-
-
-    /* =====================================================
-       FRAME STATE
-       ===================================================== */
-
-    function updateFrame() {
-
-      let frame =
-        FRAME_IMAGES.normal;
-
-
-      if (
-        game.autoSpin
-        &&
-        game.startPressed
-      ) {
-
-        frame =
-          FRAME_IMAGES.both;
-
-      }
-
-      else if (
-        game.startPressed
-      ) {
-
-        frame =
-          FRAME_IMAGES.start;
-
-      }
-
-      else if (
-        game.autoSpin
-      ) {
-
-        frame =
-          FRAME_IMAGES.auto;
-
-      }
-
-
-      el.machine.style.backgroundImage =
-        `url("${frame}")`;
-
+    payouts: {
+      3: 10,
+      4: 25,
+      5: 60
     }
 
+  },
 
-    function flashStartButton() {
+
+  {
+
+    id:
+      "DOG_TREATS",
+
+    src:
+      "dog_treats.png",
+
+    weight:
+      17,
+
+    payouts: {
+      3: 12,
+      4: 30,
+      5: 70
+    }
+
+  },
+
+
+  {
+
+    id:
+      "DOG_BONE",
+
+    src:
+      "dog_bone.png",
+
+    weight:
+      15,
+
+    payouts: {
+      3: 15,
+      4: 40,
+      5: 90
+    }
+
+  },
+
+
+  {
+
+    id:
+      "PAW",
+
+    src:
+      "paw.png",
+
+    weight:
+      14,
+
+    payouts: {
+      3: 18,
+      4: 50,
+      5: 110
+    }
+
+  },
+
+
+  {
+
+    id:
+      "BELL",
+
+    src:
+      "bell.png",
+
+    weight:
+      12,
+
+    payouts: {
+      3: 20,
+      4: 60,
+      5: 140
+    }
+
+  },
+
+
+  {
+
+    id:
+      "MONEY",
+
+    src:
+      "money.png",
+
+    weight:
+      10,
+
+    payouts: {
+      3: 25,
+      4: 75,
+      5: 180
+    }
+
+  },
+
+
+  {
+
+    id:
+      "DIAMOND",
+
+    src:
+      "diamond.png",
+
+    weight:
+      8,
+
+    payouts: {
+      3: 30,
+      4: 90,
+      5: 220
+    }
+
+  },
+
+
+  {
+
+    id:
+      "SEVEN",
+
+    src:
+      "seven.png",
+
+    weight:
+      7,
+
+    payouts: {
+      3: 35,
+      4: 110,
+      5: 280
+    }
+
+  },
+
+
+  {
+
+    id:
+      "CROWN",
+
+    src:
+      "crown.png",
+
+    weight:
+      6,
+
+    payouts: {
+      3: 40,
+      4: 130,
+      5: 350
+    }
+
+  },
+
+
+  {
+
+    id:
+      "PRIVATE_JET",
+
+    src:
+      "private_jet.png",
+
+    weight:
+      5,
+
+    payouts: {
+      3: 50,
+      4: 160,
+      5: 450
+    }
+
+  },
+
+
+  {
+
+    id:
+      "CORGI",
+
+    src:
+      "corgi-jackpot.png",
+
+    weight:
+      4,
+
+    payouts: {
+      3: 70,
+      4: 220,
+      5: 600
+    }
+
+  }
+
+];
+
+
+/* =====================================================
+   COIN GRAPHICS
+   ===================================================== */
+
+const COIN_IMAGES = [
+
+  "coin_front.png",
+
+  "coin_tilted_left.png",
+
+  "coin_tilted_right.png",
+
+  "coin_stack.png",
+
+  "coin_pile.png"
+
+];
+
+
+/* =====================================================
+   PAYLINES
+   ===================================================== */
+
+const PAYLINES = [
+
+  [1,1,1,1,1],
+
+  [0,0,0,0,0],
+
+  [2,2,2,2,2],
+
+  [0,1,2,1,0],
+
+  [2,1,0,1,2],
+
+  [0,1,1,1,2],
+
+  [2,1,1,1,0],
+
+  [1,2,1,2,1],
+
+  [1,0,1,0,1]
+
+];
+
+
+/* =====================================================
+   PHRASES
+   ===================================================== */
+
+const MOTIVATION_PHRASES = [
+
+  "MAKE YOUR CORGI PROUD.",
+  "YOU CAN DO THIS.",
+  "PUSH THE BUTTON.",
+  "FORTUNE FAVORS THE CORGI.",
+  "YOUR JACKPOT IS WAITING.",
+  "ONE MORE SPIN.",
+  "BELIEVE IN THE CORGI.",
+  "TODAY COULD BE YOUR DAY.",
+  "KEEP GOING.",
+  "THE REELS BELIEVE IN YOU.",
+  "A CORGI NEVER GIVES UP.",
+  "YOUR LUCK IS WARMING UP.",
+  "THE NEXT SPIN COULD BE IT.",
+  "STAY PAWSITIVE.",
+  "TRUST THE REELS.",
+  "CHASE THE JACKPOT.",
+  "THE CORGI IS WATCHING.",
+  "KEEP YOUR PAWS CROSSED.",
+  "BIG WIN ENERGY.",
+  "YOU WERE BORN TO SPIN.",
+  "NO FEAR. ONLY CORGI.",
+  "LUCK LOVES CONFIDENCE.",
+  "SPIN LIKE YOU MEAN IT.",
+  "THE REELS ARE LISTENING.",
+  "YOUR MOMENT IS COMING.",
+  "KEEP THE CORGI DREAM ALIVE.",
+  "GOOD THINGS COME TO CORGIS.",
+  "THE NEXT ONE FEELS LUCKY.",
+  "DON'T DISAPPOINT THE CORGI.",
+  "COURAGE. THEN SPIN.",
+  "A GREAT SPIN STARTS HERE.",
+  "LET THE CORGI GUIDE YOU.",
+  "YOUR LUCK HAS NOT LEFT.",
+  "STAY STRONG. STAY CORGI.",
+  "THE REELS OWE YOU ONE.",
+  "KEEP THAT PAW ON THE BUTTON.",
+  "THE CORGI SENSES SOMETHING.",
+  "YOUR BIG WIN IS HIDING.",
+  "SHOW THE REELS WHO'S BOSS.",
+  "THE CORGI BELIEVES IN YOU.",
+  "JUST ONE BEAUTIFUL SPIN.",
+  "LUCK CAN CHANGE IN A SECOND.",
+  "PAWS UP. GAME ON.",
+  "YOU'RE CLOSER THAN YOU THINK.",
+  "MAKE THIS SPIN COUNT.",
+  "THE CORGI DEMANDS COURAGE.",
+  "SPIN. SMILE. REPEAT."
+
+];
+
+
+const CORGI_PHRASES = [
+
+  "THE CORGI HAS ARRIVED.",
+
+  "CORGI APPROVES.",
+
+  "THE CORGI CHOSE YOU.",
+
+  "PAWS OF FORTUNE!",
+
+  "CORGI ENERGY DETECTED.",
+
+  "A LUCKY CORGI APPEARS.",
+
+  "THE CORGI IS PLEASED.",
+
+  "CORGI POWER ACTIVATED."
+
+];
+
+
+/* =====================================================
+   STATE
+   ===================================================== */
+
+const game = {
+
+  player:
+    "",
+
+  score:
+    0,
+
+  spinsUsed:
+    0,
+
+  dayKey:
+    "",
+
+  spinning:
+    false,
+
+  autoSpin:
+    false,
+
+  fastFinish:
+    false,
+
+  skipWait:
+    null,
+
+  startPressed:
+    false,
+
+  corgiRainMode:
+    false,
+
+  corgiRainTimer:
+    null,
+
+  destroyUsed:
+    false,
+
+  destroyPressed:
+    false
+
+};
+
+
+/* =====================================================
+   ELEMENTS
+   ===================================================== */
+
+const el = {
+
+  loginScreen:
+    document.getElementById(
+      "loginScreen"
+    ),
+
+  gameScreen:
+    document.getElementById(
+      "gameScreen"
+    ),
+
+  nickname:
+    document.getElementById(
+      "nicknameInput"
+    ),
+
+  startLogin:
+    document.getElementById(
+      "startLoginButton"
+    ),
+
+  spin:
+    document.getElementById(
+      "spinButton"
+    ),
+
+  auto:
+    document.getElementById(
+      "autoButton"
+    ),
+
+  reels:
+    document.getElementById(
+      "reels"
+    ),
+
+  spinsLeftDisplay:
+    document.getElementById(
+      "spinsLeftDisplay"
+    ),
+
+  scoreDisplay:
+    document.getElementById(
+      "scoreDisplay"
+    ),
+
+  message:
+    document.getElementById(
+      "message"
+    ),
+
+  leaderboard:
+    document.getElementById(
+      "leaderboardList"
+    ),
+
+  machine:
+    document.getElementById(
+      "machine"
+    ),
+
+  infoMachine:
+    document.getElementById(
+      "infoMachine"
+    ),
+
+  corgiRainButton:
+    document.getElementById(
+      "corgiRainButton"
+    ),
+
+  destroyMachineButton:
+    document.getElementById(
+      "destroyMachineButton"
+    ),
+
+  brokenGlass:
+    document.getElementById(
+      "brokenGlassOverlay"
+    )
+
+};
+
+
+/* =====================================================
+   FRAME STATE
+   ===================================================== */
+
+function updateFrame() {
+
+  let frame =
+    FRAME_IMAGES.normal;
+
+
+  if (
+    game.autoSpin
+    &&
+    game.startPressed
+  ) {
+
+    frame =
+      FRAME_IMAGES.both;
+
+  }
+
+  else if (
+    game.startPressed
+  ) {
+
+    frame =
+      FRAME_IMAGES.start;
+
+  }
+
+  else if (
+    game.autoSpin
+  ) {
+
+    frame =
+      FRAME_IMAGES.auto;
+
+  }
+
+
+  el.machine.style.backgroundImage =
+    `url("${frame}")`;
+
+}
+
+
+function flashStartButton() {
+
+  game.startPressed =
+    true;
+
+
+  updateFrame();
+
+
+  setTimeout(
+
+    () => {
 
       game.startPressed =
-        true;
-
+        false;
 
       updateFrame();
 
+    },
 
-      setTimeout(
+    180
 
-        () => {
+  );
 
-          game.startPressed =
-            false;
+}
 
-          updateFrame();
 
-        },
+function updateInfoFrame() {
 
-        180
+  let frame =
+    INFO_FRAME_IMAGES.normal;
 
+
+  if (
+    game.destroyPressed
+  ) {
+
+    frame =
+      INFO_FRAME_IMAGES.destroy;
+
+  }
+
+  else if (
+    game.corgiRainMode
+  ) {
+
+    frame =
+      INFO_FRAME_IMAGES.corgiRain;
+
+  }
+
+
+  el.infoMachine.style.backgroundImage =
+    `url("${frame}")`;
+
+}
+
+
+function destroyStorageKey() {
+
+  return (
+    "corgiDestroy_"
+    +
+    game.player
+    +
+    "_"
+    +
+    game.dayKey
+  );
+
+}
+
+
+/* =====================================================
+   RANDOM PHRASE
+   ===================================================== */
+
+function randomMotivation() {
+
+  return MOTIVATION_PHRASES[
+    Math.floor(
+      Math.random()
+      *
+      MOTIVATION_PHRASES.length
+    )
+  ];
+
+}
+
+
+function randomCorgiPhrase() {
+
+  return CORGI_PHRASES[
+    Math.floor(
+      Math.random()
+      *
+      CORGI_PHRASES.length
+    )
+  ];
+
+}
+
+
+/* =====================================================
+   BUILD REELS
+   ===================================================== */
+
+function buildMachine() {
+
+  el.reels.innerHTML =
+    "";
+
+
+  for (
+    let reel = 0;
+    reel < 5;
+    reel++
+  ) {
+
+    const column =
+      document.createElement(
+        "div"
       );
 
-    }
+
+    column.className =
+      "reelColumn";
 
 
-    function updateInfoFrame() {
-
-      let frame =
-        INFO_FRAME_IMAGES.normal;
-
-
-      if (
-        game.destroyPressed
-      ) {
-
-        frame =
-          INFO_FRAME_IMAGES.destroy;
-
-      }
-
-      else if (
-        game.corgiRainMode
-      ) {
-
-        frame =
-          INFO_FRAME_IMAGES.corgiRain;
-
-      }
-
-
-      el.infoMachine.style.backgroundImage =
-        `url("${frame}")`;
-
-    }
-
-
-    /* =====================================================
-       DESTROY KEY
-       ===================================================== */
-
-    function destroyStorageKey() {
-
-      return (
-        "corgiDestroy_"
-        +
-        game.player
-        +
-        "_"
-        +
-        game.dayKey
-      );
-
-    }
-
-
-    /* =====================================================
-       MESSAGES
-       ===================================================== */
-
-    function randomMotivation() {
-
-      return MOTIVATION_PHRASES[
-        Math.floor(
-          Math.random()
-          *
-          MOTIVATION_PHRASES.length
-        )
-      ];
-
-    }
-
-
-    function randomCorgiPhrase() {
-
-      return CORGI_PHRASES[
-        Math.floor(
-          Math.random()
-          *
-          CORGI_PHRASES.length
-        )
-      ];
-
-    }
-
-
-    /* =====================================================
-       BUILD REELS
-       ===================================================== */
-
-    function buildMachine() {
-
-      el.reels.innerHTML =
-        "";
-
-
-      for (
-        let reel = 0;
-        reel < 5;
-        reel++
-      ) {
-
-        const column =
-          document.createElement(
-            "div"
-          );
-
-
-        column.className =
-          "reelColumn";
-
-
-        for (
-          let row = 0;
-          row < 3;
-          row++
-        ) {
-
-          const cell =
-            document.createElement(
-              "div"
-            );
-
-
-          cell.className =
-            "symbol";
-
-
-          cell.dataset.reel =
-            reel;
-
-
-          cell.dataset.row =
-            row;
-
-
-          renderSymbol(
-            cell,
-            randomSymbol()
-          );
-
-
-          column.appendChild(
-            cell
-          );
-
-        }
-
-
-        el.reels.appendChild(
-          column
-        );
-
-      }
-
-    }
-
-
-    /* =====================================================
-       RENDER SYMBOL
-       ===================================================== */
-
-    function renderSymbol(
-      element,
-      symbol
+    for (
+      let row = 0;
+      row < 3;
+      row++
     ) {
 
-      element.innerHTML =
-        "";
-
-
-      element.classList.remove(
-        "corgi"
-      );
-
-
-      const image =
+      const cell =
         document.createElement(
-          "img"
+          "div"
         );
 
 
-      image.src =
-        symbol.src;
+      cell.className =
+        "symbol";
 
 
-      image.alt =
-        symbol.id;
+      cell.dataset.reel =
+        reel;
 
 
-      if (
-        symbol.id ===
-        "CORGI"
-      ) {
-
-        element.classList.add(
-          "corgi"
-        );
-
-      }
+      cell.dataset.row =
+        row;
 
 
-      element.appendChild(
-        image
+      renderSymbol(
+        cell,
+        randomSymbol()
+      );
+
+
+      column.appendChild(
+        cell
       );
 
     }
 
 
-    /* =====================================================
-       RANDOM SYMBOL
-       ===================================================== */
+    el.reels.appendChild(
+      column
+    );
 
-    function randomSymbol() {
+  }
 
-      const total =
-
-        SYMBOLS.reduce(
-
-          (
-            sum,
-            symbol
-          ) =>
-
-            sum
-            +
-            symbol.weight,
-
-          0
-
-        );
+}
 
 
-      let number =
-        Math.random()
-        *
-        total;
+/* =====================================================
+   SYMBOL RENDERER
+   ===================================================== */
+
+function renderSymbol(
+  element,
+  symbol
+) {
+
+  element.innerHTML =
+    "";
 
 
-      for (
-        const symbol
-        of SYMBOLS
-      ) {
-
-        number -=
-          symbol.weight;
+  element.dataset.symbol =
+    symbol.id;
 
 
-        if (
-          number <= 0
-        ) {
-
-          return symbol;
-
-        }
-
-      }
+  const image =
+    document.createElement(
+      "img"
+    );
 
 
-      return SYMBOLS[0];
+  image.src =
+    symbol.src;
+
+
+  image.alt =
+    symbol.id;
+
+
+  image.draggable =
+    false;
+
+
+  element.appendChild(
+    image
+  );
+
+}
+
+
+/* =====================================================
+   RANDOM SYMBOL
+   ===================================================== */
+
+function randomSymbol() {
+
+  const total =
+
+    SYMBOLS.reduce(
+
+      (
+        sum,
+        symbol
+      ) =>
+
+        sum
+        +
+        symbol.weight,
+
+      0
+
+    );
+
+
+  let number =
+
+    Math.random()
+
+    *
+
+    total;
+
+
+  for (
+    const symbol
+    of SYMBOLS
+  ) {
+
+    number -=
+      symbol.weight;
+
+
+    if (
+      number <= 0
+    ) {
+
+      return symbol;
 
     }
 
+  }
 
-    function createResult() {
 
-      return Array.from(
+  return SYMBOLS[0];
+
+}
+
+
+function createResult() {
+
+  return Array.from(
+
+    {
+      length:
+        5
+    },
+
+    () =>
+
+      Array.from(
 
         {
           length:
-            5
+            3
         },
 
-        () =>
+        randomSymbol
 
-          Array.from(
+      )
 
-            {
-              length:
-                3
-            },
+  );
 
-            randomSymbol
-
-          )
-
-      );
-
-    }
+}
 
 
-    /* =====================================================
-       LOGIN
-       ===================================================== */
+/* =====================================================
+   LOGIN
+   ===================================================== */
 
-    async function startGame() {
+async function startGame() {
 
-      const nickname =
-        el.nickname
-          .value
-          .trim();
+  const nickname =
 
-
-      if (
-        !nickname
-      ) {
-
-        alert(
-          "Enter a nickname."
-        );
-
-        return;
-
-      }
+    el.nickname
+      .value
+      .trim();
 
 
-      el.startLogin.disabled =
-        true;
+  if (
+    !nickname
+  ) {
+
+    alert(
+      "Enter your nickname."
+    );
+
+    el.nickname.focus();
+
+    return;
+
+  }
 
 
-      game.player =
-        nickname;
+  el.startLogin.disabled =
+    true;
 
 
-      game.dayKey =
-        getActiveZurichDayKey();
+  game.player =
+    nickname;
 
 
-      game.destroyUsed =
+  game.dayKey =
+    getActiveZurichDayKey();
 
-        localStorage.getItem(
-          destroyStorageKey()
+
+  game.destroyUsed =
+
+    localStorage.getItem(
+      destroyStorageKey()
+    )
+
+    ===
+    "yes";
+
+
+  try {
+
+    const {
+      data,
+      error
+    } =
+
+      await db
+
+        .from(
+          "Players"
         )
-        ===
-        "yes";
 
+        .select(
+          "score,spins_used"
+        )
 
-      try {
-
-        const {
-          data,
-          error
-        } =
-
-          await db
-
-            .from(
-              "Players"
-            )
-
-            .select(
-              "score,spins_used"
-            )
-
-            .eq(
-              "nickname",
-              game.player
-            )
-
-            .eq(
-              "day_key",
-              game.dayKey
-            )
-
-            .maybeSingle();
-
-
-        if (
-          error
-        ) {
-
-          throw error;
-
-        }
-
-
-        if (
-          data
-        ) {
-
-          game.score =
-            Number(
-              data.score
-            )
-            ||
-            0;
-
-
-          game.spinsUsed =
-            Number(
-              data.spins_used
-            )
-            ||
-            0;
-
-        }
-
-        else {
-
-          game.score =
-            0;
-
-
-          game.spinsUsed =
-            0;
-
-
-          const saved =
-            await saveOnlineProgress();
-
-
-          if (
-            !saved
-          ) {
-
-            throw new Error(
-              "Could not create player."
-            );
-
-          }
-
-        }
-
-
-        localStorage.setItem(
-
-          "corgiLastNickname",
-
+        .eq(
+          "nickname",
           game.player
+        )
 
-        );
+        .eq(
+          "day_key",
+          game.dayKey
+        )
 
-
-        el.loginScreen.style.display =
-          "none";
-
-
-        el.gameScreen.style.display =
-          "block";
+        .maybeSingle();
 
 
-        game.destroyPressed =
-          false;
+    if (
+      error
+    ) {
 
-
-        updateDisplays();
-
-        updateRoundState();
-
-        updateFrame();
-
-        updateInfoFrame();
-
-
-        el.brokenGlass.classList.toggle(
-
-          "active",
-
-          game.destroyUsed
-
-        );
-
-
-        el.message.textContent =
-          randomMotivation();
-
-
-        await updateLeaderboard();
-
-      }
-
-      catch (
-        error
-      ) {
-
-        console.error(
-          error
-        );
-
-
-        alert(
-          "Could not connect to leaderboard."
-        );
-
-      }
-
-
-      el.startLogin.disabled =
-        false;
+      throw error;
 
     }
 
 
-    el.startLogin.addEventListener(
+    if (
+      data
+    ) {
 
-      "click",
+      game.score =
 
-      startGame
+        Number(
+          data.score
+        )
 
-    );
+        ||
 
+        0;
 
-    el.nickname.addEventListener(
 
-      "keydown",
+      game.spinsUsed =
 
-      event => {
+        Number(
+          data.spins_used
+        )
 
-        if (
-          event.key ===
-          "Enter"
-        ) {
+        ||
 
-          startGame();
+        0;
 
-        }
+    }
 
-      }
+    else {
 
-    );
+      game.score =
+        0;
 
 
-    /* =====================================================
-       START BUTTON
-       ===================================================== */
-
-    el.spin.addEventListener(
-
-      "click",
-
-      () => {
-
-        flashStartButton();
-
-
-        if (
-          game.spinning
-        ) {
-
-          game.fastFinish =
-            true;
-
-
-          if (
-            game.skipWait
-          ) {
-
-            game.skipWait();
-
-          }
-
-
-          return;
-
-        }
-
-
-        spin();
-
-      }
-
-    );
-
-
-    /* =====================================================
-       AUTO
-       ===================================================== */
-
-    el.auto.addEventListener(
-
-      "click",
-
-      () => {
-
-        if (
-          game.spinsUsed
-          >=
-          SETTINGS.maxSpins
-        ) {
-
-          return;
-
-        }
-
-
-        game.autoSpin =
-          !game.autoSpin;
-
-
-        updateFrame();
-
-
-        if (
-          game.autoSpin
-          &&
-          !game.spinning
-        ) {
-
-          spin();
-
-        }
-
-      }
-
-    );
-
-
-    /* =====================================================
-       CORGI RAIN
-       ===================================================== */
-
-    el.corgiRainButton.addEventListener(
-
-      "click",
-
-      () => {
-
-        game.corgiRainMode =
-          !game.corgiRainMode;
-
-
-        updateInfoFrame();
-
-
-        if (
-          game.corgiRainMode
-        ) {
-
-          corgiRain(
-            20
-          );
-
-
-          if (
-            game.corgiRainTimer
-          ) {
-
-            clearInterval(
-              game.corgiRainTimer
-            );
-
-          }
-
-
-          game.corgiRainTimer =
-
-            setInterval(
-
-              () => {
-
-                if (
-                  game.corgiRainMode
-                ) {
-
-                  corgiRain(
-                    8
-                  );
-
-                }
-
-              },
-
-              1100
-
-            );
-
-        }
-
-        else {
-
-          if (
-            game.corgiRainTimer
-          ) {
-
-            clearInterval(
-              game.corgiRainTimer
-            );
-
-
-            game.corgiRainTimer =
-              null;
-
-          }
-
-        }
-
-      }
-
-    );
-
-
-    /* =====================================================
-       DESTROY
-       ===================================================== */
-
-    el.destroyMachineButton.addEventListener(
-
-      "click",
-
-      () => {
-
-        if (
-          game.destroyUsed
-          ||
-          localStorage.getItem(
-            destroyStorageKey()
-          )
-          ===
-          "yes"
-        ) {
-
-          return;
-
-        }
-
-
-        game.destroyUsed =
-          true;
-
-
-        localStorage.setItem(
-
-          destroyStorageKey(),
-
-          "yes"
-
-        );
-
-
-        game.destroyPressed =
-          true;
-
-
-        updateInfoFrame();
-
-
-        el.brokenGlass
-          .classList
-          .add(
-            "active"
-          );
-
-
-        setTimeout(
-
-          () => {
-
-            game.destroyPressed =
-              false;
-
-
-            updateInfoFrame();
-
-          },
-
-          1000
-
-        );
-
-      }
-
-    );
-
-
-    /* =====================================================
-       RESERVE SPIN
-       ===================================================== */
-
-    async function reserveSpin() {
-
-      if (
-        game.spinsUsed
-        >=
-        SETTINGS.maxSpins
-      ) {
-
-        return false;
-
-      }
-
-
-      game.spinsUsed++;
-
-
-      updateDisplays();
+      game.spinsUsed =
+        0;
 
 
       const saved =
@@ -2930,297 +2643,8 @@
         !saved
       ) {
 
-        game.spinsUsed--;
-
-
-        updateDisplays();
-
-
-        return false;
-
-      }
-
-
-      return true;
-
-    }
-
-
-    /* =====================================================
-       SPIN
-       ===================================================== */
-
-    async function spin() {
-
-      if (
-        game.spinning
-      ) {
-
-        return;
-
-      }
-
-
-      await checkNewDay();
-
-
-      if (
-        game.spinsUsed
-        >=
-        SETTINGS.maxSpins
-      ) {
-
-        finishRound();
-
-        return;
-
-      }
-
-
-      const reserved =
-        await reserveSpin();
-
-
-      if (
-        !reserved
-      ) {
-
-        el.message.textContent =
-          "COULD NOT SAVE SPIN";
-
-        return;
-
-      }
-
-
-      game.spinning =
-        true;
-
-
-      game.fastFinish =
-        false;
-
-
-      clearWins();
-
-
-      el.message.textContent =
-        randomMotivation();
-
-
-      const result =
-        createResult();
-
-
-      const intervals =
-        startAllReels();
-
-
-      for (
-        let reel = 0;
-        reel < 5;
-        reel++
-      ) {
-
-        await cancellableWait(
-          SETTINGS.reelStopDelay
-        );
-
-
-        if (
-          game.fastFinish
-        ) {
-
-          for (
-            let r = reel;
-            r < 5;
-            r++
-          ) {
-
-            clearInterval(
-              intervals[r]
-            );
-
-
-            stopReel(
-              r,
-              result[r]
-            );
-
-          }
-
-
-          break;
-
-        }
-
-
-        clearInterval(
-          intervals[reel]
-        );
-
-
-        stopReel(
-          reel,
-          result[reel]
-        );
-
-      }
-
-
-      intervals.forEach(
-        clearInterval
-      );
-
-
-      await evaluateSpin(
-        result
-      );
-
-
-      game.spinning =
-        false;
-
-
-      game.fastFinish =
-        false;
-
-
-      updateRoundState();
-
-
-      if (
-        game.spinsUsed
-        >=
-        SETTINGS.maxSpins
-      ) {
-
-        game.autoSpin =
-          false;
-
-
-        updateFrame();
-
-
-        finishRound();
-
-
-        return;
-
-      }
-
-
-      if (
-        game.autoSpin
-      ) {
-
-        await wait(
-          SETTINGS.autoSpinDelay
-        );
-
-
-        if (
-          game.autoSpin
-        ) {
-
-          spin();
-
-        }
-
-      }
-
-    }
-
-
-    /* =====================================================
-       REEL ANIMATION
-       ===================================================== */
-
-    function startAllReels() {
-
-      const intervals =
-        [];
-
-
-      for (
-        let reel = 0;
-        reel < 5;
-        reel++
-      ) {
-
-        intervals.push(
-
-          setInterval(
-
-            () => {
-
-              for (
-                let row = 0;
-                row < 3;
-                row++
-              ) {
-
-                const cell =
-                  getCell(
-                    reel,
-                    row
-                  );
-
-
-                renderSymbol(
-                  cell,
-                  randomSymbol()
-                );
-
-
-                cell.classList.add(
-                  "spinning"
-                );
-
-              }
-
-            },
-
-            SETTINGS.spinSpeed
-
-          )
-
-        );
-
-      }
-
-
-      return intervals;
-
-    }
-
-
-    function stopReel(
-      reel,
-      symbols
-    ) {
-
-      for (
-        let row = 0;
-        row < 3;
-        row++
-      ) {
-
-        const cell =
-          getCell(
-            reel,
-            row
-          );
-
-
-        cell.classList.remove(
-          "spinning"
-        );
-
-
-        renderSymbol(
-          cell,
-          symbols[row]
+        throw new Error(
+          "Could not create player."
         );
 
       }
@@ -3228,1625 +2652,251 @@
     }
 
 
-    /* =====================================================
-       EVALUATE SPIN
-       ===================================================== */
+    localStorage.setItem(
 
-    async function evaluateSpin(
-      result
-    ) {
+      "corgiLastNickname",
 
-      let totalWin =
-        0;
-
-
-      const corgiCount =
-
-        result
-          .flat()
-          .filter(
-
-            symbol =>
-              symbol.id
-              ===
-              "CORGI"
-
-          )
-          .length;
-
-
-      const hasCorgi =
-        corgiCount > 0;
-
-
-      let bonusSpins =
-        0;
-
-
-      if (
-        corgiCount >= 5
-      ) {
-
-        bonusSpins =
-          20;
-
-      }
-
-      else if (
-        corgiCount === 4
-      ) {
-
-        bonusSpins =
-          15;
-
-      }
-
-      else if (
-        corgiCount === 3
-      ) {
-
-        bonusSpins =
-          10;
-
-      }
-
-
-      if (
-        hasCorgi
-      ) {
-
-        corgiRain();
-
-      }
-
-
-      PAYLINES.forEach(
-
-        (
-          payline,
-          lineIndex
-        ) => {
-
-          const lineSymbols =
-
-            payline.map(
-
-              (
-                row,
-                reel
-              ) =>
-
-                result[
-                  reel
-                ][
-                  row
-                ]
-
-            );
-
-
-          const win =
-            evaluateLine(
-              lineSymbols
-            );
-
-
-          if (
-            win.matches
-            >=
-            3
-          ) {
-
-            totalWin +=
-              win.points;
-
-
-            showWinningPayline(
-              lineIndex
-            );
-
-
-            highlightWinningCells(
-
-              payline,
-
-              0,
-
-              win.matches
-
-            );
-
-
-            if (
-              win.matches
-              ===
-              5
-            ) {
-
-              confetti();
-
-            }
-
-
-            if (
-              win.matches
-              ===
-              5
-              &&
-              win.symbol
-              ===
-              "CORGI"
-            ) {
-
-              giantCorgiParty();
-
-              flashMachine();
-
-            }
-
-          }
-
-        }
-
-      );
-
-
-      game.score +=
-        totalWin;
-
-
-      if (
-        bonusSpins > 0
-      ) {
-
-        game.spinsUsed -=
-          bonusSpins;
-
-      }
-
-
-      updateDisplays();
-
-
-      await saveOnlineProgress();
-
-
-      await updateLeaderboard();
-
-
-      if (
-        bonusSpins > 0
-        &&
-        totalWin > 0
-      ) {
-
-        el.message.textContent =
-
-          `+${totalWin} POINTS • +${bonusSpins} SPINS!`;
-
-      }
-
-      else if (
-        bonusSpins > 0
-      ) {
-
-        el.message.textContent =
-
-          `CORGI BONUS • +${bonusSpins} SPINS!`;
-
-      }
-
-      else if (
-        totalWin > 0
-      ) {
-
-        el.message.textContent =
-
-          `+${totalWin} POINTS!`;
-
-      }
-
-      else if (
-        hasCorgi
-      ) {
-
-        el.message.textContent =
-          randomCorgiPhrase();
-
-      }
-
-      else {
-
-        el.message.textContent =
-          randomMotivation();
-
-      }
-
-    }
-
-
-    /* =====================================================
-       IMPORTANT PAYLINE RULE
-
-       ONLY MATCHES STARTING AT REEL 1 COUNT.
-
-       Example:
-       Crown Crown Crown Paw Money = win
-
-       Paw Crown Crown Crown Crown = NO WIN
-       because Crown did not start on reel 1.
-       ===================================================== */
-
-    function evaluateLine(
-      line
-    ) {
-
-      const firstSymbol =
-        line[0];
-
-
-      if (
-        !firstSymbol
-      ) {
-
-        return {
-
-          matches:
-            0,
-
-          points:
-            0,
-
-          symbol:
-            ""
-
-        };
-
-      }
-
-
-      let matches =
-        1;
-
-
-      for (
-        let i = 1;
-        i < line.length;
-        i++
-      ) {
-
-        if (
-          line[i].id
-          ===
-          firstSymbol.id
-        ) {
-
-          matches++;
-
-        }
-
-        else {
-
-          break;
-
-        }
-
-      }
-
-
-      if (
-        matches < 3
-      ) {
-
-        return {
-
-          matches:
-            0,
-
-          points:
-            0,
-
-          symbol:
-            firstSymbol.id
-
-        };
-
-      }
-
-
-      const points =
-
-        firstSymbol
-          .payouts[
-            matches
-          ]
-        ||
-        0;
-
-
-      return {
-
-        matches:
-          matches,
-
-        points:
-          points,
-
-        symbol:
-          firstSymbol.id
-
-      };
-
-    }
-
-
-    /* =====================================================
-       ROUND COMPLETE
-       ===================================================== */
-
-    function finishRound() {
-
-      game.autoSpin =
-        false;
-
-
-      updateFrame();
-
-
-      el.spin
-        .classList
-        .add(
-          "disabled"
-        );
-
-
-      el.auto
-        .classList
-        .add(
-          "disabled"
-        );
-
-
-      el.message.textContent =
-        "ROUND COMPLETE. CORGI SALUTES YOU.";
-
-
-      updateDisplays();
-
-    }
-
-
-    function updateRoundState() {
-
-      const finished =
-
-        game.spinsUsed
-        >=
-        SETTINGS.maxSpins;
-
-
-      el.spin
-        .classList
-        .toggle(
-          "disabled",
-          finished
-        );
-
-
-      el.auto
-        .classList
-        .toggle(
-          "disabled",
-          finished
-        );
-
-    }
-
-
-    /* =====================================================
-       WIN VISUALS
-       ===================================================== */
-
-    function showWinningPayline(
-      index
-    ) {
-
-      document
-        .getElementById(
-          "line"
-          +
-          (
-            index + 1
-          )
-        )
-        .classList
-        .add(
-          "active"
-        );
-
-    }
-
-
-    function highlightWinningCells(
-      payline,
-      start,
-      matches
-    ) {
-
-      for (
-        let i = start;
-        i < start + matches;
-        i++
-      ) {
-
-        getCell(
-          i,
-          payline[i]
-        )
-        .classList
-        .add(
-          "winner"
-        );
-
-      }
-
-    }
-
-
-    function clearWins() {
-
-      document
-        .querySelectorAll(
-          ".symbol"
-        )
-        .forEach(
-
-          cell =>
-            cell
-              .classList
-              .remove(
-                "winner"
-              )
-
-        );
-
-
-      document
-        .querySelectorAll(
-          ".payline"
-        )
-        .forEach(
-
-          line =>
-            line
-              .classList
-              .remove(
-                "active"
-              )
-
-        );
-
-    }
-
-
-    function getCell(
-      reel,
-      row
-    ) {
-
-      return document
-        .querySelector(
-
-          `[data-reel="${reel}"][data-row="${row}"]`
-
-        );
-
-    }
-
-
-    /* =====================================================
-       SAVE ONLINE
-       ===================================================== */
-
-    async function saveOnlineProgress() {
-
-      try {
-
-        const {
-          error
-        } =
-
-          await db
-
-            .from(
-              "Players"
-            )
-
-            .upsert(
-
-              {
-
-                nickname:
-                  game.player,
-
-                score:
-                  game.score,
-
-                spins_used:
-                  game.spinsUsed,
-
-                day_key:
-                  game.dayKey,
-
-                updated_at:
-                  new Date()
-                    .toISOString()
-
-              },
-
-              {
-
-                onConflict:
-                  "nickname,day_key"
-
-              }
-
-            );
-
-
-        if (
-          error
-        ) {
-
-          throw error;
-
-        }
-
-
-        return true;
-
-      }
-
-      catch (
-        error
-      ) {
-
-        console.error(
-          error
-        );
-
-
-        return false;
-
-      }
-
-    }
-
-
-    /* =====================================================
-       LEADERBOARD
-       ===================================================== */
-
-    async function updateLeaderboard() {
-
-      const {
-        data,
-        error
-      } =
-
-        await db
-
-          .from(
-            "Players"
-          )
-
-          .select(
-            "nickname,score,spins_used"
-          )
-
-          .eq(
-            "day_key",
-            getActiveZurichDayKey()
-          )
-
-          .order(
-            "score",
-            {
-              ascending:
-                false
-            }
-          )
-
-          .limit(
-            10
-          );
-
-
-      if (
-        error
-      ) {
-
-        console.error(
-          error
-        );
-
-        return;
-
-      }
-
-
-      el.leaderboard.innerHTML =
-        "";
-
-
-      if (
-        !data
-        ||
-        !data.length
-      ) {
-
-        el.leaderboard.textContent =
-          "No players yet.";
-
-        return;
-
-      }
-
-
-      data.forEach(
-
-        (
-          player,
-          index
-        ) => {
-
-          const row =
-            document.createElement(
-              "div"
-            );
-
-
-          row.className =
-            "playerRow";
-
-
-          if (
-            player.nickname
-            ===
-            game.player
-          ) {
-
-            row.classList.add(
-              "currentPlayerRow"
-            );
-
-          }
-
-
-          const name =
-            document.createElement(
-              "span"
-            );
-
-
-          const points =
-            document.createElement(
-              "strong"
-            );
-
-
-          const spins =
-            document.createElement(
-              "span"
-            );
-
-
-          const playerSpinsUsed =
-
-            Number(
-              player.spins_used
-              ||
-              0
-            );
-
-
-          const playerSpinsLeft =
-
-            Math.max(
-
-              0,
-
-              SETTINGS.maxSpins
-              -
-              playerSpinsUsed
-
-            );
-
-
-          name.textContent =
-
-            `${index + 1}. ${player.nickname}`;
-
-
-          points.textContent =
-
-            Number(
-              player.score
-            );
-
-
-          spins.textContent =
-            playerSpinsLeft;
-
-
-          row.append(
-
-            name,
-
-            points,
-
-            spins
-
-          );
-
-
-          el.leaderboard
-            .appendChild(
-              row
-            );
-
-        }
-
-      );
-
-    }
-
-
-    /* =====================================================
-       DISPLAYS
-       ===================================================== */
-
-    function updateDisplays() {
-
-      const spinsLeft =
-
-        Math.max(
-
-          0,
-
-          SETTINGS.maxSpins
-          -
-          game.spinsUsed
-
-        );
-
-
-      el.spinsLeftDisplay.textContent =
-        spinsLeft;
-
-
-      el.scoreDisplay.textContent =
-        game.score;
-
-    }
-
-
-    /* =====================================================
-       CORGI RAIN PHYSICS
-       ===================================================== */
-
-    const corgiParticles =
-      [];
-
-
-    const pointer = {
-
-      x:
-        -1000,
-
-      y:
-        -1000,
-
-      active:
-        false
-
-    };
-
-
-    window.addEventListener(
-
-      "pointermove",
-
-      event => {
-
-        pointer.x =
-          event.clientX;
-
-
-        pointer.y =
-          event.clientY;
-
-
-        pointer.active =
-          true;
-
-      }
+      game.player
 
     );
 
 
-    window.addEventListener(
-
-      "pointerleave",
-
-      () => {
-
-        pointer.active =
-          false;
-
-      }
-
-    );
+    el.loginScreen.style.display =
+      "none";
 
 
-    function corgiRain(
-      amount = 32
-    ) {
-
-      for (
-        let index = 0;
-        index < amount;
-        index++
-      ) {
-
-        createCorgiParticle(
-          index
-        );
-
-      }
+    el.gameScreen.style.display =
+      "block";
 
 
-      startCorgiPhysics();
-
-    }
-
-
-    function createCorgiParticle(
-      index
-    ) {
-
-      if (
-        corgiParticles.length
-        >
-        140
-      ) {
-
-        return;
-
-      }
-
-
-      const image =
-        document.createElement(
-          "img"
-        );
-
-
-      image.src =
-        "corgi-jackpot.png";
-
-
-      image.className =
-        "fallingCorgi";
-
-
-      image.alt =
-        "";
-
-
-      document.body
-        .appendChild(
-          image
-        );
-
-
-      const size =
-        55
-        +
-        Math.random()
-        *
-        45;
-
-
-      image.style.width =
-        size
-        +
-        "px";
-
-
-      corgiParticles.push({
-
-        element:
-          image,
-
-        x:
-          Math.random()
-          *
-          window.innerWidth,
-
-        y:
-          -120
-          -
-          index
-          *
-          8,
-
-        vx:
-          (
-            Math.random()
-            -
-            0.5
-          )
-          *
-          1.5,
-
-        vy:
-          1.5
-          +
-          Math.random()
-          *
-          2.4,
-
-        rotation:
-          Math.random()
-          *
-          360,
-
-        rotationSpeed:
-          (
-            Math.random()
-            -
-            0.5
-          )
-          *
-          5,
-
-        size:
-          size
-
-      });
-
-    }
-
-
-    let physicsRunning =
+    game.destroyPressed =
       false;
 
 
-    function startCorgiPhysics() {
+    updateDisplays();
 
-      if (
-        physicsRunning
-      ) {
+    updateRoundState();
 
-        return;
+    updateFrame();
 
-      }
+    updateInfoFrame();
 
 
-      physicsRunning =
+    el.brokenGlass.classList.toggle(
+
+      "active",
+
+      game.destroyUsed
+
+    );
+
+
+    el.message.textContent =
+      randomMotivation();
+
+
+    await updateLeaderboard();
+
+  }
+
+  catch (
+    error
+  ) {
+
+    console.error(
+      error
+    );
+
+
+    alert(
+      "Could not connect to leaderboard."
+    );
+
+  }
+
+
+  el.startLogin.disabled =
+    false;
+
+}
+
+
+el.startLogin.addEventListener(
+
+  "click",
+
+  startGame
+
+);
+
+
+el.nickname.addEventListener(
+
+  "keydown",
+
+  event => {
+
+    if (
+      event.key ===
+      "Enter"
+    ) {
+
+      startGame();
+
+    }
+
+  }
+
+);
+
+
+/* =====================================================
+   START / SKIP
+   ===================================================== */
+
+el.spin.addEventListener(
+
+  "click",
+
+  () => {
+
+    flashStartButton();
+
+
+    if (
+      game.spinning
+    ) {
+
+      game.fastFinish =
         true;
 
 
-      requestAnimationFrame(
-        updateCorgiPhysics
-      );
-
-    }
-
-
-    function updateCorgiPhysics() {
-
-      const repelRadius =
-        130;
-
-
-      for (
-        let index =
-          corgiParticles.length - 1;
-        index >= 0;
-        index--
+      if (
+        game.skipWait
       ) {
 
-        const particle =
-          corgiParticles[
-            index
-          ];
-
-
-        particle.vy +=
-          0.025;
-
-
-        if (
-          pointer.active
-        ) {
-
-          const centerX =
-
-            particle.x
-
-            +
-
-            particle.size
-            /
-            2;
-
-
-          const centerY =
-
-            particle.y
-
-            +
-
-            particle.size
-            /
-            2;
-
-
-          const dx =
-
-            centerX
-
-            -
-
-            pointer.x;
-
-
-          const dy =
-
-            centerY
-
-            -
-
-            pointer.y;
-
-
-          const distance =
-
-            Math.sqrt(
-
-              dx * dx
-
-              +
-
-              dy * dy
-
-            );
-
-
-          if (
-            distance
-            <
-            repelRadius
-            &&
-            distance
-            >
-            1
-          ) {
-
-            const force =
-
-              (
-                repelRadius
-                -
-                distance
-              )
-
-              /
-
-              repelRadius;
-
-
-            particle.vx +=
-
-              (
-                dx
-                /
-                distance
-              )
-
-              *
-
-              force
-
-              *
-
-              4.5;
-
-
-            particle.vy +=
-
-              (
-                dy
-                /
-                distance
-              )
-
-              *
-
-              force
-
-              *
-
-              4.5;
-
-          }
-
-        }
-
-
-        particle.vx *=
-          0.992;
-
-
-        particle.vy *=
-          0.998;
-
-
-        particle.x +=
-          particle.vx;
-
-
-        particle.y +=
-          particle.vy;
-
-
-        particle.rotation +=
-          particle.rotationSpeed;
-
-
-        particle.element.style.transform =
-
-          `translate3d(
-            ${particle.x}px,
-            ${particle.y}px,
-            0
-          )
-          rotate(
-            ${particle.rotation}deg
-          )`;
-
-
-        if (
-          particle.y
-          >
-          window.innerHeight
-          +
-          180
-          ||
-          particle.x
-          <
-          -300
-          ||
-          particle.x
-          >
-          window.innerWidth
-          +
-          300
-        ) {
-
-          particle.element
-            .remove();
-
-
-          corgiParticles.splice(
-            index,
-            1
-          );
-
-        }
+        game.skipWait();
 
       }
 
 
+      return;
+
+    }
+
+
+    spin();
+
+  }
+
+);
+
+
+/* =====================================================
+   AUTO
+   ===================================================== */
+
+el.auto.addEventListener(
+
+  "click",
+
+  () => {
+
+    if (
+      game.spinsUsed
+      >=
+      SETTINGS.maxSpins
+    ) {
+
+      return;
+
+    }
+
+
+    game.autoSpin =
+      !game.autoSpin;
+
+
+    updateFrame();
+
+
+    if (
+      game.autoSpin
+      &&
+      !game.spinning
+    ) {
+
+      spin();
+
+    }
+
+  }
+
+);
+
+
+/* =====================================================
+   CORGI RAIN BUTTON
+   ===================================================== */
+
+el.corgiRainButton.addEventListener(
+
+  "click",
+
+  () => {
+
+    game.corgiRainMode =
+      !game.corgiRainMode;
+
+
+    updateInfoFrame();
+
+
+    if (
+      game.corgiRainMode
+    ) {
+
+      corgiRain(
+        20
+      );
+
+
       if (
-        corgiParticles.length
-        >
-        0
+        game.corgiRainTimer
       ) {
 
-        requestAnimationFrame(
-          updateCorgiPhysics
+        clearInterval(
+          game.corgiRainTimer
         );
 
       }
 
-      else {
 
-        physicsRunning =
-          false;
+      game.corgiRainTimer =
 
-      }
-
-    }
-
-
-    /* =====================================================
-       CONFETTI
-       ===================================================== */
-
-    function confetti() {
-
-      const symbols = [
-
-        "✨",
-        "⭐",
-        "🎉",
-        "💰"
-
-      ];
-
-
-      for (
-        let i = 0;
-        i < 55;
-        i++
-      ) {
-
-        const thing =
-          document.createElement(
-            "div"
-          );
-
-
-        thing.textContent =
-
-          symbols[
-            Math.floor(
-              Math.random()
-              *
-              symbols.length
-            )
-          ];
-
-
-        thing.style.position =
-          "fixed";
-
-
-        thing.style.top =
-          "-50px";
-
-
-        thing.style.left =
-
-          Math.random()
-          *
-          100
-          +
-          "vw";
-
-
-        thing.style.fontSize =
-
-          20
-          +
-          Math.random()
-          *
-          35
-          +
-          "px";
-
-
-        thing.style.zIndex =
-          9999;
-
-
-        thing.style.pointerEvents =
-          "none";
-
-
-        const duration =
-          2500
-          +
-          Math.random()
-          *
-          1800;
-
-
-        thing.style.transition =
-
-          `top ${duration}ms linear,
-           transform ${duration}ms linear`;
-
-
-        document.body
-          .appendChild(
-            thing
-          );
-
-
-        requestAnimationFrame(
+        setInterval(
 
           () => {
 
-            thing.style.top =
-              "110vh";
-
-
-            thing.style.transform =
-
-              `rotate(${
-                Math.random()
-                *
-                900
-              }deg)`;
-
-          }
-
-        );
-
-
-        setTimeout(
-
-          () =>
-            thing.remove(),
-
-          duration
-          +
-          300
-
-        );
-
-      }
-
-    }
-
-
-    function giantCorgiParty() {
-
-      confetti();
-
-
-      corgiRain(
-        45
-      );
-
-
-      setTimeout(
-
-        () =>
-          corgiRain(
-            45
-          ),
-
-        350
-
-      );
-
-    }
-
-
-    function flashMachine() {
-
-      el.machine
-        .classList
-        .add(
-          "jackpotFlash"
-        );
-
-
-      setTimeout(
-
-        () =>
-
-          el.machine
-            .classList
-            .remove(
-              "jackpotFlash"
-            ),
-
-        3000
-
-      );
-
-    }
-
-
-    /* =====================================================
-       ZURICH TIME
-       ===================================================== */
-
-    function getZurichParts(
-      date = new Date()
-    ) {
-
-      const formatter =
-
-        new Intl.DateTimeFormat(
-
-          "en-GB",
-
-          {
-
-            timeZone:
-              SETTINGS.resetTimeZone,
-
-            year:
-              "numeric",
-
-            month:
-              "2-digit",
-
-            day:
-              "2-digit",
-
-            hour:
-              "2-digit",
-
-            minute:
-              "2-digit",
-
-            second:
-              "2-digit",
-
-            hourCycle:
-              "h23"
-
-          }
-
-        );
-
-
-      const values =
-        {};
-
-
-      formatter
-        .formatToParts(
-          date
-        )
-        .forEach(
-
-          part => {
-
             if (
-              part.type
-              !==
-              "literal"
+              game.corgiRainMode
             ) {
 
-              values[
-                part.type
-              ] =
-                part.value;
+              corgiRain(
+                8
+              );
 
             }
 
-          }
+          },
+
+          1100
 
         );
-
-
-      return values;
 
     }
 
-
-    function formatZurichDate(
-      date
-    ) {
-
-      const parts =
-        getZurichParts(
-          date
-        );
-
-
-      return (
-
-        parts.year
-
-        +
-
-        "-"
-
-        +
-
-        parts.month
-
-        +
-
-        "-"
-
-        +
-
-        parts.day
-
-      );
-
-    }
-
-
-    function getActiveZurichDayKey() {
-
-      const now =
-        new Date();
-
-
-      const parts =
-        getZurichParts(
-          now
-        );
-
-
-      if (
-        Number(
-          parts.hour
-        )
-        ===
-        0
-        &&
-        Number(
-          parts.minute
-        )
-        ===
-        0
-        &&
-        Number(
-          parts.second
-        )
-        ===
-        0
-      ) {
-
-        return formatZurichDate(
-
-          new Date(
-
-            now.getTime()
-            -
-            1000
-
-          )
-
-        );
-
-      }
-
-
-      return formatZurichDate(
-        now
-      );
-
-    }
-
-
-    /* =====================================================
-       NEW DAY
-       ===================================================== */
-
-    async function checkNewDay() {
-
-      const today =
-        getActiveZurichDayKey();
-
-
-      if (
-        today
-        ===
-        game.dayKey
-      ) {
-
-        return;
-
-      }
-
-
-      game.corgiRainMode =
-        false;
-
+    else {
 
       if (
         game.corgiRainTimer
@@ -4862,335 +2912,2913 @@
 
       }
 
+    }
 
-      game.dayKey =
-        today;
+  }
 
-
-      game.destroyUsed =
-
-        localStorage.getItem(
-          destroyStorageKey()
-        )
-        ===
-        "yes";
+);
 
 
-      game.destroyPressed =
-        false;
+/* =====================================================
+   DESTROY
+   ===================================================== */
+
+el.destroyMachineButton.addEventListener(
+
+  "click",
+
+  () => {
+
+    if (
+      game.destroyUsed
+      ||
+      localStorage.getItem(
+        destroyStorageKey()
+      )
+      ===
+      "yes"
+    ) {
+
+      return;
+
+    }
 
 
-      const {
-        data,
-        error
-      } =
-
-        await db
-
-          .from(
-            "Players"
-          )
-
-          .select(
-            "score,spins_used"
-          )
-
-          .eq(
-            "nickname",
-            game.player
-          )
-
-          .eq(
-            "day_key",
-            today
-          )
-
-          .maybeSingle();
+    game.destroyUsed =
+      true;
 
 
-      if (
-        error
+    localStorage.setItem(
+
+      destroyStorageKey(),
+
+      "yes"
+
+    );
+
+
+    game.destroyPressed =
+      true;
+
+
+    updateInfoFrame();
+
+
+    el.brokenGlass
+      .classList
+      .add(
+        "active"
+      );
+
+
+    setTimeout(
+
+      () => {
+
+        game.destroyPressed =
+          false;
+
+
+        updateInfoFrame();
+
+      },
+
+      1000
+
+    );
+
+  }
+
+);
+
+
+/* =====================================================
+   RESERVE SPIN
+   ===================================================== */
+
+async function reserveSpin() {
+
+  if (
+    game.spinsUsed
+    >=
+    SETTINGS.maxSpins
+  ) {
+
+    return false;
+
+  }
+
+
+  game.spinsUsed++;
+
+
+  updateDisplays();
+
+
+  const saved =
+    await saveOnlineProgress();
+
+
+  if (
+    !saved
+  ) {
+
+    game.spinsUsed--;
+
+
+    updateDisplays();
+
+
+    return false;
+
+  }
+
+
+  return true;
+
+}
+
+
+/* =====================================================
+   SPIN
+   ===================================================== */
+
+async function spin() {
+
+  if (
+    game.spinning
+  ) {
+
+    return;
+
+  }
+
+
+  await checkNewDay();
+
+
+  if (
+    game.spinsUsed
+    >=
+    SETTINGS.maxSpins
+  ) {
+
+    finishRound();
+
+    return;
+
+  }
+
+
+  const reserved =
+    await reserveSpin();
+
+
+  if (
+    !reserved
+  ) {
+
+    el.message.textContent =
+      "COULD NOT SAVE SPIN";
+
+    return;
+
+  }
+
+
+  game.spinning =
+    true;
+
+
+  game.fastFinish =
+    false;
+
+
+  clearWins();
+
+
+  el.message.textContent =
+    randomMotivation();
+
+
+  const result =
+    createResult();
+
+
+  const intervals =
+    startAllReels();
+
+
+  for (
+    let reel = 0;
+    reel < 5;
+    reel++
+  ) {
+
+    await cancellableWait(
+      SETTINGS.reelStopDelay
+    );
+
+
+    if (
+      game.fastFinish
+    ) {
+
+      for (
+        let r = reel;
+        r < 5;
+        r++
       ) {
 
-        console.error(
-          error
+        clearInterval(
+          intervals[r]
         );
 
-        return;
+
+        stopReel(
+          r,
+          result[r]
+        );
 
       }
 
 
-      if (
-        data
-      ) {
-
-        game.score =
-          Number(
-            data.score
-          )
-          ||
-          0;
-
-
-        game.spinsUsed =
-          Number(
-            data.spins_used
-          )
-          ||
-          0;
-
-      }
-
-      else {
-
-        game.score =
-          0;
-
-
-        game.spinsUsed =
-          0;
-
-
-        await saveOnlineProgress();
-
-      }
-
-
-      game.autoSpin =
-        false;
-
-
-      game.startPressed =
-        false;
-
-
-      updateFrame();
-
-      updateInfoFrame();
-
-      updateDisplays();
-
-      updateRoundState();
-
-
-      el.brokenGlass.classList.toggle(
-
-        "active",
-
-        game.destroyUsed
-
-      );
-
-
-      await updateLeaderboard();
-
-
-      el.message.textContent =
-        "NEW ROUND. MAKE YOUR CORGI PROUD.";
+      break;
 
     }
 
 
-    /* =====================================================
-       WAIT
-       ===================================================== */
+    clearInterval(
+      intervals[reel]
+    );
 
-    function wait(
-      ms
+
+    stopReel(
+      reel,
+      result[reel]
+    );
+
+  }
+
+
+  intervals.forEach(
+    clearInterval
+  );
+
+
+  await evaluateSpin(
+    result
+  );
+
+
+  game.spinning =
+    false;
+
+
+  game.fastFinish =
+    false;
+
+
+  updateRoundState();
+
+
+  if (
+    game.spinsUsed
+    >=
+    SETTINGS.maxSpins
+  ) {
+
+    game.autoSpin =
+      false;
+
+
+    updateFrame();
+
+
+    finishRound();
+
+
+    return;
+
+  }
+
+
+  if (
+    game.autoSpin
+  ) {
+
+    await wait(
+      SETTINGS.autoSpinDelay
+    );
+
+
+    if (
+      game.autoSpin
     ) {
 
-      return new Promise(
-
-        resolve =>
-          setTimeout(
-            resolve,
-            ms
-          )
-
-      );
+      spin();
 
     }
 
+  }
 
-    function cancellableWait(
-      ms
-    ) {
-
-      return new Promise(
-
-        resolve => {
-
-          let finished =
-            false;
+}
 
 
-          const timer =
+/* =====================================================
+   REEL ANIMATION
 
-            setTimeout(
-              finish,
-              ms
+   No physical movement anymore.
+   The symbols only refresh in-place.
+   ===================================================== */
+
+function startAllReels() {
+
+  const intervals =
+    [];
+
+
+  for (
+    let reel = 0;
+    reel < 5;
+    reel++
+  ) {
+
+    intervals.push(
+
+      setInterval(
+
+        () => {
+
+          for (
+            let row = 0;
+            row < 3;
+            row++
+          ) {
+
+            const cell =
+              getCell(
+                reel,
+                row
+              );
+
+
+            renderSymbol(
+              cell,
+              randomSymbol()
             );
 
 
-          function finish() {
-
-            if (
-              finished
-            ) {
-
-              return;
-
-            }
-
-
-            finished =
-              true;
-
-
-            clearTimeout(
-              timer
+            cell.classList.add(
+              "spinning"
             );
-
-
-            game.skipWait =
-              null;
-
-
-            resolve();
 
           }
 
+        },
 
-          game.skipWait =
-            finish;
+        SETTINGS.spinSpeed
+
+      )
+
+    );
+
+  }
+
+
+  return intervals;
+
+}
+
+
+function stopReel(
+  reel,
+  symbols
+) {
+
+  for (
+    let row = 0;
+    row < 3;
+    row++
+  ) {
+
+    const cell =
+      getCell(
+        reel,
+        row
+      );
+
+
+    cell.classList.remove(
+      "spinning"
+    );
+
+
+    renderSymbol(
+      cell,
+      symbols[row]
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   EVALUATE SPIN
+   ===================================================== */
+
+async function evaluateSpin(
+  result
+) {
+
+  let totalWin =
+    0;
+
+
+  const corgiCount =
+
+    result
+      .flat()
+      .filter(
+
+        symbol =>
+
+          symbol.id
+          ===
+          "CORGI"
+
+      )
+      .length;
+
+
+  const hasCorgi =
+    corgiCount > 0;
+
+
+  let bonusSpins =
+    0;
+
+
+  if (
+    corgiCount >= 5
+  ) {
+
+    bonusSpins =
+      20;
+
+  }
+
+  else if (
+    corgiCount === 4
+  ) {
+
+    bonusSpins =
+      15;
+
+  }
+
+  else if (
+    corgiCount === 3
+  ) {
+
+    bonusSpins =
+      10;
+
+  }
+
+
+  if (
+    hasCorgi
+  ) {
+
+    corgiRain();
+
+  }
+
+
+  PAYLINES.forEach(
+
+    (
+      payline,
+      lineIndex
+    ) => {
+
+      const lineSymbols =
+
+        payline.map(
+
+          (
+            row,
+            reel
+          ) =>
+
+            result[
+              reel
+            ][
+              row
+            ]
+
+        );
+
+
+      const win =
+        evaluateLine(
+          lineSymbols
+        );
+
+
+      if (
+        win.matches
+        >=
+        3
+      ) {
+
+        totalWin +=
+          win.points;
+
+
+        showWinningPayline(
+          lineIndex
+        );
+
+
+        highlightWinningCells(
+
+          payline,
+
+          0,
+
+          win.matches
+
+        );
+
+
+        if (
+          win.matches
+          ===
+          5
+        ) {
+
+          confetti();
 
         }
 
-      );
+
+        if (
+          win.matches
+          ===
+          5
+          &&
+          win.symbol
+          ===
+          "CORGI"
+        ) {
+
+          giantCorgiParty();
+
+          flashMachine();
+
+        }
+
+      }
+
+    }
+
+  );
+
+
+  game.score +=
+    totalWin;
+
+
+  /*
+    COIN RAIN
+
+    Only wins greater than 10.
+  */
+
+  if (
+    totalWin > 10
+  ) {
+
+    coinRain(
+      totalWin
+    );
+
+  }
+
+
+  if (
+    bonusSpins > 0
+  ) {
+
+    game.spinsUsed -=
+      bonusSpins;
+
+  }
+
+
+  updateDisplays();
+
+
+  await saveOnlineProgress();
+
+
+  await updateLeaderboard();
+
+
+  if (
+    bonusSpins > 0
+    &&
+    totalWin > 0
+  ) {
+
+    el.message.textContent =
+
+      `+${totalWin} POINTS • +${bonusSpins} SPINS!`;
+
+  }
+
+  else if (
+    bonusSpins > 0
+  ) {
+
+    el.message.textContent =
+
+      `CORGI BONUS • +${bonusSpins} SPINS!`;
+
+  }
+
+  else if (
+    totalWin > 0
+  ) {
+
+    el.message.textContent =
+
+      `+${totalWin} POINTS!`;
+
+  }
+
+  else if (
+    hasCorgi
+  ) {
+
+    el.message.textContent =
+      randomCorgiPhrase();
+
+  }
+
+  else {
+
+    el.message.textContent =
+      randomMotivation();
+
+  }
+
+}
+
+
+/* =====================================================
+   LEFT-TO-RIGHT RULE
+
+   Matching symbols MUST begin on reel 1.
+   ===================================================== */
+
+function evaluateLine(
+  line
+) {
+
+  const firstSymbol =
+    line[0];
+
+
+  if (
+    !firstSymbol
+  ) {
+
+    return {
+
+      matches:
+        0,
+
+      points:
+        0,
+
+      symbol:
+        ""
+
+    };
+
+  }
+
+
+  let matches =
+    1;
+
+
+  for (
+    let i = 1;
+    i < line.length;
+    i++
+  ) {
+
+    if (
+      line[i].id
+      ===
+      firstSymbol.id
+    ) {
+
+      matches++;
+
+    }
+
+    else {
+
+      break;
+
+    }
+
+  }
+
+
+  if (
+    matches < 3
+  ) {
+
+    return {
+
+      matches:
+        0,
+
+      points:
+        0,
+
+      symbol:
+        firstSymbol.id
+
+    };
+
+  }
+
+
+  const points =
+
+    firstSymbol
+      .payouts[
+        matches
+      ]
+
+    ||
+
+    0;
+
+
+  return {
+
+    matches:
+      matches,
+
+    points:
+      points,
+
+    symbol:
+      firstSymbol.id
+
+  };
+
+}
+
+
+/* =====================================================
+   ROUND COMPLETE
+   ===================================================== */
+
+function finishRound() {
+
+  game.autoSpin =
+    false;
+
+
+  updateFrame();
+
+
+  el.spin
+    .classList
+    .add(
+      "disabled"
+    );
+
+
+  el.auto
+    .classList
+    .add(
+      "disabled"
+    );
+
+
+  el.message.textContent =
+    "ROUND COMPLETE. CORGI SALUTES YOU.";
+
+
+  updateDisplays();
+
+}
+
+
+function updateRoundState() {
+
+  const finished =
+
+    game.spinsUsed
+    >=
+    SETTINGS.maxSpins;
+
+
+  el.spin
+    .classList
+    .toggle(
+      "disabled",
+      finished
+    );
+
+
+  el.auto
+    .classList
+    .toggle(
+      "disabled",
+      finished
+    );
+
+}
+
+
+/* =====================================================
+   WIN VISUALS
+   ===================================================== */
+
+function showWinningPayline(
+  index
+) {
+
+  document
+    .getElementById(
+
+      "line"
+      +
+      (
+        index + 1
+      )
+
+    )
+    .classList
+    .add(
+      "active"
+    );
+
+}
+
+
+function highlightWinningCells(
+  payline,
+  start,
+  matches
+) {
+
+  for (
+    let i = start;
+    i < start + matches;
+    i++
+  ) {
+
+    getCell(
+
+      i,
+
+      payline[i]
+
+    )
+    .classList
+    .add(
+      "winner"
+    );
+
+  }
+
+}
+
+
+function clearWins() {
+
+  document
+    .querySelectorAll(
+      ".symbol"
+    )
+    .forEach(
+
+      cell =>
+
+        cell
+          .classList
+          .remove(
+            "winner"
+          )
+
+    );
+
+
+  document
+    .querySelectorAll(
+      ".payline"
+    )
+    .forEach(
+
+      line =>
+
+        line
+          .classList
+          .remove(
+            "active"
+          )
+
+    );
+
+}
+
+
+function getCell(
+  reel,
+  row
+) {
+
+  return document
+    .querySelector(
+
+      `[data-reel="${reel}"][data-row="${row}"]`
+
+    );
+
+}
+
+
+/* =====================================================
+   DATABASE SAVE
+   ===================================================== */
+
+async function saveOnlineProgress() {
+
+  try {
+
+    const {
+      error
+    } =
+
+      await db
+
+        .from(
+          "Players"
+        )
+
+        .upsert(
+
+          {
+
+            nickname:
+              game.player,
+
+            score:
+              game.score,
+
+            spins_used:
+              game.spinsUsed,
+
+            day_key:
+              game.dayKey,
+
+            updated_at:
+              new Date()
+                .toISOString()
+
+          },
+
+          {
+
+            onConflict:
+              "nickname,day_key"
+
+          }
+
+        );
+
+
+    if (
+      error
+    ) {
+
+      throw error;
 
     }
 
 
-    /* =====================================================
-       PRELOAD
-       ===================================================== */
+    return true;
 
-    Object
-      .values(
-        FRAME_IMAGES
+  }
+
+  catch (
+    error
+  ) {
+
+    console.error(
+      error
+    );
+
+
+    return false;
+
+  }
+
+}
+
+
+/* =====================================================
+   LEADERBOARD
+   ===================================================== */
+
+async function updateLeaderboard() {
+
+  const {
+    data,
+    error
+  } =
+
+    await db
+
+      .from(
+        "Players"
       )
-      .forEach(
 
-        src => {
+      .select(
+        "nickname,score,spins_used"
+      )
 
-          const image =
-            new Image();
+      .eq(
+        "day_key",
+        getActiveZurichDayKey()
+      )
 
-          image.src =
-            src;
-
+      .order(
+        "score",
+        {
+          ascending:
+            false
         }
+      )
+
+      .limit(
+        10
+      );
+
+
+  if (
+    error
+  ) {
+
+    console.error(
+      error
+    );
+
+    return;
+
+  }
+
+
+  el.leaderboard.innerHTML =
+    "";
+
+
+  if (
+    !data
+    ||
+    !data.length
+  ) {
+
+    el.leaderboard.textContent =
+      "No players yet.";
+
+    return;
+
+  }
+
+
+  data.forEach(
+
+    (
+      player,
+      index
+    ) => {
+
+      const row =
+        document.createElement(
+          "div"
+        );
+
+
+      row.className =
+        "playerRow";
+
+
+      if (
+        player.nickname
+        ===
+        game.player
+      ) {
+
+        row.classList.add(
+          "currentPlayerRow"
+        );
+
+      }
+
+
+      const name =
+        document.createElement(
+          "span"
+        );
+
+
+      const points =
+        document.createElement(
+          "strong"
+        );
+
+
+      const spins =
+        document.createElement(
+          "span"
+        );
+
+
+      const playerSpinsUsed =
+
+        Number(
+          player.spins_used
+          ||
+          0
+        );
+
+
+      const playerSpinsLeft =
+
+        Math.max(
+
+          0,
+
+          SETTINGS.maxSpins
+          -
+          playerSpinsUsed
+
+        );
+
+
+      name.textContent =
+
+        `${index + 1}. ${player.nickname}`;
+
+
+      points.textContent =
+
+        Number(
+          player.score
+        );
+
+
+      spins.textContent =
+        playerSpinsLeft;
+
+
+      row.append(
+
+        name,
+
+        points,
+
+        spins
 
       );
 
 
-    Object
-      .values(
-        INFO_FRAME_IMAGES
+      el.leaderboard
+        .appendChild(
+          row
+        );
+
+    }
+
+  );
+
+}
+
+
+/* =====================================================
+   DISPLAY
+   ===================================================== */
+
+function updateDisplays() {
+
+  const spinsLeft =
+
+    Math.max(
+
+      0,
+
+      SETTINGS.maxSpins
+      -
+      game.spinsUsed
+
+    );
+
+
+  el.spinsLeftDisplay.textContent =
+    spinsLeft;
+
+
+  el.scoreDisplay.textContent =
+    game.score;
+
+}
+
+
+/* =====================================================
+   COIN RAIN
+   ===================================================== */
+
+const coinParticles =
+  [];
+
+
+let coinPhysicsRunning =
+  false;
+
+
+function getCoinRainAmount(
+  winAmount
+) {
+
+  if (
+    winAmount <= 10
+  ) {
+
+    return 0;
+
+  }
+
+
+  if (
+    winAmount < 30
+  ) {
+
+    return 12;
+
+  }
+
+
+  if (
+    winAmount < 60
+  ) {
+
+    return 20;
+
+  }
+
+
+  if (
+    winAmount < 120
+  ) {
+
+    return 32;
+
+  }
+
+
+  if (
+    winAmount < 250
+  ) {
+
+    return 48;
+
+  }
+
+
+  if (
+    winAmount < 500
+  ) {
+
+    return 68;
+
+  }
+
+
+  return 95;
+
+}
+
+
+function coinRain(
+  winAmount
+) {
+
+  const amount =
+    getCoinRainAmount(
+      winAmount
+    );
+
+
+  if (
+    amount <= 0
+  ) {
+
+    return;
+
+  }
+
+
+  for (
+    let i = 0;
+    i < amount;
+    i++
+  ) {
+
+    setTimeout(
+
+      createCoinParticle,
+
+      i
+      *
+      (
+        10
+        +
+        Math.random()
+        *
+        14
       )
-      .forEach(
 
-        src => {
+    );
 
-          const image =
-            new Image();
+  }
 
-          image.src =
-            src;
 
-        }
+  startCoinPhysics();
 
+}
+
+
+function createCoinParticle() {
+
+  if (
+    coinParticles.length
+    >=
+    180
+  ) {
+
+    return;
+
+  }
+
+
+  const imageName =
+
+    COIN_IMAGES[
+
+      Math.floor(
+
+        Math.random()
+
+        *
+
+        COIN_IMAGES.length
+
+      )
+
+    ];
+
+
+  const image =
+    document.createElement(
+      "img"
+    );
+
+
+  image.src =
+    imageName;
+
+
+  image.className =
+    "fallingCoin";
+
+
+  image.alt =
+    "";
+
+
+  image.draggable =
+    false;
+
+
+  document.body
+    .appendChild(
+      image
+    );
+
+
+  let size;
+
+
+  if (
+    imageName
+    ===
+    "coin_pile.png"
+  ) {
+
+    size =
+      90
+      +
+      Math.random()
+      *
+      45;
+
+  }
+
+  else if (
+    imageName
+    ===
+    "coin_stack.png"
+  ) {
+
+    size =
+      80
+      +
+      Math.random()
+      *
+      42;
+
+  }
+
+  else {
+
+    size =
+      45
+      +
+      Math.random()
+      *
+      50;
+
+  }
+
+
+  image.style.width =
+    size
+    +
+    "px";
+
+
+  const rotationSpeed =
+
+    (
+      imageName
+      ===
+      "coin_pile.png"
+      ||
+      imageName
+      ===
+      "coin_stack.png"
+    )
+
+    ?
+
+    (
+      Math.random()
+      -
+      0.5
+    )
+    *
+    3
+
+    :
+
+    (
+      Math.random()
+      -
+      0.5
+    )
+    *
+    10;
+
+
+  coinParticles.push({
+
+    element:
+      image,
+
+    x:
+      Math.random()
+      *
+      window.innerWidth,
+
+    y:
+      -150
+      -
+      Math.random()
+      *
+      450,
+
+    vx:
+      (
+        Math.random()
+        -
+        0.5
+      )
+      *
+      2,
+
+    vy:
+      2.2
+      +
+      Math.random()
+      *
+      3,
+
+    gravity:
+      0.028
+      +
+      Math.random()
+      *
+      0.02,
+
+    rotation:
+      Math.random()
+      *
+      360,
+
+    rotationSpeed:
+      rotationSpeed,
+
+    wobble:
+      Math.random()
+      *
+      Math.PI
+      *
+      2,
+
+    size:
+      size
+
+  });
+
+}
+
+
+function startCoinPhysics() {
+
+  if (
+    coinPhysicsRunning
+  ) {
+
+    return;
+
+  }
+
+
+  coinPhysicsRunning =
+    true;
+
+
+  requestAnimationFrame(
+    updateCoinPhysics
+  );
+
+}
+
+
+function updateCoinPhysics() {
+
+  for (
+    let i =
+      coinParticles.length - 1;
+    i >= 0;
+    i--
+  ) {
+
+    const coin =
+      coinParticles[i];
+
+
+    coin.vy +=
+      coin.gravity;
+
+
+    coin.wobble +=
+      0.03;
+
+
+    coin.vx +=
+
+      Math.sin(
+        coin.wobble
+      )
+
+      *
+      0.01;
+
+
+    coin.x +=
+      coin.vx;
+
+
+    coin.y +=
+      coin.vy;
+
+
+    coin.rotation +=
+      coin.rotationSpeed;
+
+
+    coin.element.style.transform =
+
+      `translate3d(
+        ${coin.x}px,
+        ${coin.y}px,
+        0
+      )
+      rotate(
+        ${coin.rotation}deg
+      )`;
+
+
+    if (
+      coin.y
+      >
+      window.innerHeight
+      +
+      250
+      ||
+      coin.x
+      <
+      -350
+      ||
+      coin.x
+      >
+      window.innerWidth
+      +
+      350
+    ) {
+
+      coin.element.remove();
+
+
+      coinParticles.splice(
+        i,
+        1
+      );
+
+    }
+
+  }
+
+
+  if (
+    coinParticles.length
+    >
+    0
+  ) {
+
+    requestAnimationFrame(
+      updateCoinPhysics
+    );
+
+  }
+
+  else {
+
+    coinPhysicsRunning =
+      false;
+
+  }
+
+}
+
+
+/* =====================================================
+   CORGI RAIN
+   ===================================================== */
+
+const corgiParticles =
+  [];
+
+
+const pointer = {
+
+  x:
+    -1000,
+
+  y:
+    -1000,
+
+  active:
+    false
+
+};
+
+
+window.addEventListener(
+
+  "pointermove",
+
+  event => {
+
+    pointer.x =
+      event.clientX;
+
+
+    pointer.y =
+      event.clientY;
+
+
+    pointer.active =
+      true;
+
+  }
+
+);
+
+
+window.addEventListener(
+
+  "pointerleave",
+
+  () => {
+
+    pointer.active =
+      false;
+
+  }
+
+);
+
+
+function corgiRain(
+  amount = 32
+) {
+
+  for (
+    let index = 0;
+    index < amount;
+    index++
+  ) {
+
+    createCorgiParticle(
+      index
+    );
+
+  }
+
+
+  startCorgiPhysics();
+
+}
+
+
+function createCorgiParticle(
+  index
+) {
+
+  if (
+    corgiParticles.length
+    >
+    140
+  ) {
+
+    return;
+
+  }
+
+
+  const image =
+    document.createElement(
+      "img"
+    );
+
+
+  image.src =
+    "corgi-jackpot.png";
+
+
+  image.className =
+    "fallingCorgi";
+
+
+  image.alt =
+    "";
+
+
+  image.draggable =
+    false;
+
+
+  document.body.appendChild(
+    image
+  );
+
+
+  const size =
+
+    55
+
+    +
+
+    Math.random()
+
+    *
+
+    45;
+
+
+  image.style.width =
+    size
+    +
+    "px";
+
+
+  corgiParticles.push({
+
+    element:
+      image,
+
+    x:
+      Math.random()
+      *
+      window.innerWidth,
+
+    y:
+      -120
+      -
+      index
+      *
+      8,
+
+    vx:
+      (
+        Math.random()
+        -
+        0.5
+      )
+      *
+      1.5,
+
+    vy:
+      1.5
+      +
+      Math.random()
+      *
+      2.4,
+
+    rotation:
+      Math.random()
+      *
+      360,
+
+    rotationSpeed:
+      (
+        Math.random()
+        -
+        0.5
+      )
+      *
+      5,
+
+    size:
+      size
+
+  });
+
+}
+
+
+let physicsRunning =
+  false;
+
+
+function startCorgiPhysics() {
+
+  if (
+    physicsRunning
+  ) {
+
+    return;
+
+  }
+
+
+  physicsRunning =
+    true;
+
+
+  requestAnimationFrame(
+    updateCorgiPhysics
+  );
+
+}
+
+
+function updateCorgiPhysics() {
+
+  const repelRadius =
+    130;
+
+
+  for (
+    let index =
+      corgiParticles.length - 1;
+    index >= 0;
+    index--
+  ) {
+
+    const particle =
+      corgiParticles[
+        index
+      ];
+
+
+    particle.vy +=
+      0.025;
+
+
+    if (
+      pointer.active
+    ) {
+
+      const centerX =
+
+        particle.x
+
+        +
+
+        particle.size
+        /
+        2;
+
+
+      const centerY =
+
+        particle.y
+
+        +
+
+        particle.size
+        /
+        2;
+
+
+      const dx =
+        centerX
+        -
+        pointer.x;
+
+
+      const dy =
+        centerY
+        -
+        pointer.y;
+
+
+      const distance =
+
+        Math.sqrt(
+
+          dx * dx
+
+          +
+
+          dy * dy
+
+        );
+
+
+      if (
+        distance
+        <
+        repelRadius
+        &&
+        distance
+        >
+        1
+      ) {
+
+        const force =
+
+          (
+            repelRadius
+            -
+            distance
+          )
+
+          /
+
+          repelRadius;
+
+
+        particle.vx +=
+
+          (
+            dx
+            /
+            distance
+          )
+
+          *
+
+          force
+
+          *
+
+          4.5;
+
+
+        particle.vy +=
+
+          (
+            dy
+            /
+            distance
+          )
+
+          *
+
+          force
+
+          *
+
+          4.5;
+
+      }
+
+    }
+
+
+    particle.vx *=
+      0.992;
+
+
+    particle.vy *=
+      0.998;
+
+
+    particle.x +=
+      particle.vx;
+
+
+    particle.y +=
+      particle.vy;
+
+
+    particle.rotation +=
+      particle.rotationSpeed;
+
+
+    particle.element.style.transform =
+
+      `translate3d(
+        ${particle.x}px,
+        ${particle.y}px,
+        0
+      )
+      rotate(
+        ${particle.rotation}deg
+      )`;
+
+
+    if (
+      particle.y
+      >
+      window.innerHeight
+      +
+      180
+      ||
+      particle.x
+      <
+      -300
+      ||
+      particle.x
+      >
+      window.innerWidth
+      +
+      300
+    ) {
+
+      particle.element.remove();
+
+
+      corgiParticles.splice(
+        index,
+        1
+      );
+
+    }
+
+  }
+
+
+  if (
+    corgiParticles.length
+    >
+    0
+  ) {
+
+    requestAnimationFrame(
+      updateCorgiPhysics
+    );
+
+  }
+
+  else {
+
+    physicsRunning =
+      false;
+
+  }
+
+}
+
+
+/* =====================================================
+   CONFETTI
+   ===================================================== */
+
+function confetti() {
+
+  const symbols = [
+
+    "✨",
+    "⭐",
+    "🎉",
+    "💰"
+
+  ];
+
+
+  for (
+    let i = 0;
+    i < 55;
+    i++
+  ) {
+
+    const thing =
+      document.createElement(
+        "div"
       );
 
 
-    SYMBOLS.forEach(
+    thing.textContent =
 
-      symbol => {
+      symbols[
 
-        const image =
-          new Image();
+        Math.floor(
 
-        image.src =
-          symbol.src;
+          Math.random()
+
+          *
+
+          symbols.length
+
+        )
+
+      ];
+
+
+    thing.style.position =
+      "fixed";
+
+
+    thing.style.top =
+      "-50px";
+
+
+    thing.style.left =
+
+      Math.random()
+
+      *
+
+      100
+
+      +
+
+      "vw";
+
+
+    thing.style.fontSize =
+
+      20
+
+      +
+
+      Math.random()
+
+      *
+
+      35
+
+      +
+
+      "px";
+
+
+    thing.style.zIndex =
+      9999;
+
+
+    thing.style.pointerEvents =
+      "none";
+
+
+    const duration =
+
+      2500
+
+      +
+
+      Math.random()
+
+      *
+
+      1800;
+
+
+    thing.style.transition =
+
+      `top ${duration}ms linear,
+       transform ${duration}ms linear`;
+
+
+    document.body.appendChild(
+      thing
+    );
+
+
+    requestAnimationFrame(
+
+      () => {
+
+        thing.style.top =
+          "110vh";
+
+
+        thing.style.transform =
+
+          `rotate(${
+            Math.random()
+            *
+            900
+          }deg)`;
 
       }
 
     );
 
 
-    const glassPreload =
-      new Image();
+    setTimeout(
+
+      () =>
+        thing.remove(),
+
+      duration
+      +
+      300
+
+    );
+
+  }
+
+}
 
 
-    glassPreload.src =
-      "brokenglass.png";
+function giantCorgiParty() {
+
+  confetti();
 
 
-    /* =====================================================
-       STARTUP
-       ===================================================== */
+  corgiRain(
+    45
+  );
 
-    buildMachine();
+
+  setTimeout(
+
+    () =>
+      corgiRain(
+        45
+      ),
+
+    350
+
+  );
+
+}
+
+
+function flashMachine() {
+
+  el.machine
+    .classList
+    .add(
+      "jackpotFlash"
+    );
+
+
+  setTimeout(
+
+    () =>
+
+      el.machine
+        .classList
+        .remove(
+          "jackpotFlash"
+        ),
+
+    3000
+
+  );
+
+}
+
+
+/* =====================================================
+   ZURICH DATE
+   ===================================================== */
+
+function getZurichParts(
+  date = new Date()
+) {
+
+  const formatter =
+
+    new Intl.DateTimeFormat(
+
+      "en-GB",
+
+      {
+
+        timeZone:
+          SETTINGS.resetTimeZone,
+
+        year:
+          "numeric",
+
+        month:
+          "2-digit",
+
+        day:
+          "2-digit",
+
+        hour:
+          "2-digit",
+
+        minute:
+          "2-digit",
+
+        second:
+          "2-digit",
+
+        hourCycle:
+          "h23"
+
+      }
+
+    );
+
+
+  const values =
+    {};
+
+
+  formatter
+    .formatToParts(
+      date
+    )
+    .forEach(
+
+      part => {
+
+        if (
+          part.type
+          !==
+          "literal"
+        ) {
+
+          values[
+            part.type
+          ] =
+            part.value;
+
+        }
+
+      }
+
+    );
+
+
+  return values;
+
+}
+
+
+function formatZurichDate(
+  date
+) {
+
+  const parts =
+    getZurichParts(
+      date
+    );
+
+
+  return (
+
+    parts.year
+    +
+    "-"
+    +
+    parts.month
+    +
+    "-"
+    +
+    parts.day
+
+  );
+
+}
+
+
+function getActiveZurichDayKey() {
+
+  const now =
+    new Date();
+
+
+  const parts =
+    getZurichParts(
+      now
+    );
+
+
+  if (
+    Number(
+      parts.hour
+    )
+    ===
+    0
+    &&
+    Number(
+      parts.minute
+    )
+    ===
+    0
+    &&
+    Number(
+      parts.second
+    )
+    ===
+    0
+  ) {
+
+    return formatZurichDate(
+
+      new Date(
+
+        now.getTime()
+        -
+        1000
+
+      )
+
+    );
+
+  }
+
+
+  return formatZurichDate(
+    now
+  );
+
+}
+
+
+/* =====================================================
+   NEW DAY
+   ===================================================== */
+
+async function checkNewDay() {
+
+  const today =
+    getActiveZurichDayKey();
+
+
+  if (
+    today
+    ===
+    game.dayKey
+  ) {
+
+    return;
+
+  }
+
+
+  game.corgiRainMode =
+    false;
+
+
+  if (
+    game.corgiRainTimer
+  ) {
+
+    clearInterval(
+      game.corgiRainTimer
+    );
+
+
+    game.corgiRainTimer =
+      null;
+
+  }
+
+
+  game.dayKey =
+    today;
+
+
+  game.destroyUsed =
+
+    localStorage.getItem(
+      destroyStorageKey()
+    )
+
+    ===
+    "yes";
+
+
+  game.destroyPressed =
+    false;
+
+
+  try {
+
+    const {
+      data,
+      error
+    } =
+
+      await db
+
+        .from(
+          "Players"
+        )
+
+        .select(
+          "score,spins_used"
+        )
+
+        .eq(
+          "nickname",
+          game.player
+        )
+
+        .eq(
+          "day_key",
+          today
+        )
+
+        .maybeSingle();
+
+
+    if (
+      error
+    ) {
+
+      throw error;
+
+    }
+
+
+    if (
+      data
+    ) {
+
+      game.score =
+
+        Number(
+          data.score
+        )
+
+        ||
+
+        0;
+
+
+      game.spinsUsed =
+
+        Number(
+          data.spins_used
+        )
+
+        ||
+
+        0;
+
+    }
+
+    else {
+
+      game.score =
+        0;
+
+
+      game.spinsUsed =
+        0;
+
+
+      await saveOnlineProgress();
+
+    }
+
+
+    game.autoSpin =
+      false;
+
+
+    game.startPressed =
+      false;
+
 
     updateFrame();
 
     updateInfoFrame();
 
+    updateDisplays();
 
-    const savedNickname =
-
-      localStorage.getItem(
-        "corgiLastNickname"
-      );
+    updateRoundState();
 
 
-    if (
-      savedNickname
-    ) {
+    el.brokenGlass.classList.toggle(
 
-      el.nickname.value =
-        savedNickname;
+      "active",
 
-    }
-
-
-    el.loginStatus.textContent =
-      "Leaderboard ready";
-
-
-    setInterval(
-
-      async () => {
-
-        if (
-          game.player
-        ) {
-
-          await checkNewDay();
-
-          await updateLeaderboard();
-
-        }
-
-      },
-
-      10000
+      game.destroyUsed
 
     );
 
 
-  </script>
+    await updateLeaderboard();
+
+
+    el.message.textContent =
+      "NEW ROUND. MAKE YOUR CORGI PROUD.";
+
+  }
+
+  catch (
+    error
+  ) {
+
+    console.error(
+      error
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   WAIT HELPERS
+   ===================================================== */
+
+function wait(
+  ms
+) {
+
+  return new Promise(
+
+    resolve =>
+      setTimeout(
+        resolve,
+        ms
+      )
+
+  );
+
+}
+
+
+function cancellableWait(
+  ms
+) {
+
+  return new Promise(
+
+    resolve => {
+
+      let finished =
+        false;
+
+
+      const timer =
+
+        setTimeout(
+          finish,
+          ms
+        );
+
+
+      function finish() {
+
+        if (
+          finished
+        ) {
+
+          return;
+
+        }
+
+
+        finished =
+          true;
+
+
+        clearTimeout(
+          timer
+        );
+
+
+        game.skipWait =
+          null;
+
+
+        resolve();
+
+      }
+
+
+      game.skipWait =
+        finish;
+
+    }
+
+  );
+
+}
+
+
+/* =====================================================
+   PRELOAD ASSETS
+   ===================================================== */
+
+Object
+  .values(
+    FRAME_IMAGES
+  )
+  .forEach(
+
+    src => {
+
+      const image =
+        new Image();
+
+      image.src =
+        src;
+
+    }
+
+  );
+
+
+Object
+  .values(
+    INFO_FRAME_IMAGES
+  )
+  .forEach(
+
+    src => {
+
+      const image =
+        new Image();
+
+      image.src =
+        src;
+
+    }
+
+  );
+
+
+SYMBOLS.forEach(
+
+  symbol => {
+
+    const image =
+      new Image();
+
+    image.src =
+      symbol.src;
+
+  }
+
+);
+
+
+COIN_IMAGES.forEach(
+
+  src => {
+
+    const image =
+      new Image();
+
+    image.src =
+      src;
+
+  }
+
+);
+
+
+[
+  "loginpage.png",
+  "background.png",
+  "brokenglass.png"
+]
+.forEach(
+
+  src => {
+
+    const image =
+      new Image();
+
+    image.src =
+      src;
+
+  }
+
+);
+
+
+/* =====================================================
+   START
+   ===================================================== */
+
+buildMachine();
+
+updateFrame();
+
+updateInfoFrame();
+
+
+const savedNickname =
+
+  localStorage.getItem(
+    "corgiLastNickname"
+  );
+
+
+if (
+  savedNickname
+) {
+
+  el.nickname.value =
+    savedNickname;
+
+}
+
+
+setInterval(
+
+  async () => {
+
+    if (
+      game.player
+    ) {
+
+      await checkNewDay();
+
+      await updateLeaderboard();
+
+    }
+
+  },
+
+  10000
+
+);
+
+</script>
 
 </body>
 
