@@ -1,395 +1,874 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>Corgi Jackpot</title>
 
   <style>
+
     * {
       box-sizing: border-box;
     }
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #141414;
+      background:
+        radial-gradient(circle at top, #151515, #000);
       color: white;
+      font-family: Arial, sans-serif;
       text-align: center;
       overflow-x: hidden;
     }
 
-    h1,
-    h2 {
-      color: gold;
-    }
-
     button {
       cursor: pointer;
-      border: none;
-      border-radius: 12px;
-      font-weight: bold;
+      font-family: inherit;
     }
 
-    /* =========================
+
+    /* =================================
        LOGIN
-       ========================= */
+       ================================= */
 
     #loginScreen {
       min-height: 100vh;
+
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
+
       padding: 20px;
     }
 
     .loginBox {
-      width: 100%;
-      max-width: 500px;
-      background: #790909;
-      border: 7px solid gold;
-      border-radius: 30px;
+      width: min(500px, 94vw);
+
+      background: #080808;
+
+      border: 3px solid #b59036;
+      border-radius: 20px;
+
       padding: 40px;
+
+      box-shadow:
+        0 0 40px rgba(255, 190, 40, 0.15);
+    }
+
+    .loginBox h1 {
+      color: #e8b84e;
+      letter-spacing: 3px;
     }
 
     .loginBox input {
       width: 100%;
+
       padding: 15px;
-      font-size: 22px;
-      text-align: center;
-      border: none;
-      border-radius: 12px;
+
       margin: 20px 0;
+
+      border-radius: 8px;
+
+      border:
+        2px solid #9d7c31;
+
+      background: #111;
+      color: white;
+
+      text-align: center;
+
+      font-size: 21px;
     }
 
     .startButton {
-      background: gold;
-      color: black;
-      font-size: 24px;
-      padding: 15px 35px;
+      background:
+        linear-gradient(
+          #e1d6bc,
+          #807667
+        );
+
+      color: #111;
+
+      border:
+        3px solid #222;
+
+      border-radius: 6px;
+
+      padding: 14px 35px;
+
+      font-size: 20px;
+
+      font-weight: bold;
     }
 
-    /* =========================
-       GAME
-       ========================= */
+    #loginStatus {
+      margin-top: 15px;
+
+      color: #aaa;
+
+      font-size: 13px;
+    }
+
+
+    /* =================================
+       GAME PAGE
+       ================================= */
 
     #gameScreen {
       display: none;
-      padding: 25px;
+
+      width: 100%;
+
+      padding:
+        18px
+        10px
+        60px;
     }
+
+
+    /* =================================
+       MACHINE
+       ================================= */
 
     .machine {
-      width: 100%;
-      max-width: 900px;
-      margin: 0 auto;
+      position: relative;
 
-      background: #790909;
-      border: 8px solid gold;
-      border-radius: 30px;
+      width: min(1100px, 98vw);
 
-      padding: 25px;
+      margin: auto;
+
+      aspect-ratio:
+        1536 / 1024;
+
+      background-image:
+        url("slot-frame.png");
+
+      background-size:
+        100% 100%;
+
+      background-repeat:
+        no-repeat;
+
+      background-position:
+        center;
+
+      overflow: hidden;
     }
 
-    .playerInfo {
-      font-size: 20px;
+
+    /* =================================
+       TITLE
+       ================================= */
+
+    .gameTitle {
+      position: absolute;
+
+      top: 5.2%;
+      left: 15%;
+      width: 70%;
+
+      color: #e7ba5b;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size:
+        clamp(16px, 3vw, 38px);
+
+      letter-spacing:
+        3px;
+
+      text-shadow:
+        0 2px 4px black;
+
+      pointer-events: none;
     }
 
-    .onlineStatus {
-      display: inline-block;
-      margin-top: 8px;
-      font-size: 14px;
-      color: #ddd;
-    }
 
-    /* =========================
-       SLOT
-       ========================= */
+    /* =================================
+       LIVE REEL AREA
+       ================================= */
 
-    .slotWindow {
-      max-width: 720px;
-      margin: 25px auto;
+    .slotArea {
+      position: absolute;
 
-      background: #111;
+      left: 15.2%;
+      top: 14.1%;
 
-      border: 6px solid #d4af37;
-      border-radius: 18px;
+      width: 69.7%;
+      height: 47.5%;
 
-      padding: 12px;
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          #080808,
+          #111,
+          #050505
+        );
+
+      border:
+        2px solid #987631;
+
+      border-radius: 10px;
     }
 
     .reels {
+      position: absolute;
+
+      inset: 0;
+
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
+
+      grid-template-columns:
+        repeat(5, 1fr);
     }
 
     .reelColumn {
       display: grid;
-      grid-template-rows: repeat(3, 100px);
-      gap: 6px;
+
+      grid-template-rows:
+        repeat(3, 1fr);
+
+      border-right:
+        1px solid #5d4924;
+    }
+
+    .reelColumn:last-child {
+      border-right: none;
     }
 
     .symbol {
-      background: white;
-      color: black;
-
-      border: 4px solid #d4af37;
-      border-radius: 12px;
-
-      font-size: 55px;
+      position: relative;
 
       display: flex;
       align-items: center;
       justify-content: center;
 
+      overflow: hidden;
+
+      border-bottom:
+        1px solid #4a391d;
+
+      font-size:
+        clamp(28px, 5.5vw, 72px);
+
+      background:
+        radial-gradient(
+          circle,
+          #171717,
+          #030303 75%
+        );
+
       transition:
-        background 0.2s,
-        transform 0.2s;
+        filter 0.15s,
+        background 0.15s,
+        transform 0.15s;
     }
 
-    .symbol.winner {
-      background: #fff4a8;
-      transform: scale(1.05);
+    .symbol img {
+      max-width: 88%;
+      max-height: 88%;
+
+      object-fit: contain;
+
+      display: block;
+    }
+
+    .symbol.corgi img {
+      max-width: 95%;
+      max-height: 95%;
     }
 
     .symbol.spinning {
-      animation: reelShake 0.07s infinite alternate;
+      filter: blur(2px);
+
+      animation:
+        spinShake
+        0.065s
+        infinite
+        alternate;
     }
 
-    @keyframes reelShake {
+    @keyframes spinShake {
+
       from {
-        transform: translateY(-6px);
+        transform:
+          translateY(-7px);
       }
 
       to {
-        transform: translateY(6px);
+        transform:
+          translateY(7px);
       }
+
     }
 
-    /* =========================
-       CONTROLS
-       ========================= */
+    .symbol.winner {
+      background:
+        radial-gradient(
+          circle,
+          #7d6316,
+          #151000
+        );
 
-    .controls {
+      box-shadow:
+        inset
+        0 0 25px
+        gold;
+    }
+
+
+    /* =================================
+       PAYLINE SVG
+       ================================= */
+
+    #paylineOverlay {
+      position: absolute;
+
+      inset: 0;
+
+      width: 100%;
+      height: 100%;
+
+      pointer-events: none;
+
+      z-index: 20;
+    }
+
+    .payline {
+      fill: none;
+
+      stroke-width: 4;
+
+      stroke-linecap: round;
+      stroke-linejoin: round;
+
+      opacity: 0;
+
+      transition:
+        opacity 0.2s;
+    }
+
+    .payline.active {
+      opacity: 0.95;
+    }
+
+    .line1 {
+      stroke: #4ca3ff;
+    }
+
+    .line2 {
+      stroke: #ff3838;
+    }
+
+    .line3 {
+      stroke: #30ce36;
+    }
+
+    .line4 {
+      stroke: #f1e62e;
+    }
+
+    .line5 {
+      stroke: #ff7bd8;
+    }
+
+    .line6 {
+      stroke: #ff8e26;
+    }
+
+    .line7 {
+      stroke: #b266ff;
+    }
+
+    .line8 {
+      stroke: #58df83;
+    }
+
+    .line9 {
+      stroke: #ff55ae;
+    }
+
+
+    /* =================================
+       SIDE LINE NUMBERS
+       ================================= */
+
+    .lineNumbers {
+      position: absolute;
+
+      top: 14.8%;
+
+      height: 46%;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+
+      z-index: 30;
+    }
+
+    .lineNumbers.left {
+      left: 10.9%;
+    }
+
+    .lineNumbers.right {
+      right: 10.9%;
+    }
+
+    .lineBadge {
+      width:
+        clamp(22px, 3vw, 42px);
+
+      height:
+        clamp(22px, 3vw, 42px);
+
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
 
-      margin-top: 15px;
+      color: #000;
+
+      font-size:
+        clamp(11px, 1.6vw, 20px);
+
+      font-weight: bold;
+
+      border-radius: 3px;
+
+      box-shadow:
+        0 0 7px #000;
     }
 
-    .spinButton {
-      background: #159447;
-      color: white;
+    .b1 { background: #58a9ff; }
+    .b2 { background: #ff3030; }
+    .b3 { background: #28d328; }
+    .b4 { background: #f3e726; }
+    .b5 { background: #ef82dc; }
+    .b6 { background: #ff9229; }
+    .b7 { background: #ae67f4; }
+    .b8 { background: #5add7e; }
+    .b9 { background: #f263d4; }
 
-      font-size: 32px;
 
-      padding: 17px 65px;
+    /* =================================
+       STATUS AREA
+       ================================= */
 
-      min-width: 210px;
+    .message {
+      position: absolute;
+
+      left: 12%;
+      top: 65.3%;
+
+      width: 51%;
+      height: 7%;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      padding: 5px;
+
+      color: #e9bd52;
+
+      font-size:
+        clamp(11px, 1.7vw, 22px);
+
+      font-weight: bold;
     }
 
-    .spinButton:hover {
-      background: #18ac52;
+    .scoreLabel {
+      position: absolute;
+
+      left: 12.4%;
+      top: 74.3%;
+
+      color: #ffec2e;
+
+      font-size:
+        clamp(8px, 1.25vw, 16px);
     }
 
-    .spinButton.spinningNow {
-      background: #d88700;
+    .scoreDisplay {
+      position: absolute;
+
+      left: 12%;
+      top: 77%;
+
+      width: 13%;
+      height: 4.5%;
+
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      padding-right: 8px;
+
+      color: #efff22;
+
+      font-family:
+        "Courier New",
+        monospace;
+
+      font-size:
+        clamp(13px, 2.4vw, 28px);
+
+      text-shadow:
+        0 0 7px yellow;
     }
 
-    .autoButton {
-      background: #333;
-      color: white;
+    .winLabel {
+      position: absolute;
 
-      border: 2px solid #777;
+      left: 47%;
+      top: 74.3%;
 
-      font-size: 15px;
+      color: #ffec2e;
 
-      padding: 12px 18px;
-
-      min-width: 110px;
+      font-size:
+        clamp(8px, 1.25vw, 16px);
     }
 
-    .autoButton.active {
-      background: gold;
-      color: black;
-      border-color: gold;
+    .winDisplay {
+      position: absolute;
+
+      left: 40%;
+      top: 77%;
+
+      width: 16%;
+      height: 4.5%;
+
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      padding-right: 8px;
+
+      color: #efff22;
+
+      font-family:
+        "Courier New",
+        monospace;
+
+      font-size:
+        clamp(13px, 2.4vw, 28px);
+
+      text-shadow:
+        0 0 7px yellow;
     }
 
-    /* =========================
-       SCORE / MESSAGE
-       ========================= */
 
-    .scoreBox {
-      font-size: 26px;
-      margin-top: 20px;
+    /* =================================
+       REAL BUTTONS OVER FRAME
+       ================================= */
+
+    .machineControls {
+      position: absolute;
+
+      left: 49.5%;
+      bottom: 5.2%;
+
+      width: 37%;
+
+      display: flex;
+
+      justify-content: flex-end;
+      align-items: stretch;
+
+      gap: 2%;
     }
 
-    #message {
-      color: gold;
-      font-size: 24px;
-      min-height: 40px;
-      margin-top: 15px;
+    .machineButton {
+      min-height:
+        clamp(42px, 7vw, 76px);
+
+      padding:
+        4px 10px;
+
+      border-radius: 5px;
+
+      border:
+        3px solid #181818;
+
+      background:
+        linear-gradient(
+          #e3ded3,
+          #817b71
+        );
+
+      color: #111;
+
+      box-shadow:
+        inset 0 1px 3px white,
+        0 3px 6px black;
+
+      font-size:
+        clamp(8px, 1.15vw, 15px);
+
+      font-weight: bold;
     }
 
-    /* =========================
+    #spinButton {
+      color: #08761e;
+
+      min-width: 36%;
+    }
+
+    #spinButton.spinningNow {
+      color: #b00;
+    }
+
+    #autoButton {
+      min-width: 31%;
+    }
+
+    #autoButton.active {
+      background:
+        linear-gradient(
+          #ffd763,
+          #bb811a
+        );
+
+      color: #111;
+    }
+
+
+    /* =================================
+       PLAYER INFO
+       ================================= */
+
+    .playerBar {
+      width: min(900px, 94vw);
+
+      margin:
+        15px
+        auto;
+
+      color: #bbb;
+
+      font-size: 14px;
+    }
+
+    .playerBar strong {
+      color: #eabc55;
+    }
+
+
+    /* =================================
        LEADERBOARD
-       ========================= */
+       ================================= */
 
     .leaderboard {
-      max-width: 720px;
+      width: min(900px, 94vw);
 
-      margin: 25px auto 0;
-
-      background: #262626;
-
-      border: 4px solid gold;
-      border-radius: 18px;
+      margin:
+        10px
+        auto
+        25px;
 
       padding: 20px;
+
+      background: #090909;
+
+      border:
+        2px solid #9e7c32;
+
+      border-radius: 12px;
     }
 
     .leaderboard h2 {
-      margin-top: 0;
+      color: #e4b44f;
+
+      margin:
+        0
+        0
+        15px;
+
+      letter-spacing: 2px;
     }
 
     .playerRow {
       display: flex;
+
       justify-content: space-between;
 
-      border-bottom: 1px solid #555;
+      padding:
+        10px
+        7px;
 
-      padding: 12px 8px;
+      border-bottom:
+        1px solid #333;
 
-      font-size: 18px;
-    }
-
-    .playerRow:last-child {
-      border-bottom: none;
+      font-size: 17px;
     }
 
     .currentPlayerRow {
-      color: gold;
+      color: #f4ca5c;
+
       font-weight: bold;
     }
 
     .resetInfo {
-      color: #aaa;
-      font-size: 13px;
-      margin-top: 15px;
+      color: #777;
+
+      margin-top: 13px;
+
+      font-size: 12px;
     }
 
-    /* =========================
+
+    /* =================================
        PAYTABLE
-       ========================= */
+       ================================= */
 
     .paytable {
-      max-width: 720px;
+      width: min(900px, 94vw);
 
-      margin: 20px auto 0;
+      margin: auto;
 
-      background: #500606;
+      padding: 20px;
 
-      border-radius: 15px;
+      background: #080808;
 
-      padding: 18px;
+      border:
+        1px solid #554521;
+
+      border-radius: 12px;
+
+      color: #bbb;
 
       line-height: 1.8;
     }
 
-    /* =========================
-       JACKPOT FLASH
-       ========================= */
+    .paytable strong {
+      color: #e6bb57;
+    }
 
-    .grandPrize {
-      animation: jackpotFlash 0.25s alternate 10;
+
+    /* =================================
+       CORGI RAIN IMAGE
+       ================================= */
+
+    .fallingCorgi {
+      position: fixed;
+
+      top: -140px;
+
+      width:
+        clamp(50px, 7vw, 100px);
+
+      z-index: 9999;
+
+      pointer-events: none;
+
+      object-fit: contain;
+    }
+
+
+    /* =================================
+       JACKPOT
+       ================================= */
+
+    .jackpotFlash {
+      animation:
+        jackpotFlash
+        0.2s
+        alternate
+        12;
     }
 
     @keyframes jackpotFlash {
+
       from {
-        background: #790909;
+        filter: brightness(1);
       }
 
       to {
-        background: #d49b00;
+        filter:
+          brightness(1.6)
+          saturate(1.7);
       }
+
     }
 
-    /* =========================
-       MOBILE
-       ========================= */
 
-    @media (max-width: 700px) {
+    /* =================================
+       SMALL SCREEN
+       ================================= */
+
+    @media
+    (max-width: 600px) {
 
       #gameScreen {
-        padding: 8px;
+        padding-left: 0;
+        padding-right: 0;
       }
 
       .machine {
-        padding: 12px;
-      }
-
-      .slotWindow {
-        padding: 6px;
-      }
-
-      .reelColumn {
-        grid-template-rows: repeat(3, 70px);
+        width: 100vw;
       }
 
       .symbol {
-        font-size: 38px;
+        font-size:
+          clamp(25px, 8vw, 42px);
       }
 
-      .spinButton {
-        font-size: 24px;
-        padding: 14px 30px;
-        min-width: 170px;
+      .machineControls {
+        bottom: 4.8%;
       }
 
-      .autoButton {
-        font-size: 13px;
-      }
     }
+
   </style>
 </head>
 
+
 <body>
 
-  <!-- =========================
+
+  <!-- =================================
        LOGIN
-       ========================= -->
+       ================================= -->
 
   <div id="loginScreen">
 
     <div class="loginBox">
 
-      <h1>🐶 CORGI JACKPOT 🐶</h1>
+      <h1>
+        CORGI JACKPOT
+      </h1>
 
-      <h2>Enter your nickname</h2>
+      <h2>
+        Enter your nickname
+      </h2>
 
       <input
         id="nicknameInput"
-        type="text"
         maxlength="15"
-        placeholder="Example: Peter"
+        placeholder="Your nickname"
       >
 
+      <br>
+
       <button
-        class="startButton"
         id="startButton"
+        class="startButton"
       >
         START GAME
       </button>
 
-      <div
-        class="onlineStatus"
-        id="loginStatus"
-      >
-        Connecting to leaderboard...
+      <div id="loginStatus">
+        Connecting...
       </div>
 
     </div>
@@ -397,149 +876,338 @@
   </div>
 
 
-  <!-- =========================
+  <!-- =================================
        GAME
-       ========================= -->
+       ================================= -->
 
   <div id="gameScreen">
 
-    <div
-      class="machine"
-      id="machine"
-    >
 
-      <h1>🐶 CORGI JACKPOT 🐶</h1>
+    <div class="machine" id="machine">
 
 
-      <div class="playerInfo">
+      <div class="gameTitle">
+        CORGI JACKPOT GAME
+      </div>
 
-        Player:
-        <strong id="playerName"></strong>
 
-        <br>
+      <!-- LEFT LINE NUMBERS -->
 
-        <span
-          class="onlineStatus"
-          id="onlineStatus"
-        >
-          Online leaderboard
-        </span>
+      <div class="lineNumbers left">
+
+        <div class="lineBadge b4">4</div>
+        <div class="lineBadge b2">2</div>
+        <div class="lineBadge b9">9</div>
+        <div class="lineBadge b6">6</div>
+        <div class="lineBadge b1">1</div>
+        <div class="lineBadge b7">7</div>
+        <div class="lineBadge b8">8</div>
+        <div class="lineBadge b3">3</div>
+        <div class="lineBadge b5">5</div>
+
+      </div>
+
+
+      <!-- RIGHT LINE NUMBERS -->
+
+      <div class="lineNumbers right">
+
+        <div class="lineBadge b4">4</div>
+        <div class="lineBadge b2">2</div>
+        <div class="lineBadge b9">9</div>
+        <div class="lineBadge b6">6</div>
+        <div class="lineBadge b1">1</div>
+        <div class="lineBadge b7">7</div>
+        <div class="lineBadge b8">8</div>
+        <div class="lineBadge b3">3</div>
+        <div class="lineBadge b5">5</div>
 
       </div>
 
 
       <!-- SLOT -->
 
-      <div class="slotWindow">
+      <div class="slotArea">
 
         <div
           class="reels"
           id="reels"
         ></div>
 
+
+        <!-- PAYLINES -->
+
+        <svg
+          id="paylineOverlay"
+          viewBox="0 0 500 300"
+          preserveAspectRatio="none"
+        >
+
+          <!-- middle -->
+          <polyline
+            id="line1"
+            class="payline line1"
+            points="
+              50,150
+              150,150
+              250,150
+              350,150
+              450,150
+            "
+          />
+
+          <!-- top -->
+          <polyline
+            id="line2"
+            class="payline line2"
+            points="
+              50,50
+              150,50
+              250,50
+              350,50
+              450,50
+            "
+          />
+
+          <!-- bottom -->
+          <polyline
+            id="line3"
+            class="payline line3"
+            points="
+              50,250
+              150,250
+              250,250
+              350,250
+              450,250
+            "
+          />
+
+          <!-- V -->
+          <polyline
+            id="line4"
+            class="payline line4"
+            points="
+              50,50
+              150,150
+              250,250
+              350,150
+              450,50
+            "
+          />
+
+          <!-- inverted V -->
+          <polyline
+            id="line5"
+            class="payline line5"
+            points="
+              50,250
+              150,150
+              250,50
+              350,150
+              450,250
+            "
+          />
+
+          <!-- down zig -->
+          <polyline
+            id="line6"
+            class="payline line6"
+            points="
+              50,50
+              150,150
+              250,150
+              350,150
+              450,250
+            "
+          />
+
+          <!-- up zig -->
+          <polyline
+            id="line7"
+            class="payline line7"
+            points="
+              50,250
+              150,150
+              250,150
+              350,150
+              450,50
+            "
+          />
+
+          <!-- W -->
+          <polyline
+            id="line8"
+            class="payline line8"
+            points="
+              50,150
+              150,250
+              250,150
+              350,250
+              450,150
+            "
+          />
+
+          <!-- M -->
+          <polyline
+            id="line9"
+            class="payline line9"
+            points="
+              50,150
+              150,50
+              250,150
+              350,50
+              450,150
+            "
+          />
+
+        </svg>
+
       </div>
 
 
-      <!-- CONTROLS -->
+      <!-- STATUS -->
 
-      <div class="controls">
+      <div
+        class="message"
+        id="message"
+      >
+        GOOD LUCK!
+      </div>
+
+
+      <div class="scoreLabel">
+        CREDIT
+      </div>
+
+
+      <div
+        class="scoreDisplay"
+        id="score"
+      >
+        0
+      </div>
+
+
+      <div class="winLabel">
+        WIN
+      </div>
+
+
+      <div
+        class="winDisplay"
+        id="lastWin"
+      >
+        0
+      </div>
+
+
+      <!-- FUNCTIONAL BUTTONS -->
+
+      <div class="machineControls">
 
         <button
-          class="spinButton"
+          class="machineButton"
           id="spinButton"
         >
-          SPIN
+          START
+          <br>
+          SKIP
         </button>
 
 
         <button
-          class="autoButton"
+          class="machineButton"
           id="autoButton"
-          aria-pressed="false"
         >
-          AUTO SPIN
+          AUTOMATIC
+          <br>
+          START
         </button>
 
       </div>
 
 
-      <div class="scoreBox">
-
-        Score:
-        <strong id="score">0</strong>
-
-      </div>
+    </div>
 
 
-      <div id="message">
-        Good luck!
-      </div>
+    <!-- PLAYER -->
 
+    <div class="playerBar">
 
-      <!-- LEADERBOARD MOVED UP -->
+      Player:
+      <strong id="playerName"></strong>
 
-      <div class="leaderboard">
+      &nbsp; • &nbsp;
 
-        <h2>🏆 TODAY'S LEADERBOARD</h2>
-
-        <div id="leaderboardList">
-          Loading...
-        </div>
-
-        <div class="resetInfo">
-
-          Shared online leaderboard
-
-          <br>
-
-          New leaderboard every day at
-          00:00:01 Europe/Zurich
-
-        </div>
-
-      </div>
-
-
-      <!-- DESCRIPTION AFTER LEADERBOARD -->
-
-      <div class="paytable">
-
-        <strong>PAYTABLE</strong>
-
-        <br>
-
-        3 adjacent matching symbols = 10 points
-
-        <br>
-
-        4 adjacent matching symbols = 40 points
-
-        <br>
-
-        5 matching symbols = 150 points
-
-        <br>
-
-        🐶 🐶 🐶 🐶 🐶 = 500 points
-
-        <br><br>
-
-        A winning group can appear anywhere
-        on a horizontal row.
-
-        <br>
-
-        Any 🐶 anywhere on screen =
-        Corgi Rain!
-
-        <br><br>
-
-        Press SPIN again while spinning
-        to reveal the result immediately.
-
-      </div>
+      <span id="onlineStatus">
+        Online leaderboard
+      </span>
 
     </div>
+
+
+    <!-- LEADERBOARD -->
+
+    <section class="leaderboard">
+
+      <h2>
+        🏆 TODAY'S LEADERBOARD
+      </h2>
+
+      <div id="leaderboardList">
+        Loading...
+      </div>
+
+      <div class="resetInfo">
+
+        Daily leaderboard:
+        00:00:01 Europe/Zurich
+
+      </div>
+
+    </section>
+
+
+    <!-- INFO -->
+
+    <section class="paytable">
+
+      <strong>
+        9 PAYLINES
+      </strong>
+
+      <br>
+
+      3 matching symbols
+      = 10 points
+
+      <br>
+
+      4 matching symbols
+      = 40 points
+
+      <br>
+
+      5 matching symbols
+      = 150 points
+
+      <br>
+
+      5 Corgis
+      = 500 points
+
+      <br><br>
+
+      Three straight lines
+      plus six shaped paylines.
+
+      <br>
+
+      Any Corgi visible anywhere
+      starts Corgi rain.
+
+    </section>
+
 
   </div>
 
@@ -553,9 +1221,9 @@
 
   <script>
 
-    /* =====================================
+    /* =================================
        SUPABASE
-       ===================================== */
+       ================================= */
 
     const SUPABASE_URL =
       "https://kurxfpmsxivousohtyej.supabase.co";
@@ -572,29 +1240,33 @@
       );
 
 
-    /* =====================================
+    /* =================================
        SETTINGS
-       ===================================== */
+       ================================= */
 
     const SETTINGS = {
 
-      reels: 5,
-
-      rows: 3,
-
       payouts: {
+
         3: 10,
+
         4: 40,
+
         5: 150
+
       },
 
-      corgiJackpot: 500,
+      corgiJackpot:
+        500,
 
-      spinSpeed: 70,
+      spinSpeed:
+        65,
 
-      reelStopDelay: 450,
+      reelStopDelay:
+        430,
 
-      autoSpinDelay: 500,
+      autoSpinDelay:
+        500,
 
       resetTimeZone:
         "Europe/Zurich"
@@ -602,38 +1274,110 @@
     };
 
 
-    /* =====================================
-       SYMBOL CHANCES
-       ===================================== */
+    /* =================================
+       SYMBOLS
+       ================================= */
 
     const SYMBOLS = [
 
-      { symbol: "🍒", weight: 22 },
+      {
+        type: "emoji",
+        value: "🍒",
+        weight: 22
+      },
 
-      { symbol: "🍋", weight: 20 },
+      {
+        type: "emoji",
+        value: "🍋",
+        weight: 20
+      },
 
-      { symbol: "🍊", weight: 18 },
+      {
+        type: "emoji",
+        value: "🍊",
+        weight: 18
+      },
 
-      { symbol: "🍇", weight: 16 },
+      {
+        type: "emoji",
+        value: "🍇",
+        weight: 16
+      },
 
-      { symbol: "🍉", weight: 14 },
+      {
+        type: "emoji",
+        value: "🍉",
+        weight: 14
+      },
 
-      { symbol: "🔔", weight: 10 },
+      {
+        type: "emoji",
+        value: "🔔",
+        weight: 10
+      },
 
-      { symbol: "⭐", weight: 8 },
+      {
+        type: "emoji",
+        value: "⭐",
+        weight: 8
+      },
 
-      { symbol: "7️⃣", weight: 6 },
+      {
+        type: "emoji",
+        value: "7️⃣",
+        weight: 6
+      },
 
-      { symbol: "💎", weight: 5 },
+      {
+        type: "emoji",
+        value: "💎",
+        weight: 5
+      },
 
-      { symbol: "🐶", weight: 5 }
+      {
+        type: "image",
+        value: "CORGI",
+        src: "corgi-jackpot.png",
+        weight: 5
+      }
 
     ];
 
 
-    /* =====================================
+    /* =================================
+       NINE PAYLINES
+       each number = row
+       0 top
+       1 middle
+       2 bottom
+       ================================= */
+
+    const PAYLINES = [
+
+      [1, 1, 1, 1, 1],
+
+      [0, 0, 0, 0, 0],
+
+      [2, 2, 2, 2, 2],
+
+      [0, 1, 2, 1, 0],
+
+      [2, 1, 0, 1, 2],
+
+      [0, 1, 1, 1, 2],
+
+      [2, 1, 1, 1, 0],
+
+      [1, 2, 1, 2, 1],
+
+      [1, 0, 1, 0, 1]
+
+    ];
+
+
+    /* =================================
        GAME STATE
-       ===================================== */
+       ================================= */
 
     const game = {
 
@@ -641,24 +1385,24 @@
 
       score: 0,
 
+      dayKey: "",
+
       spinning: false,
 
       autoSpin: false,
 
       fastFinish: false,
 
-      skipWait: null,
-
-      dayKey: ""
+      skipWait: null
 
     };
 
 
-    /* =====================================
+    /* =================================
        ELEMENTS
-       ===================================== */
+       ================================= */
 
-    const elements = {
+    const el = {
 
       loginScreen:
         document.getElementById(
@@ -670,39 +1414,24 @@
           "gameScreen"
         ),
 
-      nicknameInput:
+      nickname:
         document.getElementById(
           "nicknameInput"
         ),
 
-      startButton:
+      start:
         document.getElementById(
           "startButton"
         ),
 
-      spinButton:
+      spin:
         document.getElementById(
           "spinButton"
         ),
 
-      autoButton:
+      auto:
         document.getElementById(
           "autoButton"
-        ),
-
-      playerName:
-        document.getElementById(
-          "playerName"
-        ),
-
-      score:
-        document.getElementById(
-          "score"
-        ),
-
-      message:
-        document.getElementById(
-          "message"
         ),
 
       reels:
@@ -710,14 +1439,34 @@
           "reels"
         ),
 
+      score:
+        document.getElementById(
+          "score"
+        ),
+
+      lastWin:
+        document.getElementById(
+          "lastWin"
+        ),
+
+      message:
+        document.getElementById(
+          "message"
+        ),
+
+      playerName:
+        document.getElementById(
+          "playerName"
+        ),
+
+      online:
+        document.getElementById(
+          "onlineStatus"
+        ),
+
       leaderboard:
         document.getElementById(
           "leaderboardList"
-        ),
-
-      machine:
-        document.getElementById(
-          "machine"
         ),
 
       loginStatus:
@@ -725,27 +1474,27 @@
           "loginStatus"
         ),
 
-      onlineStatus:
+      machine:
         document.getElementById(
-          "onlineStatus"
+          "machine"
         )
 
     };
 
 
-    /* =====================================
-       BUILD MACHINE
-       ===================================== */
+    /* =================================
+       BUILD REELS
+       ================================= */
 
     function buildMachine() {
 
-      elements.reels.innerHTML =
+      el.reels.innerHTML =
         "";
 
 
       for (
         let reel = 0;
-        reel < SETTINGS.reels;
+        reel < 5;
         reel++
       ) {
 
@@ -761,7 +1510,7 @@
 
         for (
           let row = 0;
-          row < SETTINGS.rows;
+          row < 3;
           row++
         ) {
 
@@ -783,8 +1532,10 @@
             row;
 
 
-          cell.textContent =
-            randomSymbol();
+          renderSymbol(
+            cell,
+            randomSymbol()
+          );
 
 
           column.appendChild(
@@ -794,7 +1545,7 @@
         }
 
 
-        elements.reels.appendChild(
+        el.reels.appendChild(
           column
         );
 
@@ -803,160 +1554,154 @@
     }
 
 
-    /* =====================================
-       BUTTONS
-       ===================================== */
+    /* =================================
+       RENDER SYMBOL
+       ================================= */
 
-    elements.startButton
-      .addEventListener(
-        "click",
-        startGame
+    function renderSymbol(
+      element,
+      symbol
+    ) {
+
+      element.innerHTML =
+        "";
+
+
+      element.classList.remove(
+        "corgi"
       );
 
-
-    elements.spinButton
-      .addEventListener(
-        "click",
-        handleSpinButton
-      );
-
-
-    elements.autoButton
-      .addEventListener(
-        "click",
-        toggleAutoSpin
-      );
-
-
-    elements.nicknameInput
-      .addEventListener(
-
-        "keydown",
-
-        event => {
-
-          if (
-            event.key === "Enter"
-          ) {
-
-            startGame();
-
-          }
-
-        }
-
-      );
-
-
-    /* =====================================
-       SPIN BUTTON BEHAVIOUR
-       ===================================== */
-
-    function handleSpinButton() {
-
-      /*
-        Already spinning?
-
-        Second press means:
-        SHOW RESULT NOW.
-      */
 
       if (
-        game.spinning
+        symbol.type ===
+        "image"
       ) {
 
-        game.fastFinish =
-          true;
+        const img =
+          document.createElement(
+            "img"
+          );
+
+
+        img.src =
+          symbol.src;
+
+
+        img.alt =
+          "Corgi jackpot";
+
+
+        element.classList.add(
+          "corgi"
+        );
+
+
+        element.appendChild(
+          img
+        );
+
+      }
+
+      else {
+
+        element.textContent =
+          symbol.value;
+
+      }
+
+    }
+
+
+    /* =================================
+       RANDOM SYMBOL
+       ================================= */
+
+    function randomSymbol() {
+
+      const total =
+        SYMBOLS.reduce(
+
+          (
+            sum,
+            item
+          ) =>
+
+            sum +
+            item.weight,
+
+          0
+
+        );
+
+
+      let number =
+        Math.random()
+        *
+        total;
+
+
+      for (
+        const symbol
+        of SYMBOLS
+      ) {
+
+        number -=
+          symbol.weight;
 
 
         if (
-          game.skipWait
+          number <= 0
         ) {
 
-          game.skipWait();
+          return symbol;
 
         }
 
-
-        elements.spinButton
-          .textContent =
-          "FAST!";
-
-        return;
-
       }
 
 
-      spin();
+      return SYMBOLS[0];
 
     }
 
 
-    /* =====================================
-       AUTO SPIN
-       ===================================== */
+    /* =================================
+       RESULT
+       ================================= */
 
-    function toggleAutoSpin() {
+    function createResult() {
 
-      game.autoSpin =
-        !game.autoSpin;
+      return Array.from(
 
+        {
+          length: 5
+        },
 
-      elements.autoButton
-        .classList.toggle(
-          "active",
-          game.autoSpin
-        );
+        () =>
 
+          Array.from(
 
-      elements.autoButton
-        .setAttribute(
-          "aria-pressed",
-          String(
-            game.autoSpin
+            {
+              length: 3
+            },
+
+            randomSymbol
+
           )
-        );
 
-
-      elements.autoButton
-        .textContent =
-
-        game.autoSpin
-          ?
-          "AUTO: ON"
-          :
-          "AUTO SPIN";
-
-
-      /*
-        If auto is switched ON
-        while machine is idle,
-        start immediately.
-      */
-
-      if (
-        game.autoSpin
-        &&
-        !game.spinning
-      ) {
-
-        spin();
-
-      }
+      );
 
     }
 
 
-    /* =====================================
-       START GAME
-       ===================================== */
+    /* =================================
+       START LOGIN
+       ================================= */
 
     async function startGame() {
 
       const nickname =
-
-        elements
-          .nicknameInput
+        el.nickname
           .value
           .trim();
 
@@ -964,7 +1709,7 @@
       if (!nickname) {
 
         alert(
-          "Please enter a nickname!"
+          "Enter a nickname."
         );
 
         return;
@@ -972,13 +1717,8 @@
       }
 
 
-      elements.startButton.disabled =
+      el.start.disabled =
         true;
-
-
-      elements.loginStatus
-        .textContent =
-        "Loading player...";
 
 
       game.player =
@@ -1043,42 +1783,7 @@
             0;
 
 
-          const {
-            error:
-              insertError
-          } =
-
-            await db
-
-              .from(
-                "Players"
-              )
-
-              .insert({
-
-                nickname:
-                  game.player,
-
-                score:
-                  0,
-
-                day_key:
-                  game.dayKey,
-
-                updated_at:
-                  new Date()
-                    .toISOString()
-
-              });
-
-
-          if (
-            insertError
-          ) {
-
-            throw insertError;
-
-          }
+          await saveOnlineScore();
 
         }
 
@@ -1092,27 +1797,23 @@
         );
 
 
-        elements.loginScreen
-          .style.display =
+        el.loginScreen.style.display =
           "none";
 
 
-        elements.gameScreen
-          .style.display =
+        el.gameScreen.style.display =
           "block";
 
 
-        elements.playerName
-          .textContent =
+        el.playerName.textContent =
           game.player;
 
 
-        elements.onlineStatus
-          .textContent =
-          "🟢 Connected to online leaderboard";
+        el.online.textContent =
+          "🟢 Online";
 
 
-        updateScore();
+        updateDisplays();
 
 
         await updateLeaderboard();
@@ -1128,114 +1829,137 @@
         );
 
 
-        elements.loginStatus
-          .textContent =
-          "❌ Could not connect.";
-
-
         alert(
-          "Could not connect to the online leaderboard."
+          "Could not connect to leaderboard."
         );
 
       }
 
 
-      elements.startButton.disabled =
+      el.start.disabled =
         false;
 
     }
 
 
-    /* =====================================
-       RANDOM SYMBOL
-       ===================================== */
+    /* =================================
+       EVENTS
+       ================================= */
 
-    function randomSymbol() {
-
-      const totalWeight =
-
-        SYMBOLS.reduce(
-
-          (
-            total,
-            item
-          ) =>
-
-            total +
-            item.weight,
-
-          0
-
-        );
+    el.start.addEventListener(
+      "click",
+      startGame
+    );
 
 
-      let random =
+    el.nickname.addEventListener(
 
-        Math.random()
-        *
-        totalWeight;
+      "keydown",
 
-
-      for (
-        const item
-        of SYMBOLS
-      ) {
-
-        random -=
-          item.weight;
-
+      event => {
 
         if (
-          random <= 0
+          event.key ===
+          "Enter"
         ) {
 
-          return item.symbol;
+          startGame();
 
         }
 
       }
 
-
-      return SYMBOLS[0].symbol;
-
-    }
+    );
 
 
-    /* =====================================
-       CREATE RESULT
-       ===================================== */
+    el.spin.addEventListener(
 
-    function createResult() {
+      "click",
 
-      return Array.from(
+      () => {
 
-        {
-          length:
-            SETTINGS.reels
-        },
+        if (
+          game.spinning
+        ) {
 
-        () =>
-
-          Array.from(
-
-            {
-              length:
-                SETTINGS.rows
-            },
-
-            () =>
-              randomSymbol()
-
-          )
-
-      );
-
-    }
+          game.fastFinish =
+            true;
 
 
-    /* =====================================
+          if (
+            game.skipWait
+          ) {
+
+            game.skipWait();
+
+          }
+
+
+          return;
+
+        }
+
+
+        spin();
+
+      }
+
+    );
+
+
+    el.auto.addEventListener(
+
+      "click",
+
+      () => {
+
+        game.autoSpin =
+          !game.autoSpin;
+
+
+        el.auto.classList.toggle(
+
+          "active",
+
+          game.autoSpin
+
+        );
+
+
+        el.auto.innerHTML =
+
+          game.autoSpin
+
+          ?
+
+          "AUTOMATIC<br>ON"
+
+          :
+
+          "AUTOMATIC<br>START";
+
+
+        if (
+
+          game.autoSpin
+
+          &&
+          !game.spinning
+
+        ) {
+
+          spin();
+
+        }
+
+      }
+
+    );
+
+
+    /* =================================
        SPIN
-       ===================================== */
+       ================================= */
 
     async function spin() {
 
@@ -1259,27 +1983,24 @@
         false;
 
 
-      game.skipWait =
-        null;
+      clearWins();
 
 
-      elements.spinButton
-        .classList.add(
-          "spinningNow"
-        );
+      el.spin.innerHTML =
+        "STOP<br>FAST";
 
 
-      elements.spinButton
-        .textContent =
-        "STOP / FAST";
-
-
-      clearHighlights();
-
-
-      showMessage(
-        "Spinning..."
+      el.spin.classList.add(
+        "spinningNow"
       );
+
+
+      el.message.textContent =
+        "SPINNING...";
+
+
+      el.lastWin.textContent =
+        "0";
 
 
       const result =
@@ -1290,52 +2011,39 @@
         startAllReels();
 
 
-      let finishedInstantly =
-        false;
-
-
       for (
         let reel = 0;
-        reel < SETTINGS.reels;
+        reel < 5;
         reel++
       ) {
 
-        await waitForReelStop(
-          SETTINGS.reelStopDelay
+        await cancellableWait(
+          SETTINGS
+            .reelStopDelay
         );
 
-
-        /*
-          User clicked SPIN again.
-          Stop everything immediately.
-        */
 
         if (
           game.fastFinish
         ) {
 
           for (
-            let remaining = reel;
-            remaining <
-              SETTINGS.reels;
-            remaining++
+            let r = reel;
+            r < 5;
+            r++
           ) {
 
             clearInterval(
-              intervals[remaining]
+              intervals[r]
             );
 
 
             stopReel(
-              remaining,
-              result[remaining]
+              r,
+              result[r]
             );
 
           }
-
-
-          finishedInstantly =
-            true;
 
 
           break;
@@ -1356,30 +2064,9 @@
       }
 
 
-      /*
-        Make absolutely sure
-        all animation timers stop.
-      */
-
       intervals.forEach(
-
-        interval =>
-          clearInterval(
-            interval
-          )
-
+        clearInterval
       );
-
-
-      if (
-        !finishedInstantly
-      ) {
-
-        await wait(
-          250
-        );
-
-      }
 
 
       await evaluateSpin(
@@ -1395,41 +2082,27 @@
         false;
 
 
-      game.skipWait =
-        null;
+      el.spin.innerHTML =
+        "START<br>SKIP";
 
 
-      elements.spinButton
-        .classList.remove(
-          "spinningNow"
-        );
+      el.spin.classList.remove(
+        "spinningNow"
+      );
 
-
-      elements.spinButton
-        .textContent =
-        "SPIN";
-
-
-      /*
-        AUTO SPIN:
-
-        If still ON,
-        start another spin.
-      */
 
       if (
         game.autoSpin
       ) {
 
         await wait(
-          SETTINGS.autoSpinDelay
+          SETTINGS
+            .autoSpinDelay
         );
 
 
         if (
           game.autoSpin
-          &&
-          !game.spinning
         ) {
 
           spin();
@@ -1441,81 +2114,9 @@
     }
 
 
-    /* =====================================
-       CANCELLABLE WAIT
-       ===================================== */
-
-    function waitForReelStop(
-      milliseconds
-    ) {
-
-      return new Promise(
-
-        resolve => {
-
-          let finished =
-            false;
-
-
-          const timer =
-
-            setTimeout(
-
-              finish,
-
-              milliseconds
-
-            );
-
-
-          function finish() {
-
-            if (
-              finished
-            ) {
-
-              return;
-
-            }
-
-
-            finished =
-              true;
-
-
-            clearTimeout(
-              timer
-            );
-
-
-            game.skipWait =
-              null;
-
-
-            resolve();
-
-          }
-
-
-          /*
-            Store this function so
-            pressing SPIN again can
-            cancel the wait immediately.
-          */
-
-          game.skipWait =
-            finish;
-
-        }
-
-      );
-
-    }
-
-
-    /* =====================================
+    /* =================================
        REEL ANIMATION
-       ===================================== */
+       ================================= */
 
     function startAllReels() {
 
@@ -1525,62 +2126,53 @@
 
       for (
         let reel = 0;
-        reel < SETTINGS.reels;
+        reel < 5;
         reel++
       ) {
 
-        const interval =
+        intervals.push(
 
           setInterval(
 
-            () =>
-              animateReel(
-                reel
-              ),
+            () => {
+
+              for (
+                let row = 0;
+                row < 3;
+                row++
+              ) {
+
+                const cell =
+                  getCell(
+                    reel,
+                    row
+                  );
+
+
+                renderSymbol(
+                  cell,
+                  randomSymbol()
+                );
+
+
+                cell.classList.add(
+                  "spinning"
+                );
+
+              }
+
+            },
 
             SETTINGS.spinSpeed
 
-          );
+          )
 
-
-        intervals.push(
-          interval
         );
 
       }
 
 
       return intervals;
-
-    }
-
-
-    function animateReel(
-      reel
-    ) {
-
-      for (
-        let row = 0;
-        row < SETTINGS.rows;
-        row++
-      ) {
-
-        const cell =
-          getCell(
-            reel,
-            row
-          );
-
-
-        cell.textContent =
-          randomSymbol();
-
-
-        cell.classList.add(
-          "spinning"
-        );
-
-      }
 
     }
 
@@ -1592,7 +2184,7 @@
 
       for (
         let row = 0;
-        row < SETTINGS.rows;
+        row < 3;
         row++
       ) {
 
@@ -1608,17 +2200,19 @@
         );
 
 
-        cell.textContent =
-          symbols[row];
+        renderSymbol(
+          cell,
+          symbols[row]
+        );
 
       }
 
     }
 
 
-    /* =====================================
-       EVALUATE SPIN
-       ===================================== */
+    /* =================================
+       EVALUATE ALL NINE LINES
+       ================================= */
 
     async function evaluateSpin(
       result
@@ -1628,21 +2222,26 @@
         0;
 
 
-      let winningGroups =
+      let winningLines =
         0;
 
 
-      const hasCorgi =
+      const anyCorgi =
 
         result
           .flat()
-          .includes(
-            "🐶"
+          .some(
+
+            symbol =>
+              symbol.value
+              ===
+              "CORGI"
+
           );
 
 
       if (
-        hasCorgi
+        anyCorgi
       ) {
 
         corgiRain();
@@ -1650,127 +2249,164 @@
       }
 
 
-      for (
-        let row = 0;
-        row < SETTINGS.rows;
-        row++
-      ) {
+      PAYLINES.forEach(
 
-        const line =
+        (
+          payline,
+          lineIndex
+        ) => {
 
-          result.map(
+          const lineSymbols =
 
-            reel =>
-              reel[row]
+            payline.map(
 
-          );
+              (
+                row,
+                reel
+              ) =>
 
+                result[reel][row]
 
-        const wins =
-
-          evaluateRow(
-            line,
-            row
-          );
+            );
 
 
-        for (
-          const win
-          of wins
-        ) {
+          const win =
 
-          totalWin +=
-            win.points;
+            evaluateLine(
+              lineSymbols
+            );
 
 
-          winningGroups++;
+          if (
+            win.matches >= 3
+          ) {
+
+            totalWin +=
+              win.points;
+
+
+            winningLines++;
+
+
+            showWinningPayline(
+              lineIndex
+            );
+
+
+            highlightWinningCells(
+
+              payline,
+
+              win.start,
+
+              win.matches
+
+            );
+
+
+            if (
+              win.matches === 5
+            ) {
+
+              confetti();
+
+            }
+
+
+            if (
+
+              win.matches === 5
+
+              &&
+
+              win.symbol
+              ===
+              "CORGI"
+
+            ) {
+
+              giantCorgiParty();
+
+              flashMachine();
+
+            }
+
+          }
 
         }
 
-      }
+      );
 
 
       game.score +=
         totalWin;
 
 
-      updateScore();
+      el.lastWin.textContent =
+        totalWin;
 
 
-      const saved =
-        await saveOnlineScore();
+      updateDisplays();
+
+
+      await saveOnlineScore();
 
 
       await updateLeaderboard();
 
 
       if (
-        !saved
-      ) {
-
-        showMessage(
-          "⚠️ Score could not be saved online."
-        );
-
-        return;
-
-      }
-
-
-      if (
         totalWin > 0
       ) {
 
-        showMessage(
+        el.message.textContent =
 
-          "🎉 You won "
-          +
-          totalWin
-          +
-          " points from "
-          +
-          winningGroups
-          +
-          " winning group(s)!"
-
-        );
+          `WIN ${totalWin} • ${winningLines} LINE(S)`;
 
       }
 
       else if (
-        hasCorgi
+        anyCorgi
       ) {
 
-        showMessage(
-
-          "🐶 CORGI! Enjoy the Corgi rain!"
-
-        );
+        el.message.textContent =
+          "CORGI! 🐶";
 
       }
 
       else {
 
-        showMessage(
-          "No win — try again!"
-        );
+        el.message.textContent =
+          "GOOD LUCK!";
 
       }
 
     }
 
 
-    /* =====================================
-       CHECK ROW
-       ===================================== */
+    /* =================================
+       CHECK A PAYLINE
 
-    function evaluateRow(
-      line,
-      row
+       This keeps the rule we had:
+       matching adjacent symbols
+       can start anywhere.
+       ================================= */
+
+    function evaluateLine(
+      line
     ) {
 
-      const wins =
-        [];
+      let best = {
+
+        matches: 0,
+
+        start: 0,
+
+        points: 0,
+
+        symbol: ""
+
+      };
 
 
       let start =
@@ -1783,7 +2419,7 @@
       ) {
 
         const symbol =
-          line[start];
+          line[start].value;
 
 
         let end =
@@ -1797,7 +2433,7 @@
 
           &&
 
-          line[end]
+          line[end].value
             ===
             symbol
 
@@ -1813,18 +2449,27 @@
 
 
         if (
+
           matches >= 3
+
+          &&
+
+          matches >
+            best.matches
+
         ) {
 
-          let points =
-            0;
+          let points;
 
 
           if (
 
             matches === 5
+
             &&
-            symbol === "🐶"
+
+            symbol ===
+              "CORGI"
 
           ) {
 
@@ -1832,57 +2477,30 @@
               SETTINGS
                 .corgiJackpot;
 
-
-            giantCorgiParty();
-
-            flashMachine();
-
           }
 
           else {
 
             points =
-
               SETTINGS
                 .payouts[matches]
-
-              ??
+              ||
               0;
-
-
-            if (
-              matches === 5
-            ) {
-
-              confetti();
-
-              flashMachine();
-
-            }
 
           }
 
 
-          highlightGroup(
-
-            row,
-
-            start,
-
-            matches
-
-          );
-
-
-          wins.push({
-
-            symbol,
+          best = {
 
             matches,
 
-            points
+            start,
 
-          });
+            points,
+
+            symbol
+
+          };
 
         }
 
@@ -1893,14 +2511,123 @@
       }
 
 
-      return wins;
+      return best;
 
     }
 
 
-    /* =====================================
-       SAVE SCORE
-       ===================================== */
+    /* =================================
+       WIN VISUALS
+       ================================= */
+
+    function showWinningPayline(
+      lineIndex
+    ) {
+
+      document
+        .getElementById(
+          "line" +
+          (
+            lineIndex + 1
+          )
+        )
+        .classList.add(
+          "active"
+        );
+
+    }
+
+
+    function highlightWinningCells(
+
+      payline,
+
+      start,
+
+      matches
+
+    ) {
+
+      for (
+        let i = start;
+        i <
+          start + matches;
+        i++
+      ) {
+
+        getCell(
+
+          i,
+
+          payline[i]
+
+        )
+        .classList.add(
+          "winner"
+        );
+
+      }
+
+    }
+
+
+    function clearWins() {
+
+      document
+        .querySelectorAll(
+          ".symbol"
+        )
+        .forEach(
+
+          cell =>
+            cell
+              .classList
+              .remove(
+                "winner"
+              )
+
+        );
+
+
+      document
+        .querySelectorAll(
+          ".payline"
+        )
+        .forEach(
+
+          line =>
+            line
+              .classList
+              .remove(
+                "active"
+              )
+
+        );
+
+    }
+
+
+    /* =================================
+       CELL
+       ================================= */
+
+    function getCell(
+      reel,
+      row
+    ) {
+
+      return document.querySelector(
+
+        `[data-reel="${reel}"][data-row="${row}"]`
+
+      );
+
+    }
+
+
+    /* =================================
+       DATABASE
+       ================================= */
 
     async function saveOnlineScore() {
 
@@ -1954,12 +2681,8 @@
         }
 
 
-        elements.onlineStatus
-          .textContent =
-          "🟢 Score saved online";
-
-
-        return true;
+        el.online.textContent =
+          "🟢 Online";
 
       }
 
@@ -1972,307 +2695,244 @@
         );
 
 
-        elements.onlineStatus
-          .textContent =
-          "🔴 Score not saved";
-
-
-        return false;
+        el.online.textContent =
+          "🔴 Save error";
 
       }
 
     }
 
 
-    /* =====================================
-       LEADERBOARD
-       ===================================== */
-
     async function updateLeaderboard() {
 
-      const currentDay =
-        getActiveZurichDayKey();
+      const {
+        data,
+        error
+      } =
 
+        await db
 
-      try {
+          .from(
+            "Players"
+          )
 
-        const {
-          data,
-          error
-        } =
+          .select(
+            "nickname,score"
+          )
 
-          await db
+          .eq(
+            "day_key",
+            getActiveZurichDayKey()
+          )
 
-            .from(
-              "Players"
-            )
-
-            .select(
-              "nickname, score"
-            )
-
-            .eq(
-              "day_key",
-              currentDay
-            )
-
-            .order(
-              "score",
-              {
-                ascending:
-                  false
-              }
-            )
-
-            .limit(
-              10
-            );
-
-
-        if (
-          error
-        ) {
-
-          throw error;
-
-        }
-
-
-        elements.leaderboard
-          .innerHTML =
-          "";
-
-
-        if (
-          !data
-          ||
-          data.length === 0
-        ) {
-
-          elements.leaderboard
-            .textContent =
-            "No players yet.";
-
-          return;
-
-        }
-
-
-        data.forEach(
-
-          (
-            player,
-            index
-          ) => {
-
-            const row =
-
-              document
-                .createElement(
-                  "div"
-                );
-
-
-            row.className =
-              "playerRow";
-
-
-            if (
-
-              player.nickname
-              ===
-              game.player
-
-            ) {
-
-              row.classList.add(
-                "currentPlayerRow"
-              );
-
+          .order(
+            "score",
+            {
+              ascending: false
             }
+          )
+
+          .limit(
+            10
+          );
 
 
-            const name =
+      if (
+        error
+      ) {
 
-              document
-                .createElement(
-                  "span"
-                );
-
-
-            const points =
-
-              document
-                .createElement(
-                  "strong"
-                );
+        console.error(
+          error
+        );
 
 
-            name.textContent =
+        return;
 
-              `${index + 1}. ${player.nickname}`;
-
-
-            points.textContent =
-
-              Number(
-                player.score
-              );
+      }
 
 
-            row.append(
-              name,
-              points
+      el.leaderboard.innerHTML =
+        "";
+
+
+      if (
+        !data.length
+      ) {
+
+        el.leaderboard.textContent =
+          "No players yet.";
+
+        return;
+
+      }
+
+
+      data.forEach(
+
+        (
+          player,
+          index
+        ) => {
+
+          const row =
+            document.createElement(
+              "div"
             );
 
 
-            elements.leaderboard
-              .appendChild(
-                row
-              );
+          row.className =
+            "playerRow";
+
+
+          if (
+            player.nickname
+            ===
+            game.player
+          ) {
+
+            row.classList.add(
+              "currentPlayerRow"
+            );
+
+          }
+
+
+          const name =
+            document.createElement(
+              "span"
+            );
+
+
+          const points =
+            document.createElement(
+              "strong"
+            );
+
+
+          name.textContent =
+
+            `${index + 1}. ${player.nickname}`;
+
+
+          points.textContent =
+            player.score;
+
+
+          row.append(
+            name,
+            points
+          );
+
+
+          el.leaderboard
+            .appendChild(
+              row
+            );
+
+        }
+
+      );
+
+    }
+
+
+    /* =================================
+       SCORE
+       ================================= */
+
+    function updateDisplays() {
+
+      el.score.textContent =
+        game.score;
+
+    }
+
+
+    /* =================================
+       CORGI RAIN
+       ================================= */
+
+    function corgiRain() {
+
+      for (
+        let i = 0;
+        i < 32;
+        i++
+      ) {
+
+        const img =
+          document.createElement(
+            "img"
+          );
+
+
+        img.src =
+          "corgi-jackpot.png";
+
+
+        img.className =
+          "fallingCorgi";
+
+
+        img.style.left =
+
+          Math.random()
+          *
+          95
+          +
+          "vw";
+
+
+        const duration =
+
+          2500
+          +
+          Math.random()
+          *
+          1800;
+
+
+        img.style.transition =
+
+          `top ${duration}ms linear,
+           transform ${duration}ms linear`;
+
+
+        document.body
+          .appendChild(
+            img
+          );
+
+
+        requestAnimationFrame(
+
+          () => {
+
+            img.style.top =
+              "110vh";
+
+
+            img.style.transform =
+
+              `rotate(${
+                Math.random()
+                *
+                900
+              }deg)`;
 
           }
 
         );
 
-      }
 
-      catch (
-        error
-      ) {
+        setTimeout(
 
-        console.error(
-          error
-        );
+          () =>
+            img.remove(),
 
+          duration +
+          300
 
-        elements.leaderboard
-          .textContent =
-          "Could not load leaderboard.";
-
-      }
-
-    }
-
-
-    /* =====================================
-       NEW DAY
-       ===================================== */
-
-    async function checkNewDay() {
-
-      if (
-        !game.player
-      ) {
-
-        return;
-
-      }
-
-
-      const newDayKey =
-        getActiveZurichDayKey();
-
-
-      if (
-        newDayKey
-        ===
-        game.dayKey
-      ) {
-
-        return;
-
-      }
-
-
-      game.dayKey =
-        newDayKey;
-
-
-      game.score =
-        0;
-
-
-      updateScore();
-
-
-      try {
-
-        const {
-          data,
-          error
-        } =
-
-          await db
-
-            .from(
-              "Players"
-            )
-
-            .select(
-              "score"
-            )
-
-            .eq(
-              "nickname",
-              game.player
-            )
-
-            .eq(
-              "day_key",
-              game.dayKey
-            )
-
-            .maybeSingle();
-
-
-        if (
-          error
-        ) {
-
-          throw error;
-
-        }
-
-
-        if (
-          data
-        ) {
-
-          game.score =
-            Number(
-              data.score
-            )
-            ||
-            0;
-
-        }
-
-        else {
-
-          await saveOnlineScore();
-
-        }
-
-
-        updateScore();
-
-
-        await updateLeaderboard();
-
-
-        showMessage(
-          "🌙 New day! Today's leaderboard has started."
-        );
-
-      }
-
-      catch (
-        error
-      ) {
-
-        console.error(
-          error
         );
 
       }
@@ -2280,97 +2940,242 @@
     }
 
 
-    /* =====================================
-       ZURICH DAY
-       ===================================== */
+    function confetti() {
 
-    function getZurichParts(
-      date =
-        new Date()
-    ) {
+      const symbols = [
 
-      const formatter =
+        "✨",
+        "⭐",
+        "🎉",
+        "💰"
 
-        new Intl
-          .DateTimeFormat(
-
-            "en-GB",
-
-            {
-
-              timeZone:
-                SETTINGS
-                  .resetTimeZone,
-
-              year:
-                "numeric",
-
-              month:
-                "2-digit",
-
-              day:
-                "2-digit",
-
-              hour:
-                "2-digit",
-
-              minute:
-                "2-digit",
-
-              second:
-                "2-digit",
-
-              hourCycle:
-                "h23"
-
-            }
-
-          );
-
-
-      const parts =
-
-        formatter
-          .formatToParts(
-            date
-          );
-
-
-      const values =
-        {};
+      ];
 
 
       for (
-        const part
-        of parts
+        let i = 0;
+        i < 55;
+        i++
       ) {
 
-        if (
-          part.type
-          !==
-          "literal"
-        ) {
+        const thing =
+          document.createElement(
+            "div"
+          );
 
-          values[part.type] =
-            part.value;
 
-        }
+        thing.textContent =
+
+          symbols[
+            Math.floor(
+              Math.random()
+              *
+              symbols.length
+            )
+          ];
+
+
+        thing.style.position =
+          "fixed";
+
+
+        thing.style.top =
+          "-50px";
+
+
+        thing.style.left =
+
+          Math.random()
+          *
+          100
+          +
+          "vw";
+
+
+        thing.style.fontSize =
+
+          20 +
+          Math.random()
+          *
+          35
+          +
+          "px";
+
+
+        thing.style.zIndex =
+          9999;
+
+
+        thing.style.pointerEvents =
+          "none";
+
+
+        const duration =
+          2500 +
+          Math.random()
+          *
+          1800;
+
+
+        thing.style.transition =
+
+          `top ${duration}ms linear,
+           transform ${duration}ms linear`;
+
+
+        document.body
+          .appendChild(
+            thing
+          );
+
+
+        requestAnimationFrame(
+
+          () => {
+
+            thing.style.top =
+              "110vh";
+
+
+            thing.style.transform =
+
+              `rotate(${
+                Math.random()
+                *
+                900
+              }deg)`;
+
+          }
+
+        );
+
+
+        setTimeout(
+
+          () =>
+            thing.remove(),
+
+          duration +
+          300
+
+        );
 
       }
-
-
-      return values;
 
     }
 
 
-    function formatZurichDate(
-      date
-    ) {
+    function giantCorgiParty() {
+
+      confetti();
+
+      corgiRain();
+
+      setTimeout(
+        corgiRain,
+        350
+      );
+
+    }
+
+
+    function flashMachine() {
+
+      el.machine.classList.add(
+        "jackpotFlash"
+      );
+
+
+      setTimeout(
+
+        () =>
+
+          el.machine
+            .classList
+            .remove(
+              "jackpotFlash"
+            ),
+
+        3000
+
+      );
+
+    }
+
+
+    /* =================================
+       TIME
+       ================================= */
+
+    function getActiveZurichDayKey() {
+
+      const formatter =
+
+        new Intl.DateTimeFormat(
+
+          "en-CA",
+
+          {
+
+            timeZone:
+              SETTINGS
+                .resetTimeZone,
+
+            year:
+              "numeric",
+
+            month:
+              "2-digit",
+
+            day:
+              "2-digit",
+
+            hour:
+              "2-digit",
+
+            minute:
+              "2-digit",
+
+            second:
+              "2-digit",
+
+            hourCycle:
+              "h23"
+
+          }
+
+        );
+
 
       const parts =
-        getZurichParts(
-          date
+        Object.fromEntries(
+
+          formatter
+            .formatToParts(
+              new Date()
+            )
+
+            .filter(
+
+              part =>
+                part.type
+                !==
+                "literal"
+
+            )
+
+            .map(
+
+              part => [
+
+                part.type,
+
+                part.value
+
+              ]
+
+            )
+
         );
 
 
@@ -2391,384 +3196,55 @@
     }
 
 
-    function getActiveZurichDayKey() {
+    async function checkNewDay() {
 
-      const now =
-        new Date();
-
-
-      const parts =
-        getZurichParts(
-          now
-        );
+      const today =
+        getActiveZurichDayKey();
 
 
       if (
-
-        Number(parts.hour)
-          === 0
-
-        &&
-
-        Number(parts.minute)
-          === 0
-
-        &&
-
-        Number(parts.second)
-          === 0
-
+        today ===
+        game.dayKey
       ) {
 
-        return formatZurichDate(
-
-          new Date(
-            now.getTime()
-            -
-            1000
-          )
-
-        );
+        return;
 
       }
 
 
-      return formatZurichDate(
-        now
-      );
+      game.dayKey =
+        today;
+
+
+      game.score =
+        0;
+
+
+      await saveOnlineScore();
+
+
+      updateDisplays();
+
+
+      await updateLeaderboard();
 
     }
 
 
-    /* =====================================
-       HIGHLIGHTS
-       ===================================== */
-
-    function getCell(
-      reel,
-      row
-    ) {
-
-      return document
-        .querySelector(
-
-          `[data-reel="${reel}"][data-row="${row}"]`
-
-        );
-
-    }
-
-
-    function highlightGroup(
-      row,
-      startReel,
-      matches
-    ) {
-
-      for (
-
-        let reel =
-          startReel;
-
-        reel <
-          startReel
-          +
-          matches;
-
-        reel++
-
-      ) {
-
-        getCell(
-          reel,
-          row
-        )
-        .classList
-        .add(
-          "winner"
-        );
-
-      }
-
-    }
-
-
-    function clearHighlights() {
-
-      document
-        .querySelectorAll(
-          ".symbol"
-        )
-        .forEach(
-
-          cell =>
-
-            cell
-              .classList
-              .remove(
-                "winner"
-              )
-
-        );
-
-    }
-
-
-    /* =====================================
-       SCORE
-       ===================================== */
-
-    function updateScore() {
-
-      elements.score
-        .textContent =
-        game.score;
-
-    }
-
-
-    /* =====================================
-       EFFECTS
-       ===================================== */
-
-    function corgiRain() {
-
-      rain(
-        ["🐶"],
-        45
-      );
-
-    }
-
-
-    function confetti() {
-
-      rain(
-
-        [
-          "🎉",
-          "🎊",
-          "✨",
-          "⭐",
-          "💰",
-          "💎"
-        ],
-
-        80
-
-      );
-
-    }
-
-
-    function giantCorgiParty() {
-
-      confetti();
-
-
-      rain(
-        ["🐶"],
-        130
-      );
-
-    }
-
-
-    function rain(
-      possibleSymbols,
-      amount
-    ) {
-
-      for (
-        let i = 0;
-        i < amount;
-        i++
-      ) {
-
-        const symbol =
-
-          possibleSymbols[
-
-            Math.floor(
-
-              Math.random()
-              *
-              possibleSymbols.length
-
-            )
-
-          ];
-
-
-        createFallingItem(
-          symbol
-        );
-
-      }
-
-    }
-
-
-    function createFallingItem(
-      symbol
-    ) {
-
-      const item =
-
-        document
-          .createElement(
-            "div"
-          );
-
-
-      const duration =
-
-        2500
-        +
-        Math.random()
-        *
-        2000;
-
-
-      item.textContent =
-        symbol;
-
-
-      item.style.position =
-        "fixed";
-
-
-      item.style.left =
-
-        Math.random()
-        *
-        100
-        +
-        "vw";
-
-
-      item.style.top =
-        "-80px";
-
-
-      item.style.fontSize =
-
-        (
-          25
-          +
-          Math.random()
-          *
-          45
-        )
-        +
-        "px";
-
-
-      item.style.zIndex =
-        "9999";
-
-
-      item.style.pointerEvents =
-        "none";
-
-
-      item.style.transition =
-
-        `top ${duration}ms linear,
-         transform ${duration}ms linear`;
-
-
-      document.body.appendChild(
-        item
-      );
-
-
-      requestAnimationFrame(
-
-        () => {
-
-          item.style.top =
-            "110vh";
-
-
-          item.style.transform =
-
-            `rotate(${
-              Math.random()
-              *
-              1200
-            }deg)`;
-
-        }
-
-      );
-
-
-      setTimeout(
-
-        () =>
-          item.remove(),
-
-        duration
-        +
-        300
-
-      );
-
-    }
-
-
-    function flashMachine() {
-
-      elements.machine
-        .classList.add(
-          "grandPrize"
-        );
-
-
-      setTimeout(
-
-        () =>
-
-          elements.machine
-            .classList
-            .remove(
-              "grandPrize"
-            ),
-
-        3000
-
-      );
-
-    }
-
-
-    /* =====================================
-       HELPERS
-       ===================================== */
-
-    function showMessage(
-      text
-    ) {
-
-      elements.message
-        .textContent =
-        text;
-
-    }
-
+    /* =================================
+       WAIT
+       ================================= */
 
     function wait(
-      milliseconds
+      ms
     ) {
 
       return new Promise(
 
         resolve =>
-
           setTimeout(
             resolve,
-            milliseconds
+            ms
           )
 
       );
@@ -2776,15 +3252,72 @@
     }
 
 
-    /* =====================================
+    function cancellableWait(
+      ms
+    ) {
+
+      return new Promise(
+
+        resolve => {
+
+          let finished =
+            false;
+
+
+          const timer =
+            setTimeout(
+              finish,
+              ms
+            );
+
+
+          function finish() {
+
+            if (
+              finished
+            ) {
+
+              return;
+
+            }
+
+
+            finished =
+              true;
+
+
+            clearTimeout(
+              timer
+            );
+
+
+            game.skipWait =
+              null;
+
+
+            resolve();
+
+          }
+
+
+          game.skipWait =
+            finish;
+
+        }
+
+      );
+
+    }
+
+
+    /* =================================
        STARTUP
-       ===================================== */
+       ================================= */
 
     buildMachine();
 
 
     const savedNickname =
-
       localStorage.getItem(
         "corgiLastNickname"
       );
@@ -2794,20 +3327,15 @@
       savedNickname
     ) {
 
-      elements.nicknameInput.value =
+      el.nickname.value =
         savedNickname;
 
     }
 
 
-    elements.loginStatus.textContent =
+    el.loginStatus.textContent =
       "🟢 Online leaderboard ready";
 
-
-    /*
-      Update shared leaderboard
-      every 10 seconds.
-    */
 
     setInterval(
 
@@ -2832,4 +3360,5 @@
   </script>
 
 </body>
+
 </html>
