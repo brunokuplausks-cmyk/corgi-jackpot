@@ -12,16 +12,29 @@
   <title>Corgi Jackpot</title>
 
   <style>
+
     * {
       box-sizing: border-box;
     }
 
     body {
       margin: 0;
-      background: radial-gradient(circle at top, #161616, #000);
+
+      background:
+        radial-gradient(
+          circle at top,
+          #161616,
+          #000
+        );
+
       color: white;
-      font-family: Arial, sans-serif;
+
+      font-family:
+        Arial,
+        sans-serif;
+
       text-align: center;
+
       overflow-x: hidden;
     }
 
@@ -30,52 +43,85 @@
     }
 
 
-    /* =========================================
+    /* =====================================================
        LOGIN
-       ========================================= */
+       ===================================================== */
 
     #loginScreen {
       min-height: 100vh;
+
       display: flex;
       align-items: center;
       justify-content: center;
+
       padding: 20px;
     }
 
     .loginBox {
-      width: min(500px, 94vw);
+      width:
+        min(
+          500px,
+          94vw
+        );
+
       padding: 40px;
+
       background: #080808;
-      border: 3px solid #b59036;
+
+      border:
+        3px solid
+        #b59036;
+
       border-radius: 20px;
 
       box-shadow:
         0 0 40px
-        rgba(255, 190, 40, 0.15);
+        rgba(
+          255,
+          190,
+          40,
+          0.15
+        );
     }
 
     .loginBox h1 {
       color: #e8b84e;
-      letter-spacing: 3px;
+
+      letter-spacing:
+        3px;
     }
 
     .loginBox input {
       width: 100%;
-      margin: 20px 0;
+
+      margin:
+        20px 0;
+
       padding: 15px;
 
-      border: 2px solid #9d7c31;
-      border-radius: 8px;
+      border:
+        2px solid
+        #9d7c31;
 
-      background: #111;
-      color: white;
+      border-radius:
+        8px;
 
-      text-align: center;
-      font-size: 21px;
+      background:
+        #111;
+
+      color:
+        white;
+
+      text-align:
+        center;
+
+      font-size:
+        21px;
     }
 
     .startLoginButton {
-      padding: 14px 35px;
+      padding:
+        14px 35px;
 
       background:
         linear-gradient(
@@ -83,131 +129,205 @@
           #807667
         );
 
-      border: 3px solid #222;
-      border-radius: 6px;
+      border:
+        3px solid
+        #222;
 
-      color: #111;
+      border-radius:
+        6px;
 
-      font-size: 20px;
-      font-weight: bold;
+      color:
+        #111;
 
-      cursor: pointer;
+      font-size:
+        20px;
+
+      font-weight:
+        bold;
+
+      cursor:
+        pointer;
     }
 
     #loginStatus {
-      margin-top: 15px;
-      color: #aaa;
-      font-size: 13px;
+      margin-top:
+        15px;
+
+      color:
+        #aaa;
+
+      font-size:
+        13px;
     }
 
 
-    /* =========================================
-       GAME
-       ========================================= */
+    /* =====================================================
+       GAME PAGE
+       ===================================================== */
 
     #gameScreen {
-      display: none;
-      width: 100%;
-      padding: 15px 10px 60px;
+      display:
+        none;
+
+      width:
+        100%;
+
+      padding:
+        15px
+        10px
+        60px;
     }
 
 
-    /* =========================================
-       SLOT MACHINE
-       ========================================= */
+    /* =====================================================
+       MAIN SLOT MACHINE
+       ===================================================== */
 
     .machine {
-      position: relative;
+      position:
+        relative;
 
-      width: min(1100px, 98vw);
+      width:
+        min(
+          1100px,
+          98vw
+        );
 
-      margin: auto;
+      margin:
+        auto;
 
-      aspect-ratio: 1448 / 1086;
+      aspect-ratio:
+        1448 / 1086;
 
       background-image:
         url("slot-frame.png");
 
-      background-size: 100% 100%;
-      background-repeat: no-repeat;
-      background-position: center;
+      background-size:
+        100% 100%;
 
-      overflow: hidden;
+      background-repeat:
+        no-repeat;
 
-      user-select: none;
+      background-position:
+        center;
+
+      overflow:
+        hidden;
+
+      user-select:
+        none;
     }
 
 
-    /* =========================================
+    /* =====================================================
        REELS
 
-       Adjusted:
+       MOVED AGAIN:
        right + down
-       ========================================= */
+       ===================================================== */
 
     .slotArea {
-      position: absolute;
+      position:
+        absolute;
 
-      left: 15.20%;
-      top: 14.35%;
+      left:
+        15.70%;
 
-      width: 67%;
-      height: 44.8%;
+      top:
+        14.90%;
 
-      overflow: hidden;
+      width:
+        67%;
 
-      background: #030303;
+      height:
+        44.8%;
 
-      border-radius: 5px;
+      overflow:
+        hidden;
 
-      z-index: 10;
+      background:
+        #030303;
+
+      border-radius:
+        5px;
+
+      z-index:
+        10;
     }
 
     .reels {
-      position: absolute;
-      inset: 0;
+      position:
+        absolute;
 
-      display: grid;
+      inset:
+        0;
+
+      display:
+        grid;
 
       grid-template-columns:
         repeat(
           5,
-          minmax(0, 1fr)
+          minmax(
+            0,
+            1fr
+          )
         );
 
-      min-width: 0;
-      min-height: 0;
+      min-width:
+        0;
+
+      min-height:
+        0;
     }
 
     .reelColumn {
-      display: grid;
+      display:
+        grid;
 
       grid-template-rows:
         repeat(
           3,
-          minmax(0, 1fr)
+          minmax(
+            0,
+            1fr
+          )
         );
 
-      min-width: 0;
-      min-height: 0;
+      min-width:
+        0;
+
+      min-height:
+        0;
 
       border-right:
-        1px solid #4d3a16;
+        1px solid
+        #4d3a16;
     }
 
     .reelColumn:last-child {
-      border-right: none;
+      border-right:
+        none;
     }
 
     .symbol {
-      min-width: 0;
-      min-height: 0;
+      min-width:
+        0;
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      min-height:
+        0;
 
-      overflow: hidden;
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      overflow:
+        hidden;
 
       background:
         radial-gradient(
@@ -217,7 +337,8 @@
         );
 
       border-bottom:
-        1px solid #4c3816;
+        1px solid
+        #4c3816;
 
       font-size:
         clamp(
@@ -233,24 +354,36 @@
     }
 
     .symbol img {
-      display: block;
+      display:
+        block;
 
-      width: auto;
-      height: auto;
+      width:
+        auto;
 
-      max-width: 82%;
-      max-height: 82%;
+      height:
+        auto;
 
-      object-fit: contain;
+      max-width:
+        82%;
+
+      max-height:
+        82%;
+
+      object-fit:
+        contain;
     }
 
     .symbol.corgi img {
-      max-width: 88%;
-      max-height: 88%;
+      max-width:
+        88%;
+
+      max-height:
+        88%;
     }
 
     .symbol.spinning {
-      filter: blur(2px);
+      filter:
+        blur(2px);
 
       animation:
         reelShake
@@ -260,13 +393,21 @@
     }
 
     @keyframes reelShake {
+
       from {
-        transform: translateY(-6px);
+        transform:
+          translateY(
+            -6px
+          );
       }
 
       to {
-        transform: translateY(6px);
+        transform:
+          translateY(
+            6px
+          );
       }
+
     }
 
     .symbol.winner {
@@ -278,80 +419,147 @@
         );
 
       box-shadow:
-        inset 0 0 25px gold;
+        inset
+        0 0 25px
+        gold;
     }
 
 
-    /* =========================================
+    /* =====================================================
        PAYLINES
-       ========================================= */
+       ===================================================== */
 
     #paylineOverlay {
-      position: absolute;
-      inset: 0;
+      position:
+        absolute;
 
-      width: 100%;
-      height: 100%;
+      inset:
+        0;
 
-      z-index: 20;
+      width:
+        100%;
 
-      pointer-events: none;
+      height:
+        100%;
+
+      z-index:
+        20;
+
+      pointer-events:
+        none;
     }
 
     .payline {
-      fill: none;
+      fill:
+        none;
 
-      stroke-width: 4;
+      stroke-width:
+        4;
 
-      stroke-linecap: round;
-      stroke-linejoin: round;
+      stroke-linecap:
+        round;
 
-      opacity: 0;
+      stroke-linejoin:
+        round;
+
+      opacity:
+        0;
 
       transition:
-        opacity 0.18s;
+        opacity
+        0.18s;
     }
 
     .payline.active {
-      opacity: 0.95;
+      opacity:
+        0.95;
     }
 
-    .line1 { stroke: #4ca3ff; }
-    .line2 { stroke: #ff3838; }
-    .line3 { stroke: #30ce36; }
-    .line4 { stroke: #f1e62e; }
-    .line5 { stroke: #ff7bd8; }
-    .line6 { stroke: #ff8e26; }
-    .line7 { stroke: #a965ff; }
-    .line8 { stroke: #58df83; }
-    .line9 { stroke: #ff55ae; }
+    .line1 {
+      stroke:
+        #4ca3ff;
+    }
+
+    .line2 {
+      stroke:
+        #ff3838;
+    }
+
+    .line3 {
+      stroke:
+        #30ce36;
+    }
+
+    .line4 {
+      stroke:
+        #f1e62e;
+    }
+
+    .line5 {
+      stroke:
+        #ff7bd8;
+    }
+
+    .line6 {
+      stroke:
+        #ff8e26;
+    }
+
+    .line7 {
+      stroke:
+        #a965ff;
+    }
+
+    .line8 {
+      stroke:
+        #58df83;
+    }
+
+    .line9 {
+      stroke:
+        #ff55ae;
+    }
 
 
-    /* =========================================
+    /* =====================================================
        MESSAGE
 
-       Adjusted slightly DOWN.
-       Font matches machine numbers.
-       ========================================= */
+       MOVED DOWN AGAIN
+       ===================================================== */
 
     .message {
-      position: absolute;
+      position:
+        absolute;
 
-      left: 11.25%;
-      top: 62.60%;
+      left:
+        11.25%;
 
-      width: 49.3%;
-      height: 6.4%;
+      top:
+        63.50%;
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width:
+        49.3%;
 
-      padding: 4px 10px;
+      height:
+        6.4%;
 
-      overflow: hidden;
+      display:
+        flex;
 
-      color: #f2ff26;
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      padding:
+        4px 10px;
+
+      overflow:
+        hidden;
+
+      color:
+        #f2ff26;
 
       font-family:
         "Courier New",
@@ -364,43 +572,63 @@
           21px
         );
 
-      font-weight: normal;
+      font-weight:
+        normal;
 
-      letter-spacing: 1px;
+      letter-spacing:
+        1px;
 
-      line-height: 1;
+      line-height:
+        1;
 
       text-shadow:
         0 0 5px
         #dfff00;
 
-      z-index: 30;
+      z-index:
+        30;
     }
 
 
-    /* =========================================
-       SPINS LEFT NUMBER
+    /* =====================================================
+       SPINS LEFT
 
-       Adjusted DOWN into black window.
-       ========================================= */
+       MOVED DOWN AGAIN
+       ===================================================== */
 
     .spinsLeftDisplay {
-      position: absolute;
+      position:
+        absolute;
 
-      left: 11.25%;
-      top: 74.05%;
+      left:
+        11.25%;
 
-      width: 16.5%;
-      height: 4.0%;
+      top:
+        75.10%;
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width:
+        16.5%;
 
-      padding: 0;
-      margin: 0;
+      height:
+        4%;
 
-      color: #f2ff26;
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      padding:
+        0;
+
+      margin:
+        0;
+
+      color:
+        #f2ff26;
 
       font-family:
         "Courier New",
@@ -413,39 +641,57 @@
           30px
         );
 
-      line-height: 1;
+      line-height:
+        1;
 
       text-shadow:
         0 0 7px
         #dfff00;
 
-      z-index: 30;
+      z-index:
+        30;
     }
 
 
-    /* =========================================
-       TOTAL SCORE / WIN
+    /* =====================================================
+       WIN / TOTAL SCORE
 
-       Adjusted DOWN into black window.
-       ========================================= */
+       MOVED DOWN AGAIN
+       ===================================================== */
 
     .scoreDisplay {
-      position: absolute;
+      position:
+        absolute;
 
-      left: 39.45%;
-      top: 74.05%;
+      left:
+        39.45%;
 
-      width: 18.4%;
-      height: 4.0%;
+      top:
+        75.10%;
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width:
+        18.4%;
 
-      padding: 0;
-      margin: 0;
+      height:
+        4%;
 
-      color: #f2ff26;
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      padding:
+        0;
+
+      margin:
+        0;
+
+      color:
+        #f2ff26;
 
       font-family:
         "Courier New",
@@ -458,58 +704,165 @@
           30px
         );
 
-      line-height: 1;
+      line-height:
+        1;
 
       text-shadow:
         0 0 7px
         #dfff00;
 
-      z-index: 30;
+      z-index:
+        30;
     }
 
 
-    /* =========================================
-       INVISIBLE BUTTON CLICK AREAS
-       ========================================= */
+    /* =====================================================
+       MAIN MACHINE BUTTON HOTSPOTS
+       ===================================================== */
 
     .frameHotspot {
-      position: absolute;
+      position:
+        absolute;
 
-      padding: 0;
+      padding:
+        0;
 
-      background: transparent;
+      background:
+        transparent;
 
-      border: none;
+      border:
+        none;
 
-      cursor: pointer;
+      cursor:
+        pointer;
 
-      z-index: 65;
+      z-index:
+        65;
     }
 
     .startHotspot {
-      left: 65.3%;
-      top: 82.0%;
+      left:
+        65.3%;
 
-      width: 13.5%;
-      height: 9.5%;
+      top:
+        82%;
+
+      width:
+        13.5%;
+
+      height:
+        9.5%;
     }
 
     .autoHotspot {
-      left: 78.5%;
-      top: 82.0%;
+      left:
+        78.5%;
 
-      width: 12.3%;
-      height: 9.5%;
+      top:
+        82%;
+
+      width:
+        12.3%;
+
+      height:
+        9.5%;
     }
 
     .frameHotspot.disabled {
-      cursor: not-allowed;
+      cursor:
+        not-allowed;
     }
 
 
-    /* =========================================
-       PLAYER
-       ========================================= */
+    /* =====================================================
+       BROKEN GLASS
+       Applied OVER main machine only
+       ===================================================== */
+
+    .brokenGlassOverlay {
+      position:
+        absolute;
+
+      inset:
+        0;
+
+      width:
+        100%;
+
+      height:
+        100%;
+
+      object-fit:
+        cover;
+
+      pointer-events:
+        none;
+
+      z-index:
+        200;
+
+      opacity:
+        0;
+
+      visibility:
+        hidden;
+
+      transition:
+        opacity
+        0.12s;
+    }
+
+    .brokenGlassOverlay.active {
+      visibility:
+        visible;
+
+      opacity:
+        1;
+
+      animation:
+        glassImpact
+        0.32s
+        ease-out;
+    }
+
+    @keyframes glassImpact {
+
+      0% {
+        opacity:
+          0;
+
+        transform:
+          scale(
+            1.12
+          );
+      }
+
+      45% {
+        opacity:
+          1;
+
+        transform:
+          scale(
+            0.98
+          );
+      }
+
+      100% {
+        opacity:
+          1;
+
+        transform:
+          scale(
+            1
+          );
+      }
+
+    }
+
+
+    /* =====================================================
+       PLAYER NAME
+       ===================================================== */
 
     .playerBar {
       width:
@@ -523,169 +876,376 @@
         auto
         18px;
 
-      color: #bbb;
+      color:
+        #bbb;
 
-      font-size: 14px;
+      font-size:
+        14px;
     }
 
     .playerBar strong {
-      color: #eabc55;
+      color:
+        #eabc55;
     }
 
 
-    /* =========================================
-       LEADERBOARD
-       ========================================= */
+    /* =====================================================
+       LOWER INFORMATION CABINET
+       ===================================================== */
 
-    .leaderboard {
+    .infoMachine {
+      position:
+        relative;
+
       width:
         min(
           900px,
-          94vw
+          96vw
         );
 
       margin:
         10px
         auto
-        22px;
+        30px;
 
-      padding: 20px;
+      aspect-ratio:
+        1211 / 1299;
 
-      background: #090909;
+      background-image:
+        url("leaderboard.png");
 
-      border:
-        2px solid #9e7c32;
+      background-size:
+        100% 100%;
 
-      border-radius: 12px;
+      background-position:
+        center;
+
+      background-repeat:
+        no-repeat;
+
+      overflow:
+        hidden;
+
+      user-select:
+        none;
     }
 
-    .leaderboard h2 {
-      margin:
-        0
-        0
-        15px;
 
-      color: #e4b44f;
+    /* =====================================================
+       LEADERBOARD CONTENT WINDOW
+       ===================================================== */
 
-      letter-spacing: 2px;
+    .infoLeaderboard {
+      position:
+        absolute;
+
+      left:
+        7.4%;
+
+      top:
+        9.8%;
+
+      width:
+        85.2%;
+
+      height:
+        36%;
+
+      padding:
+        2.5%
+        3.2%;
+
+      overflow-y:
+        auto;
+
+      color:
+        #f2ff26;
+
+      font-family:
+        "Courier New",
+        monospace;
+
+      z-index:
+        20;
     }
 
     .leaderHead,
     .playerRow {
-      display: grid;
+      display:
+        grid;
 
       grid-template-columns:
         1fr
-        100px
-        120px;
+        22%
+        25%;
 
-      gap: 10px;
+      gap:
+        8px;
 
-      align-items: center;
+      align-items:
+        center;
     }
 
     .leaderHead {
       padding:
-        5px
-        7px
-        10px;
+        0
+        2px
+        9px;
 
-      color: #777;
+      margin-bottom:
+        5px;
 
-      font-size: 11px;
+      border-bottom:
+        1px solid
+        rgba(
+          230,
+          190,
+          65,
+          0.35
+        );
 
-      text-align: right;
-    }
+      color:
+        #d5bc61;
 
-    .leaderHead span:first-child {
-      text-align: left;
+      font-size:
+        clamp(
+          9px,
+          1.1vw,
+          14px
+        );
+
+      letter-spacing:
+        1px;
     }
 
     .playerRow {
       padding:
-        10px
-        7px;
+        9px
+        2px;
 
       border-bottom:
-        1px solid #333;
+        1px solid
+        rgba(
+          255,
+          255,
+          255,
+          0.10
+        );
 
-      font-size: 17px;
+      color:
+        #f2ff26;
+
+      font-size:
+        clamp(
+          11px,
+          1.45vw,
+          18px
+        );
+
+      text-shadow:
+        0 0 5px
+        rgba(
+          223,
+          255,
+          0,
+          0.55
+        );
     }
 
+    .leaderHead span:first-child,
     .playerRow span:first-child {
-      text-align: left;
+      text-align:
+        left;
     }
 
-    .playerRow span,
+    .leaderHead span:not(:first-child),
+    .playerRow span:not(:first-child),
     .playerRow strong {
-      text-align: right;
+      text-align:
+        right;
     }
 
     .currentPlayerRow {
-      color: #f4ca5c;
-      font-weight: bold;
+      color:
+        #fff36a;
+
+      text-shadow:
+        0 0 8px
+        #dfff00;
+
+      font-weight:
+        bold;
     }
 
 
-    /* =========================================
-       CHALLENGE INFO
-       ========================================= */
+    /* =====================================================
+       GAME INFORMATION WINDOW
+       ===================================================== */
 
-    .challengeInfo {
+    .gameInformation {
+      position:
+        absolute;
+
+      left:
+        8.2%;
+
+      top:
+        55.2%;
+
       width:
-        min(
-          900px,
-          94vw
+        83.6%;
+
+      height:
+        28.8%;
+
+      display:
+        flex;
+
+      flex-direction:
+        column;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      overflow:
+        hidden;
+
+      color:
+        #f2ff26;
+
+      font-family:
+        "Courier New",
+        monospace;
+
+      font-size:
+        clamp(
+          9px,
+          1.27vw,
+          16px
         );
 
-      margin: auto;
+      line-height:
+        1.45;
 
-      padding: 22px;
+      letter-spacing:
+        0.4px;
 
-      background: #080808;
+      text-shadow:
+        0 0 5px
+        rgba(
+          223,
+          255,
+          0,
+          0.5
+        );
+
+      z-index:
+        20;
+    }
+
+    .gameInfoLine {
+      width:
+        100%;
+
+      text-align:
+        center;
+    }
+
+    .gameInfoBonus {
+      width:
+        100%;
+
+      text-align:
+        center;
+
+      color:
+        #fff36a;
+    }
+
+    .gameInfoSpacer {
+      height:
+        clamp(
+          5px,
+          0.8vw,
+          10px
+        );
+    }
+
+
+    /* =====================================================
+       LOWER CABINET BUTTON HOTSPOTS
+       ===================================================== */
+
+    .infoButtonHotspot {
+      position:
+        absolute;
+
+      padding:
+        0;
 
       border:
-        1px solid #554521;
+        none;
 
-      border-radius: 12px;
+      background:
+        transparent;
 
-      color: #ddd;
+      cursor:
+        pointer;
 
-      line-height: 1.8;
+      z-index:
+        60;
     }
 
-    .challengeInfo strong {
-      color: #e6bb57;
+    .corgiRainHotspot {
+      left:
+        26.1%;
 
-      font-size: 18px;
+      top:
+        88.2%;
+
+      width:
+        20.4%;
+
+      height:
+        7.9%;
     }
 
-    .challengeDivider {
-      width: 120px;
+    .destroyHotspot {
+      left:
+        51.5%;
 
-      height: 1px;
+      top:
+        88.2%;
 
-      margin: 14px auto;
+      width:
+        22.6%;
 
-      background: #5f4a21;
+      height:
+        7.9%;
     }
 
-    .bonusRules {
-      margin-top: 14px;
-
-      color: #e6bb57;
+    .infoButtonHotspot.used {
+      cursor:
+        default;
     }
 
 
-    /* =========================================
-       CORGI RAIN
-       ========================================= */
+    /* =====================================================
+       CORGI RAIN PARTICLES
+       ===================================================== */
 
     .fallingCorgi {
-      position: fixed;
+      position:
+        fixed;
 
-      left: 0;
-      top: 0;
+      left:
+        0;
+
+      top:
+        0;
 
       width:
         clamp(
@@ -694,19 +1254,23 @@
           100px
         );
 
-      z-index: 9999;
+      z-index:
+        9999;
 
-      pointer-events: none;
+      pointer-events:
+        none;
 
-      object-fit: contain;
+      object-fit:
+        contain;
 
-      will-change: transform;
+      will-change:
+        transform;
     }
 
 
-    /* =========================================
+    /* =====================================================
        JACKPOT FLASH
-       ========================================= */
+       ===================================================== */
 
     .jackpotFlash {
       animation:
@@ -717,33 +1281,50 @@
     }
 
     @keyframes jackpotFlash {
+
       from {
         filter:
-          brightness(1);
+          brightness(
+            1
+          );
       }
 
       to {
         filter:
-          brightness(1.6)
-          saturate(1.7);
+          brightness(
+            1.6
+          )
+          saturate(
+            1.7
+          );
       }
+
     }
 
 
-    /* =========================================
+    /* =====================================================
        MOBILE
-       ========================================= */
+       ===================================================== */
 
     @media
     (max-width: 600px) {
 
       #gameScreen {
-        padding-left: 0;
-        padding-right: 0;
+        padding-left:
+          0;
+
+        padding-right:
+          0;
       }
 
       .machine {
-        width: 100vw;
+        width:
+          100vw;
+      }
+
+      .infoMachine {
+        width:
+          100vw;
       }
 
       .symbol {
@@ -759,11 +1340,10 @@
       .playerRow {
         grid-template-columns:
           1fr
-          70px
-          95px;
-
-        font-size: 13px;
+          22%
+          27%;
       }
+
     }
 
   </style>
@@ -773,9 +1353,9 @@
 <body>
 
 
-  <!-- =========================================
+  <!-- =====================================================
        LOGIN
-       ========================================= -->
+       ===================================================== -->
 
   <div id="loginScreen">
 
@@ -813,12 +1393,16 @@
   </div>
 
 
-  <!-- =========================================
+  <!-- =====================================================
        GAME
-       ========================================= -->
+       ===================================================== -->
 
   <div id="gameScreen">
 
+
+    <!-- ===================================================
+         MAIN MACHINE
+         =================================================== -->
 
     <div
       class="machine"
@@ -845,55 +1429,109 @@
           <polyline
             id="line1"
             class="payline line1"
-            points="50,150 150,150 250,150 350,150 450,150"
+            points="
+              50,150
+              150,150
+              250,150
+              350,150
+              450,150
+            "
           />
 
           <polyline
             id="line2"
             class="payline line2"
-            points="50,50 150,50 250,50 350,50 450,50"
+            points="
+              50,50
+              150,50
+              250,50
+              350,50
+              450,50
+            "
           />
 
           <polyline
             id="line3"
             class="payline line3"
-            points="50,250 150,250 250,250 350,250 450,250"
+            points="
+              50,250
+              150,250
+              250,250
+              350,250
+              450,250
+            "
           />
 
           <polyline
             id="line4"
             class="payline line4"
-            points="50,50 150,150 250,250 350,150 450,50"
+            points="
+              50,50
+              150,150
+              250,250
+              350,150
+              450,50
+            "
           />
 
           <polyline
             id="line5"
             class="payline line5"
-            points="50,250 150,150 250,50 350,150 450,250"
+            points="
+              50,250
+              150,150
+              250,50
+              350,150
+              450,250
+            "
           />
 
           <polyline
             id="line6"
             class="payline line6"
-            points="50,50 150,150 250,150 350,150 450,250"
+            points="
+              50,50
+              150,150
+              250,150
+              350,150
+              450,250
+            "
           />
 
           <polyline
             id="line7"
             class="payline line7"
-            points="50,250 150,150 250,150 350,150 450,50"
+            points="
+              50,250
+              150,150
+              250,150
+              350,150
+              450,50
+            "
           />
 
           <polyline
             id="line8"
             class="payline line8"
-            points="50,150 150,250 250,150 350,250 450,150"
+            points="
+              50,150
+              150,250
+              250,150
+              350,250
+              450,150
+            "
           />
 
           <polyline
             id="line9"
             class="payline line9"
-            points="50,150 150,50 250,150 350,50 450,150"
+            points="
+              50,150
+              150,50
+              250,150
+              350,50
+              450,150
+            "
           />
 
         </svg>
@@ -921,7 +1559,7 @@
       </div>
 
 
-      <!-- TOTAL SCORE -->
+      <!-- SCORE -->
 
       <div
         class="scoreDisplay"
@@ -931,7 +1569,7 @@
       </div>
 
 
-      <!-- START BUTTON CLICK AREA -->
+      <!-- START -->
 
       <button
         id="spinButton"
@@ -939,11 +1577,13 @@
           frameHotspot
           startHotspot
         "
-        aria-label="Start or skip spin"
+        aria-label="
+          Start or skip spin
+        "
       ></button>
 
 
-      <!-- AUTO BUTTON CLICK AREA -->
+      <!-- AUTO -->
 
       <button
         id="autoButton"
@@ -951,17 +1591,26 @@
           frameHotspot
           autoHotspot
         "
-        aria-label="Toggle automatic spin"
+        aria-label="
+          Toggle automatic spin
+        "
       ></button>
+
+
+      <!-- BROKEN GLASS -->
+
+      <img
+        id="brokenGlassOverlay"
+        class="brokenGlassOverlay"
+        src="brokenglass.png"
+        alt=""
+      >
 
 
     </div>
 
 
-    <!-- =========================================
-         PLAYER
-         Online status removed
-         ========================================= -->
+    <!-- PLAYER -->
 
     <div class="playerBar">
 
@@ -972,98 +1621,154 @@
     </div>
 
 
-    <!-- =========================================
-         LEADERBOARD
-         ========================================= -->
+    <!-- ===================================================
+         LEADERBOARD + GAME INFORMATION MACHINE
+         =================================================== -->
 
-    <section class="leaderboard">
+    <section
+      class="infoMachine"
+      id="infoMachine"
+    >
 
-      <h2>
-        🏆 TODAY'S LEADERBOARD
-      </h2>
+
+      <!-- LEADERBOARD -->
+
+      <div class="infoLeaderboard">
+
+        <div class="leaderHead">
+
+          <span>
+            PLAYER
+          </span>
+
+          <span>
+            SCORE
+          </span>
+
+          <span>
+            SPINS LEFT
+          </span>
+
+        </div>
 
 
-      <div class="leaderHead">
+        <div id="leaderboardList">
 
-        <span>
-          PLAYER
-        </span>
+          Loading...
 
-        <span>
-          SCORE
-        </span>
+        </div>
 
-        <span>
-          SPINS LEFT
-        </span>
+      </div>
+
+
+      <!-- GAME INFORMATION -->
+
+      <div class="gameInformation">
+
+        <div class="gameInfoLine">
+
+          EVERY PLAYER STARTS WITH
+          50 SPINS
+
+        </div>
+
+
+        <div class="gameInfoLine">
+
+          NEW ROUND:
+          00:00:01 EUROPE/ZURICH
+
+        </div>
+
+
+        <div class="gameInfoSpacer"></div>
+
+
+        <div class="gameInfoLine">
+
+          3 MATCHING = 10 POINTS
+
+        </div>
+
+
+        <div class="gameInfoLine">
+
+          4 MATCHING = 40 POINTS
+
+        </div>
+
+
+        <div class="gameInfoLine">
+
+          5 MATCHING = 150 POINTS
+
+        </div>
+
+
+        <div class="gameInfoLine">
+
+          5 CORGIS ON A PAYLINE =
+          500 POINTS
+
+        </div>
+
+
+        <div class="gameInfoSpacer"></div>
+
+
+        <div class="gameInfoBonus">
+
+          3 CORGIS ANYWHERE =
+          +10 SPINS
+
+        </div>
+
+
+        <div class="gameInfoBonus">
+
+          4 CORGIS ANYWHERE =
+          +15 SPINS
+
+        </div>
+
+
+        <div class="gameInfoBonus">
+
+          5+ CORGIS ANYWHERE =
+          +20 SPINS
+
+        </div>
 
       </div>
 
 
-      <div id="leaderboardList">
-        Loading...
-      </div>
+      <!-- CORGI RAIN BUTTON -->
 
-    </section>
-
-
-    <!-- =========================================
-         CHALLENGE INFO
-         ========================================= -->
-
-    <section class="challengeInfo">
-
-      <strong>
-        DAILY 50-SPIN CHALLENGE
-      </strong>
+      <button
+        id="corgiRainButton"
+        class="
+          infoButtonHotspot
+          corgiRainHotspot
+        "
+        aria-label="
+          Toggle Corgi Rain
+        "
+      ></button>
 
 
-      <div class="challengeDivider"></div>
+      <!-- DESTROY MACHINE BUTTON -->
 
+      <button
+        id="destroyMachineButton"
+        class="
+          infoButtonHotspot
+          destroyHotspot
+        "
+        aria-label="
+          Destroy the machine
+        "
+      ></button>
 
-      Every player starts with
-      50 spins per daily round.
-
-      <br>
-
-      New round:
-      00:00:01 Europe/Zurich
-
-
-      <div class="challengeDivider"></div>
-
-
-      3 matching = 10 points
-
-      <br>
-
-      4 matching = 40 points
-
-      <br>
-
-      5 matching = 150 points
-
-      <br>
-
-      5 Corgis on a payline = 500 points
-
-
-      <div class="challengeDivider"></div>
-
-
-      <div class="bonusRules">
-
-        3 Corgis anywhere = +10 spins
-
-        <br>
-
-        4 Corgis anywhere = +15 spins
-
-        <br>
-
-        5+ Corgis anywhere = +20 spins
-
-      </div>
 
     </section>
 
@@ -1071,21 +1776,23 @@
   </div>
 
 
-  <!-- =========================================
+  <!-- =====================================================
        SUPABASE
-       ========================================= -->
+       ===================================================== -->
 
   <script
-    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    src="
+      https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2
+    "
   ></script>
 
 
   <script>
 
 
-    /* =========================================
-       SUPABASE
-       ========================================= */
+    /* =====================================================
+       DATABASE
+       ===================================================== */
 
     const SUPABASE_URL =
       "https://kurxfpmsxivousohtyej.supabase.co";
@@ -1102,27 +1809,36 @@
       );
 
 
-    /* =========================================
+    /* =====================================================
        SETTINGS
-       ========================================= */
+       ===================================================== */
 
     const SETTINGS = {
 
-      maxSpins: 50,
+      maxSpins:
+        50,
 
       payouts: {
+
         3: 10,
+
         4: 40,
+
         5: 150
+
       },
 
-      corgiJackpot: 500,
+      corgiJackpot:
+        500,
 
-      spinSpeed: 65,
+      spinSpeed:
+        65,
 
-      reelStopDelay: 430,
+      reelStopDelay:
+        430,
 
-      autoSpinDelay: 500,
+      autoSpinDelay:
+        500,
 
       resetTimeZone:
         "Europe/Zurich"
@@ -1130,9 +1846,9 @@
     };
 
 
-    /* =========================================
-       FRAME IMAGES
-       ========================================= */
+    /* =====================================================
+       MAIN MACHINE FRAME STATES
+       ===================================================== */
 
     const FRAME_IMAGES = {
 
@@ -1151,106 +1867,176 @@
     };
 
 
-    /* =========================================
+    /* =====================================================
+       LOWER MACHINE FRAME STATES
+       ===================================================== */
+
+    const INFO_FRAME_IMAGES = {
+
+      normal:
+        "leaderboard.png",
+
+      corgiRain:
+        "corgirain.png",
+
+      destroy:
+        "destroy.png"
+
+    };
+
+
+    /* =====================================================
        SYMBOLS
-       ========================================= */
+       ===================================================== */
 
     const SYMBOLS = [
 
       {
-        type: "emoji",
-        value: "🍒",
-        weight: 22
+        type:
+          "emoji",
+
+        value:
+          "🍒",
+
+        weight:
+          22
       },
 
       {
-        type: "emoji",
-        value: "🍋",
-        weight: 20
+        type:
+          "emoji",
+
+        value:
+          "🍋",
+
+        weight:
+          20
       },
 
       {
-        type: "emoji",
-        value: "🍊",
-        weight: 18
+        type:
+          "emoji",
+
+        value:
+          "🍊",
+
+        weight:
+          18
       },
 
       {
-        type: "emoji",
-        value: "🍇",
-        weight: 16
+        type:
+          "emoji",
+
+        value:
+          "🍇",
+
+        weight:
+          16
       },
 
       {
-        type: "emoji",
-        value: "🍉",
-        weight: 14
+        type:
+          "emoji",
+
+        value:
+          "🍉",
+
+        weight:
+          14
       },
 
       {
-        type: "emoji",
-        value: "🔔",
-        weight: 10
+        type:
+          "emoji",
+
+        value:
+          "🔔",
+
+        weight:
+          10
       },
 
       {
-        type: "emoji",
-        value: "⭐",
-        weight: 8
+        type:
+          "emoji",
+
+        value:
+          "⭐",
+
+        weight:
+          8
       },
 
       {
-        type: "emoji",
-        value: "7️⃣",
-        weight: 6
+        type:
+          "emoji",
+
+        value:
+          "7️⃣",
+
+        weight:
+          6
       },
 
       {
-        type: "emoji",
-        value: "💎",
-        weight: 5
+        type:
+          "emoji",
+
+        value:
+          "💎",
+
+        weight:
+          5
       },
 
       {
-        type: "image",
-        value: "CORGI",
-        src: "corgi-jackpot.png",
-        weight: 5
+        type:
+          "image",
+
+        value:
+          "CORGI",
+
+        src:
+          "corgi-jackpot.png",
+
+        weight:
+          5
       }
 
     ];
 
 
-    /* =========================================
-       9 PAYLINES
-       ========================================= */
+    /* =====================================================
+       PAYLINES
+       ===================================================== */
 
     const PAYLINES = [
 
-      [1, 1, 1, 1, 1],
+      [1,1,1,1,1],
 
-      [0, 0, 0, 0, 0],
+      [0,0,0,0,0],
 
-      [2, 2, 2, 2, 2],
+      [2,2,2,2,2],
 
-      [0, 1, 2, 1, 0],
+      [0,1,2,1,0],
 
-      [2, 1, 0, 1, 2],
+      [2,1,0,1,2],
 
-      [0, 1, 1, 1, 2],
+      [0,1,1,1,2],
 
-      [2, 1, 1, 1, 0],
+      [2,1,1,1,0],
 
-      [1, 2, 1, 2, 1],
+      [1,2,1,2,1],
 
-      [1, 0, 1, 0, 1]
+      [1,0,1,0,1]
 
     ];
 
 
-    /* =========================================
-       MOTIVATIONAL MESSAGES
-       ========================================= */
+    /* =====================================================
+       MESSAGES
+       ===================================================== */
 
     const MOTIVATION_PHRASES = [
 
@@ -1311,70 +2097,86 @@
     const CORGI_PHRASES = [
 
       "THE CORGI HAS ARRIVED.",
+
       "CORGI APPROVES.",
+
       "THE CORGI CHOSE YOU.",
+
       "PAWS OF FORTUNE!",
+
       "CORGI ENERGY DETECTED.",
+
       "A LUCKY CORGI APPEARS.",
+
       "THE CORGI IS PLEASED.",
+
       "CORGI POWER ACTIVATED."
 
     ];
 
 
-    /* =========================================
+    /* =====================================================
        GAME STATE
-       ========================================= */
+       ===================================================== */
 
     const game = {
 
-      player: "",
+      player:
+        "",
 
-      score: 0,
+      score:
+        0,
 
       /*
-        IMPORTANT:
-
-        spinsUsed is allowed to become NEGATIVE.
+        Negative spinsUsed is allowed.
 
         Example:
 
-        player used 3 spins
-        hits +10 bonus
+        -7 spinsUsed
 
-        spinsUsed becomes:
+        means:
 
-        3 - 10 = -7
-
-        Spins left:
-
-        50 - (-7) = 57
-
-        This allows bonus spins to go
-        above the original 50 spins
-        without adding a new database column.
+        50 - (-7)
+        =
+        57 spins remaining.
       */
 
-      spinsUsed: 0,
+      spinsUsed:
+        0,
 
-      dayKey: "",
+      dayKey:
+        "",
 
-      spinning: false,
+      spinning:
+        false,
 
-      autoSpin: false,
+      autoSpin:
+        false,
 
-      fastFinish: false,
+      fastFinish:
+        false,
 
-      skipWait: null,
+      skipWait:
+        null,
 
-      startPressed: false
+      startPressed:
+        false,
+
+      corgiRainMode:
+        false,
+
+      corgiRainTimer:
+        null,
+
+      destroyUsed:
+        false
 
     };
 
 
-    /* =========================================
+    /* =====================================================
        ELEMENTS
-       ========================================= */
+       ===================================================== */
 
     const el = {
 
@@ -1446,14 +2248,34 @@
       machine:
         document.getElementById(
           "machine"
+        ),
+
+      infoMachine:
+        document.getElementById(
+          "infoMachine"
+        ),
+
+      corgiRainButton:
+        document.getElementById(
+          "corgiRainButton"
+        ),
+
+      destroyMachineButton:
+        document.getElementById(
+          "destroyMachineButton"
+        ),
+
+      brokenGlass:
+        document.getElementById(
+          "brokenGlassOverlay"
         )
 
     };
 
 
-    /* =========================================
-       FRAME SWITCHING
-       ========================================= */
+    /* =====================================================
+       MAIN MACHINE FRAME
+       ===================================================== */
 
     function updateFrame() {
 
@@ -1462,7 +2284,8 @@
 
 
       if (
-        game.autoSpin &&
+        game.autoSpin
+        &&
         game.startPressed
       ) {
 
@@ -1524,15 +2347,78 @@
     }
 
 
-    /* =========================================
+    /* =====================================================
+       LOWER MACHINE FRAME
+       ===================================================== */
+
+    function updateInfoFrame() {
+
+      let frame =
+        INFO_FRAME_IMAGES.normal;
+
+
+      /*
+        Destroy gets priority because
+        it is the permanent state.
+      */
+
+      if (
+        game.destroyUsed
+      ) {
+
+        frame =
+          INFO_FRAME_IMAGES.destroy;
+
+      }
+
+      else if (
+        game.corgiRainMode
+      ) {
+
+        frame =
+          INFO_FRAME_IMAGES.corgiRain;
+
+      }
+
+
+      el.infoMachine.style.backgroundImage =
+        `url("${frame}")`;
+
+    }
+
+
+    /* =====================================================
+       DESTROY STORAGE KEY
+
+       Once per player per daily round
+       on this browser.
+       ===================================================== */
+
+    function destroyStorageKey() {
+
+      return (
+        "corgiDestroy_"
+        +
+        game.player
+        +
+        "_"
+        +
+        game.dayKey
+      );
+
+    }
+
+
+    /* =====================================================
        RANDOM MESSAGE
-       ========================================= */
+       ===================================================== */
 
     function randomMotivation() {
 
       return MOTIVATION_PHRASES[
         Math.floor(
-          Math.random() *
+          Math.random()
+          *
           MOTIVATION_PHRASES.length
         )
       ];
@@ -1544,7 +2430,8 @@
 
       return CORGI_PHRASES[
         Math.floor(
-          Math.random() *
+          Math.random()
+          *
           CORGI_PHRASES.length
         )
       ];
@@ -1552,9 +2439,9 @@
     }
 
 
-    /* =========================================
+    /* =====================================================
        BUILD REELS
-       ========================================= */
+       ===================================================== */
 
     function buildMachine() {
 
@@ -1624,9 +2511,9 @@
     }
 
 
-    /* =========================================
-       SYMBOL RENDERING
-       ========================================= */
+    /* =====================================================
+       SYMBOL RENDER
+       ===================================================== */
 
     function renderSymbol(
       element,
@@ -1682,9 +2569,9 @@
     }
 
 
-    /* =========================================
+    /* =====================================================
        RANDOM SYMBOL
-       ========================================= */
+       ===================================================== */
 
     function randomSymbol() {
 
@@ -1697,7 +2584,8 @@
             symbol
           ) =>
 
-            sum +
+            sum
+            +
             symbol.weight,
 
           0
@@ -1706,7 +2594,8 @@
 
 
       let number =
-        Math.random() *
+        Math.random()
+        *
         total;
 
 
@@ -1740,7 +2629,8 @@
       return Array.from(
 
         {
-          length: 5
+          length:
+            5
         },
 
         () =>
@@ -1748,7 +2638,8 @@
           Array.from(
 
             {
-              length: 3
+              length:
+                3
             },
 
             randomSymbol
@@ -1760,9 +2651,9 @@
     }
 
 
-    /* =========================================
+    /* =====================================================
        LOGIN
-       ========================================= */
+       ===================================================== */
 
     async function startGame() {
 
@@ -1795,6 +2686,14 @@
 
       game.dayKey =
         getActiveZurichDayKey();
+
+
+      game.destroyUsed =
+        localStorage.getItem(
+          destroyStorageKey()
+        )
+        ===
+        "yes";
 
 
       try {
@@ -1844,14 +2743,16 @@
             Number(
               data.score
             )
-            || 0;
+            ||
+            0;
 
 
           game.spinsUsed =
             Number(
               data.spins_used
             )
-            || 0;
+            ||
+            0;
 
         }
 
@@ -1883,8 +2784,11 @@
 
 
         localStorage.setItem(
+
           "corgiLastNickname",
+
           game.player
+
         );
 
 
@@ -1907,6 +2811,29 @@
 
 
         updateFrame();
+
+
+        updateInfoFrame();
+
+
+        if (
+          game.destroyUsed
+        ) {
+
+          el.brokenGlass
+            .classList
+            .add(
+              "active"
+            );
+
+
+          el.destroyMachineButton
+            .classList
+            .add(
+              "used"
+            );
+
+        }
 
 
         el.message.textContent =
@@ -1940,8 +2867,11 @@
 
 
     el.startLogin.addEventListener(
+
       "click",
+
       startGame
+
     );
 
 
@@ -1965,9 +2895,9 @@
     );
 
 
-    /* =========================================
+    /* =====================================================
        START / SKIP
-       ========================================= */
+       ===================================================== */
 
     el.spin.addEventListener(
 
@@ -2007,9 +2937,9 @@
     );
 
 
-    /* =========================================
-       AUTO SPIN
-       ========================================= */
+    /* =====================================================
+       AUTO
+       ===================================================== */
 
     el.auto.addEventListener(
 
@@ -2018,7 +2948,8 @@
       () => {
 
         if (
-          game.spinsUsed >=
+          game.spinsUsed
+          >=
           SETTINGS.maxSpins
         ) {
 
@@ -2035,7 +2966,8 @@
 
 
         if (
-          game.autoSpin &&
+          game.autoSpin
+          &&
           !game.spinning
         ) {
 
@@ -2048,14 +2980,207 @@
     );
 
 
-    /* =========================================
-       RESERVE ONE SPIN
-       ========================================= */
+    /* =====================================================
+       CORGI RAIN BUTTON
+
+       Toggle ON / OFF.
+       ===================================================== */
+
+    el.corgiRainButton.addEventListener(
+
+      "click",
+
+      () => {
+
+        game.corgiRainMode =
+          !game.corgiRainMode;
+
+
+        updateInfoFrame();
+
+
+        if (
+          game.corgiRainMode
+        ) {
+
+          /*
+            Immediate big wave.
+          */
+
+          corgiRain(
+            20
+          );
+
+
+          /*
+            Prevent duplicate timers.
+          */
+
+          if (
+            game.corgiRainTimer
+          ) {
+
+            clearInterval(
+              game.corgiRainTimer
+            );
+
+          }
+
+
+          /*
+            Continuous small waves.
+          */
+
+          game.corgiRainTimer =
+            setInterval(
+
+              () => {
+
+                if (
+                  game.corgiRainMode
+                ) {
+
+                  corgiRain(
+                    8
+                  );
+
+                }
+
+              },
+
+              1100
+
+            );
+
+        }
+
+        else {
+
+          if (
+            game.corgiRainTimer
+          ) {
+
+            clearInterval(
+              game.corgiRainTimer
+            );
+
+
+            game.corgiRainTimer =
+              null;
+
+          }
+
+        }
+
+      }
+
+    );
+
+
+    /* =====================================================
+       DESTROY MACHINE
+
+       Available once per player per day
+       on this browser.
+       ===================================================== */
+
+    el.destroyMachineButton.addEventListener(
+
+      "click",
+
+      () => {
+
+        if (
+          game.destroyUsed
+          ||
+          localStorage.getItem(
+            destroyStorageKey()
+          )
+          ===
+          "yes"
+        ) {
+
+          return;
+
+        }
+
+
+        game.destroyUsed =
+          true;
+
+
+        localStorage.setItem(
+
+          destroyStorageKey(),
+
+          "yes"
+
+        );
+
+
+        /*
+          Stop manual Corgi Rain
+          when machine is destroyed.
+        */
+
+        game.corgiRainMode =
+          false;
+
+
+        if (
+          game.corgiRainTimer
+        ) {
+
+          clearInterval(
+            game.corgiRainTimer
+          );
+
+
+          game.corgiRainTimer =
+            null;
+
+        }
+
+
+        /*
+          Switch lower frame to
+          illuminated DESTROY state.
+        */
+
+        updateInfoFrame();
+
+
+        /*
+          Show permanent broken glass.
+        */
+
+        el.brokenGlass
+          .classList
+          .add(
+            "active"
+          );
+
+
+        el.destroyMachineButton
+          .classList
+          .add(
+            "used"
+          );
+
+      }
+
+    );
+
+
+    /* =====================================================
+       RESERVE SPIN
+       ===================================================== */
 
     async function reserveSpin() {
 
       if (
-        game.spinsUsed >=
+        game.spinsUsed
+        >=
         SETTINGS.maxSpins
       ) {
 
@@ -2094,9 +3219,9 @@
     }
 
 
-    /* =========================================
+    /* =====================================================
        MAIN SPIN
-       ========================================= */
+       ===================================================== */
 
     async function spin() {
 
@@ -2113,7 +3238,8 @@
 
 
       if (
-        game.spinsUsed >=
+        game.spinsUsed
+        >=
         SETTINGS.maxSpins
       ) {
 
@@ -2236,18 +3362,9 @@
       updateRoundState();
 
 
-      /*
-        IMPORTANT:
-
-        Bonus spins have already been added
-        inside evaluateSpin().
-
-        So if the player reached 0 spins but
-        received a Corgi bonus, they can continue.
-      */
-
       if (
-        game.spinsUsed >=
+        game.spinsUsed
+        >=
         SETTINGS.maxSpins
       ) {
 
@@ -2288,9 +3405,9 @@
     }
 
 
-    /* =========================================
-       SPINNING ANIMATION
-       ========================================= */
+    /* =====================================================
+       REEL ANIMATION
+       ===================================================== */
 
     function startAllReels() {
 
@@ -2384,9 +3501,9 @@
     }
 
 
-    /* =========================================
-       EVALUATE RESULT
-       ========================================= */
+    /* =====================================================
+       EVALUATE SPIN
+       ===================================================== */
 
     async function evaluateSpin(
       result
@@ -2397,9 +3514,8 @@
 
 
       /*
-        Count ALL CORGIS anywhere on screen.
-
-        This has nothing to do with paylines.
+        Count ALL Corgis
+        anywhere on the 5x3 board.
       */
 
       const corgiCount =
@@ -2409,7 +3525,8 @@
           .filter(
 
             symbol =>
-              symbol.value ===
+              symbol.value
+              ===
               "CORGI"
 
           )
@@ -2421,7 +3538,7 @@
 
 
       /*
-        BONUS SPIN RULES
+        BONUS SPINS
       */
 
       let bonusSpins =
@@ -2457,7 +3574,8 @@
 
 
       /*
-        Any Corgi still triggers rain.
+        Any visible Corgi
+        triggers normal rain.
       */
 
       if (
@@ -2470,7 +3588,7 @@
 
 
       /*
-        NORMAL PAYLINE WINS
+        PAYLINE WINS
       */
 
       PAYLINES.forEach(
@@ -2505,7 +3623,9 @@
 
 
           if (
-            win.matches >= 3
+            win.matches
+            >=
+            3
           ) {
 
             totalWin +=
@@ -2525,7 +3645,9 @@
 
 
             if (
-              win.matches === 5
+              win.matches
+              ===
+              5
             ) {
 
               confetti();
@@ -2534,8 +3656,12 @@
 
 
             if (
-              win.matches === 5 &&
-              win.symbol ===
+              win.matches
+              ===
+              5
+              &&
+              win.symbol
+              ===
               "CORGI"
             ) {
 
@@ -2554,7 +3680,7 @@
 
 
       /*
-        ADD SCORE
+        SCORE
       */
 
       game.score +=
@@ -2562,24 +3688,20 @@
 
 
       /*
-        ADD BONUS SPINS
+        BONUS SPINS
 
-        We subtract bonus spins
-        from spinsUsed.
+        Bonus is represented by
+        reducing spinsUsed.
 
-        Example:
-
-        spinsUsed = 20
-        bonus = 10
-
-        spinsUsed becomes 10
-
-        spins remaining:
-        50 - 10 = 40
+        This can go negative,
+        allowing more than 50
+        spins remaining.
       */
 
       if (
-        bonusSpins > 0
+        bonusSpins
+        >
+        0
       ) {
 
         game.spinsUsed -=
@@ -2588,16 +3710,8 @@
       }
 
 
-      /*
-        UPDATE NUMBERS
-      */
-
       updateDisplays();
 
-
-      /*
-        SAVE EVERYTHING
-      */
 
       await saveOnlineProgress();
 
@@ -2610,7 +3724,8 @@
       */
 
       if (
-        bonusSpins > 0 &&
+        bonusSpins > 0
+        &&
         totalWin > 0
       ) {
 
@@ -2656,9 +3771,9 @@
     }
 
 
-    /* =========================================
+    /* =====================================================
        EVALUATE ONE PAYLINE
-       ========================================= */
+       ===================================================== */
 
     function evaluateLine(
       line
@@ -2666,13 +3781,17 @@
 
       let best = {
 
-        matches: 0,
+        matches:
+          0,
 
-        start: 0,
+        start:
+          0,
 
-        points: 0,
+        points:
+          0,
 
-        symbol: ""
+        symbol:
+          ""
 
       };
 
@@ -2682,7 +3801,8 @@
 
 
       while (
-        start <
+        start
+        <
         line.length
       ) {
 
@@ -2696,11 +3816,13 @@
 
 
         while (
-          end <
-            line.length
+          end
+          <
+          line.length
           &&
-          line[end].value ===
-            symbol
+          line[end].value
+          ===
+          symbol
         ) {
 
           end++;
@@ -2715,18 +3837,22 @@
         if (
           matches >= 3
           &&
-          matches >
-            best.matches
+          matches
+          >
+          best.matches
         ) {
 
           let points;
 
 
           if (
-            matches === 5
+            matches
+            ===
+            5
             &&
-            symbol ===
-              "CORGI"
+            symbol
+            ===
+            "CORGI"
           ) {
 
             points =
@@ -2741,7 +3867,8 @@
                 .payouts[
                   matches
                 ]
-              || 0;
+              ||
+              0;
 
           }
 
@@ -2772,9 +3899,9 @@
     }
 
 
-    /* =========================================
-       ROUND FINISHED
-       ========================================= */
+    /* =====================================================
+       ROUND COMPLETE
+       ===================================================== */
 
     function finishRound() {
 
@@ -2811,7 +3938,8 @@
     function updateRoundState() {
 
       const finished =
-        game.spinsUsed >=
+        game.spinsUsed
+        >=
         SETTINGS.maxSpins;
 
 
@@ -2833,9 +3961,9 @@
     }
 
 
-    /* =========================================
-       PAYLINE VISUALS
-       ========================================= */
+    /* =====================================================
+       WIN VISUALS
+       ===================================================== */
 
     function showWinningPayline(
       index
@@ -2843,7 +3971,8 @@
 
       document
         .getElementById(
-          "line" +
+          "line"
+          +
           (
             index + 1
           )
@@ -2925,15 +4054,17 @@
 
       return document
         .querySelector(
+
           `[data-reel="${reel}"][data-row="${row}"]`
+
         );
 
     }
 
 
-    /* =========================================
-       SAVE TO SUPABASE
-       ========================================= */
+    /* =====================================================
+       SAVE
+       ===================================================== */
 
     async function saveOnlineProgress() {
 
@@ -3010,9 +4141,9 @@
     }
 
 
-    /* =========================================
+    /* =====================================================
        LEADERBOARD
-       ========================================= */
+       ===================================================== */
 
     async function updateLeaderboard() {
 
@@ -3067,7 +4198,8 @@
 
 
       if (
-        !data ||
+        !data
+        ||
         !data.length
       ) {
 
@@ -3097,7 +4229,8 @@
 
 
           if (
-            player.nickname ===
+            player.nickname
+            ===
             game.player
           ) {
 
@@ -3129,16 +4262,21 @@
           const playerSpinsUsed =
             Number(
               player.spins_used
-              || 0
+              ||
+              0
             );
 
 
           const playerSpinsLeft =
 
             Math.max(
+
               0,
-              SETTINGS.maxSpins -
+
+              SETTINGS.maxSpins
+              -
               playerSpinsUsed
+
             );
 
 
@@ -3175,9 +4313,9 @@
     }
 
 
-    /* =========================================
-       DISPLAY NUMBERS
-       ========================================= */
+    /* =====================================================
+       DISPLAY
+       ===================================================== */
 
     function updateDisplays() {
 
@@ -3187,7 +4325,8 @@
 
           0,
 
-          SETTINGS.maxSpins -
+          SETTINGS.maxSpins
+          -
           game.spinsUsed
 
         );
@@ -3203,9 +4342,9 @@
     }
 
 
-    /* =========================================
+    /* =====================================================
        CORGI PHYSICS
-       ========================================= */
+       ===================================================== */
 
     const corgiParticles =
       [];
@@ -3213,11 +4352,14 @@
 
     const pointer = {
 
-      x: -1000,
+      x:
+        -1000,
 
-      y: -1000,
+      y:
+        -1000,
 
-      active: false
+      active:
+        false
 
     };
 
@@ -3285,8 +4427,9 @@
     ) {
 
       if (
-        corgiParticles.length >
-        120
+        corgiParticles.length
+        >
+        140
       ) {
 
         return;
@@ -3319,13 +4462,16 @@
 
 
       const size =
-        55 +
-        Math.random() *
+        55
+        +
+        Math.random()
+        *
         45;
 
 
       image.style.width =
-        size +
+        size
+        +
         "px";
 
 
@@ -3335,35 +4481,45 @@
           image,
 
         x:
-          Math.random() *
+          Math.random()
+          *
           window.innerWidth,
 
         y:
-          -120 -
-          index *
+          -120
+          -
+          index
+          *
           8,
 
         vx:
           (
-            Math.random() -
+            Math.random()
+            -
             0.5
-          ) *
+          )
+          *
           1.5,
 
         vy:
-          1.5 +
-          Math.random() *
+          1.5
+          +
+          Math.random()
+          *
           2.4,
 
         rotation:
-          Math.random() *
+          Math.random()
+          *
           360,
 
         rotationSpeed:
           (
-            Math.random() -
+            Math.random()
+            -
             0.5
-          ) *
+          )
+          *
           5,
 
         size:
@@ -3409,7 +4565,9 @@
       for (
         let index =
           corgiParticles.length - 1;
+
         index >= 0;
+
         index--
       ) {
 
@@ -3428,44 +4586,58 @@
         ) {
 
           const centerX =
-            particle.x +
-            particle.size /
+            particle.x
+            +
+            particle.size
+            /
             2;
 
 
           const centerY =
-            particle.y +
-            particle.size /
+            particle.y
+            +
+            particle.size
+            /
             2;
 
 
           const dx =
-            centerX -
+            centerX
+            -
             pointer.x;
 
 
           const dy =
-            centerY -
+            centerY
+            -
             pointer.y;
 
 
           const distance =
             Math.sqrt(
-              dx * dx +
+
+              dx * dx
+              +
               dy * dy
+
             );
 
 
           if (
-            distance <
-              repelRadius
+            distance
+            <
+            repelRadius
             &&
-            distance > 1
+            distance
+            >
+            1
           ) {
 
             const force =
+
               (
-                repelRadius -
+                repelRadius
+                -
                 distance
               )
               /
@@ -3473,8 +4645,10 @@
 
 
             particle.vx +=
+
               (
-                dx /
+                dx
+                /
                 distance
               )
               *
@@ -3484,8 +4658,10 @@
 
 
             particle.vy +=
+
               (
-                dy /
+                dy
+                /
                 distance
               )
               *
@@ -3495,8 +4671,10 @@
 
 
             particle.rotationSpeed +=
+
               (
-                Math.random() -
+                Math.random()
+                -
                 0.5
               )
               *
@@ -3528,6 +4706,7 @@
 
 
         particle.element.style.transform =
+
           `translate3d(
             ${particle.x}px,
             ${particle.y}px,
@@ -3539,19 +4718,25 @@
 
 
         if (
-          particle.y >
-            window.innerHeight +
-            180
+          particle.y
+          >
+          window.innerHeight
+          +
+          180
           ||
-          particle.x <
-            -300
+          particle.x
+          <
+          -300
           ||
-          particle.x >
-            window.innerWidth +
-            300
+          particle.x
+          >
+          window.innerWidth
+          +
+          300
         ) {
 
-          particle.element.remove();
+          particle.element
+            .remove();
 
 
           corgiParticles.splice(
@@ -3565,7 +4750,8 @@
 
 
       if (
-        corgiParticles.length >
+        corgiParticles.length
+        >
         0
       ) {
 
@@ -3585,17 +4771,19 @@
     }
 
 
-    /* =========================================
+    /* =====================================================
        CONFETTI
-       ========================================= */
+       ===================================================== */
 
     function confetti() {
 
       const symbols = [
+
         "✨",
         "⭐",
         "🎉",
         "💰"
+
       ];
 
 
@@ -3612,9 +4800,11 @@
 
 
         thing.textContent =
+
           symbols[
             Math.floor(
-              Math.random() *
+              Math.random()
+              *
               symbols.length
             )
           ];
@@ -3629,15 +4819,22 @@
 
 
         thing.style.left =
-          Math.random() *
-          100 +
+
+          Math.random()
+          *
+          100
+          +
           "vw";
 
 
         thing.style.fontSize =
-          20 +
-          Math.random() *
-          35 +
+
+          20
+          +
+          Math.random()
+          *
+          35
+          +
           "px";
 
 
@@ -3650,12 +4847,15 @@
 
 
         const duration =
-          2500 +
-          Math.random() *
+          2500
+          +
+          Math.random()
+          *
           1800;
 
 
         thing.style.transition =
+
           `top ${duration}ms linear,
            transform ${duration}ms linear`;
 
@@ -3675,8 +4875,10 @@
 
 
             thing.style.transform =
+
               `rotate(${
-                Math.random() *
+                Math.random()
+                *
                 900
               }deg)`;
 
@@ -3690,7 +4892,8 @@
           () =>
             thing.remove(),
 
-          duration +
+          duration
+          +
           300
 
         );
@@ -3750,12 +4953,13 @@
     }
 
 
-    /* =========================================
-       ZURICH DATE
-       ========================================= */
+    /* =====================================================
+       ZURICH TIME
+       ===================================================== */
 
     function getZurichParts(
-      date = new Date()
+      date =
+        new Date()
     ) {
 
       const formatter =
@@ -3808,7 +5012,8 @@
           part => {
 
             if (
-              part.type !==
+              part.type
+              !==
               "literal"
             ) {
 
@@ -3840,11 +5045,17 @@
 
 
       return (
-        parts.year +
-        "-" +
-        parts.month +
-        "-" +
+
+        parts.year
+        +
+        "-"
+        +
+        parts.month
+        +
+        "-"
+        +
         parts.day
+
       );
 
     }
@@ -3865,22 +5076,31 @@
       if (
         Number(
           parts.hour
-        ) === 0
+        )
+        ===
+        0
         &&
         Number(
           parts.minute
-        ) === 0
+        )
+        ===
+        0
         &&
         Number(
           parts.second
-        ) === 0
+        )
+        ===
+        0
       ) {
 
         return formatZurichDate(
 
           new Date(
-            now.getTime() -
+
+            now.getTime()
+            -
             1000
+
           )
 
         );
@@ -3895,9 +5115,9 @@
     }
 
 
-    /* =========================================
-       CHECK NEW DAY
-       ========================================= */
+    /* =====================================================
+       NEW DAY
+       ===================================================== */
 
     async function checkNewDay() {
 
@@ -3906,7 +5126,8 @@
 
 
       if (
-        today ===
+        today
+        ===
         game.dayKey
       ) {
 
@@ -3915,8 +5136,40 @@
       }
 
 
+      /*
+        Stop lower rain when
+        a new day begins.
+      */
+
+      game.corgiRainMode =
+        false;
+
+
+      if (
+        game.corgiRainTimer
+      ) {
+
+        clearInterval(
+          game.corgiRainTimer
+        );
+
+
+        game.corgiRainTimer =
+          null;
+
+      }
+
+
       game.dayKey =
         today;
+
+
+      game.destroyUsed =
+        localStorage.getItem(
+          destroyStorageKey()
+        )
+        ===
+        "yes";
 
 
       try {
@@ -3966,14 +5219,16 @@
             Number(
               data.score
             )
-            || 0;
+            ||
+            0;
 
 
           game.spinsUsed =
             Number(
               data.spins_used
             )
-            || 0;
+            ||
+            0;
 
         }
 
@@ -4003,6 +5258,21 @@
         updateFrame();
 
 
+        updateInfoFrame();
+
+
+        /*
+          Reset or restore glass.
+        */
+
+        el.brokenGlass
+          .classList
+          .toggle(
+            "active",
+            game.destroyUsed
+          );
+
+
         updateDisplays();
 
 
@@ -4030,9 +5300,9 @@
     }
 
 
-    /* =========================================
-       WAIT
-       ========================================= */
+    /* =====================================================
+       WAIT HELPERS
+       ===================================================== */
 
     function wait(
       ms
@@ -4064,6 +5334,7 @@
 
 
           const timer =
+
             setTimeout(
               finish,
               ms
@@ -4109,10 +5380,9 @@
     }
 
 
-    /* =========================================
-       PRELOAD ALL FRAME IMAGES
-       Prevents flashing during button changes.
-       ========================================= */
+    /* =====================================================
+       PRELOAD IMAGES
+       ===================================================== */
 
     Object
       .values(
@@ -4134,14 +5404,45 @@
       );
 
 
-    /* =========================================
+    Object
+      .values(
+        INFO_FRAME_IMAGES
+      )
+      .forEach(
+
+        src => {
+
+          const image =
+            new Image();
+
+
+          image.src =
+            src;
+
+        }
+
+      );
+
+
+    const glassPreload =
+      new Image();
+
+
+    glassPreload.src =
+      "brokenglass.png";
+
+
+    /* =====================================================
        STARTUP
-       ========================================= */
+       ===================================================== */
 
     buildMachine();
 
 
     updateFrame();
+
+
+    updateInfoFrame();
 
 
     const savedNickname =
