@@ -12,7 +12,6 @@
   <title>Corgi Jackpot</title>
 
   <style>
-
     * {
       box-sizing: border-box;
     }
@@ -21,11 +20,7 @@
       margin: 0;
 
       background:
-        radial-gradient(
-          circle at top,
-          #151515,
-          #000
-        );
+        radial-gradient(circle at top, #161616, #000);
 
       color: white;
 
@@ -39,14 +34,13 @@
     }
 
     button {
-      cursor: pointer;
       font-family: inherit;
     }
 
 
-    /* ==================================
+    /* ================================
        LOGIN
-       ================================== */
+       ================================ */
 
     #loginScreen {
       min-height: 100vh;
@@ -65,24 +59,18 @@
 
       background: #080808;
 
-      border:
-        3px solid
-        #b59036;
+      border: 3px solid #b59036;
 
       border-radius: 20px;
 
       box-shadow:
         0 0 40px
-        rgba(
-          255,
-          190,
-          40,
-          0.15
-        );
+        rgba(255, 190, 40, 0.15);
     }
 
     .loginBox h1 {
       color: #e8b84e;
+
       letter-spacing: 3px;
     }
 
@@ -94,8 +82,7 @@
       padding: 15px;
 
       border:
-        2px solid
-        #9d7c31;
+        2px solid #9d7c31;
 
       border-radius: 8px;
 
@@ -103,12 +90,12 @@
 
       color: white;
 
-      font-size: 21px;
-
       text-align: center;
+
+      font-size: 21px;
     }
 
-    .startButton {
+    .startLoginButton {
       padding:
         14px
         35px;
@@ -119,16 +106,18 @@
           #807667
         );
 
-      color: #111;
-
       border:
-        3px solid
-        #222;
+        3px solid #222;
 
       border-radius: 6px;
 
+      color: #111;
+
       font-size: 20px;
+
       font-weight: bold;
+
+      cursor: pointer;
     }
 
     #loginStatus {
@@ -140,9 +129,9 @@
     }
 
 
-    /* ==================================
-       GAME
-       ================================== */
+    /* ================================
+       GAME PAGE
+       ================================ */
 
     #gameScreen {
       display: none;
@@ -150,15 +139,17 @@
       width: 100%;
 
       padding:
-        18px
+        15px
         10px
         60px;
     }
 
 
-    /* ==================================
-       MACHINE FRAME
-       ================================== */
+    /* ================================
+       MACHINE
+
+       New frame is 1448 × 1086
+       ================================ */
 
     .machine {
       position: relative;
@@ -172,7 +163,7 @@
       margin: auto;
 
       aspect-ratio:
-        1536 / 1024;
+        1448 / 1086;
 
       background-image:
         url("slot-frame.png");
@@ -187,27 +178,29 @@
         center;
 
       overflow: hidden;
+
+      user-select: none;
     }
 
 
-    /* ==================================
-       SLOT AREA
-       ================================== */
+    /* ================================
+       REEL WINDOW
+       ================================ */
 
     .slotArea {
       position: absolute;
 
-      left: 15.8%;
+      left: 14.7%;
       top: 13.8%;
 
-      width: 68.2%;
-      height: 48.8%;
+      width: 67.0%;
+      height: 44.8%;
 
       overflow: hidden;
 
-      background: #050505;
+      background: #030303;
 
-      border-radius: 8px;
+      border-radius: 5px;
 
       z-index: 10;
     }
@@ -222,10 +215,7 @@
       grid-template-columns:
         repeat(
           5,
-          minmax(
-            0,
-            1fr
-          )
+          minmax(0, 1fr)
         );
 
       min-width: 0;
@@ -238,18 +228,14 @@
       grid-template-rows:
         repeat(
           3,
-          minmax(
-            0,
-            1fr
-          )
+          minmax(0, 1fr)
         );
 
       min-width: 0;
       min-height: 0;
 
       border-right:
-        1px solid
-        #5d4924;
+        1px solid #4d3a16;
     }
 
     .reelColumn:last-child {
@@ -269,21 +255,18 @@
       background:
         radial-gradient(
           circle,
-          #161616,
-          #020202 78%
+          #151515,
+          #010101 78%
         );
 
       border-bottom:
-        1px solid
-        #4a391d;
-
-      color: white;
+        1px solid #4c3816;
 
       font-size:
         clamp(
           28px,
-          5.2vw,
-          68px
+          5vw,
+          66px
         );
 
       transition:
@@ -313,36 +296,30 @@
       filter: blur(2px);
 
       animation:
-        spinShake
+        reelShake
         0.065s
         infinite
         alternate;
     }
 
-    @keyframes spinShake {
-
+    @keyframes reelShake {
       from {
         transform:
-          translateY(
-            -7px
-          );
+          translateY(-6px);
       }
 
       to {
         transform:
-          translateY(
-            7px
-          );
+          translateY(6px);
       }
-
     }
 
     .symbol.winner {
       background:
         radial-gradient(
           circle,
-          #7d6316,
-          #151000
+          #856717,
+          #100d03
         );
 
       box-shadow:
@@ -352,9 +329,9 @@
     }
 
 
-    /* ==================================
+    /* ================================
        PAYLINES
-       ================================== */
+       ================================ */
 
     #paylineOverlay {
       position: absolute;
@@ -364,9 +341,9 @@
       width: 100%;
       height: 100%;
 
-      pointer-events: none;
-
       z-index: 20;
+
+      pointer-events: none;
     }
 
     .payline {
@@ -380,7 +357,7 @@
       opacity: 0;
 
       transition:
-        opacity 0.2s;
+        opacity 0.18s;
     }
 
     .payline.active {
@@ -393,105 +370,25 @@
     .line4 { stroke: #f1e62e; }
     .line5 { stroke: #ff7bd8; }
     .line6 { stroke: #ff8e26; }
-    .line7 { stroke: #b266ff; }
+    .line7 { stroke: #a965ff; }
     .line8 { stroke: #58df83; }
     .line9 { stroke: #ff55ae; }
 
 
-    /* ==================================
-       LINE NUMBERS
-       ================================== */
-
-    .lineNumbers {
-      position: absolute;
-
-      top: 14.8%;
-
-      height: 46%;
-
-      display: flex;
-
-      flex-direction:
-        column;
-
-      justify-content:
-        space-around;
-
-      z-index: 30;
-    }
-
-    .lineNumbers.left {
-      left: 10.9%;
-    }
-
-    .lineNumbers.right {
-      right: 10.9%;
-    }
-
-    .lineBadge {
-      width:
-        clamp(
-          22px,
-          3vw,
-          42px
-        );
-
-      height:
-        clamp(
-          22px,
-          3vw,
-          42px
-        );
-
-      display: flex;
-
-      align-items: center;
-      justify-content: center;
-
-      color: #000;
-
-      font-size:
-        clamp(
-          11px,
-          1.6vw,
-          20px
-        );
-
-      font-weight: bold;
-
-      border-radius: 3px;
-
-      box-shadow:
-        0 0 7px
-        #000;
-    }
-
-    .b1 { background: #58a9ff; }
-    .b2 { background: #ff3030; }
-    .b3 { background: #28d328; }
-    .b4 { background: #f3e726; }
-    .b5 { background: #ef82dc; }
-    .b6 { background: #ff9229; }
-    .b7 { background: #ae67f4; }
-    .b8 { background: #5add7e; }
-    .b9 { background: #f263d4; }
-
-
-    /* ==================================
-       MACHINE MESSAGE
-       ================================== */
+    /* ================================
+       MESSAGE WINDOW
+       ================================ */
 
     .message {
       position: absolute;
 
-      left: 12.1%;
-      top: 65.5%;
+      left: 11.25%;
+      top: 61.7%;
 
-      width: 50.6%;
-      height: 6.7%;
+      width: 49.3%;
+      height: 6.4%;
 
       display: flex;
-
       align-items: center;
       justify-content: center;
 
@@ -499,42 +396,44 @@
         4px
         10px;
 
-      color: #eabb51;
+      overflow: hidden;
+
+      color: #e9bd52;
 
       font-size:
         clamp(
           11px,
-          1.5vw,
+          1.55vw,
           20px
         );
 
       font-weight: bold;
 
-      overflow: hidden;
-
       z-index: 30;
     }
 
 
-    /* ==================================
-       CREDIT / WIN
-       ================================== */
+    /* ================================
+       SPINS LEFT DISPLAY
 
-    .scoreDisplay {
+       Goes inside black box under
+       SPINS LEFT label
+       ================================ */
+
+    .spinsLeftDisplay {
       position: absolute;
 
-      left: 12.2%;
-      top: 77.8%;
+      left: 11.2%;
+      top: 72.0%;
 
-      width: 12%;
-      height: 4.2%;
+      width: 16.4%;
+      height: 5.0%;
 
       display: flex;
-
       align-items: center;
       justify-content: flex-end;
 
-      padding-right: 5px;
+      padding-right: 8px;
 
       color: #f2ff26;
 
@@ -544,33 +443,39 @@
 
       font-size:
         clamp(
-          13px,
-          2.2vw,
-          27px
+          14px,
+          2.4vw,
+          30px
         );
 
+      line-height: 1;
+
       text-shadow:
-        0 0 6px
+        0 0 7px
         #dfff00;
 
       z-index: 30;
     }
+
+
+    /* ================================
+       WIN DISPLAY
+       ================================ */
 
     .winDisplay {
       position: absolute;
 
-      left: 40.2%;
-      top: 77.8%;
+      left: 39.6%;
+      top: 72.0%;
 
-      width: 15%;
-      height: 4.2%;
+      width: 18.1%;
+      height: 5.0%;
 
       display: flex;
-
       align-items: center;
       justify-content: flex-end;
 
-      padding-right: 5px;
+      padding-right: 8px;
 
       color: #f2ff26;
 
@@ -580,101 +485,135 @@
 
       font-size:
         clamp(
-          13px,
-          2.2vw,
-          27px
+          14px,
+          2.4vw,
+          30px
         );
 
+      line-height: 1;
+
       text-shadow:
-        0 0 6px
+        0 0 7px
         #dfff00;
 
       z-index: 30;
     }
 
 
-    /* ==================================
-       INVISIBLE BUTTON HOTSPOTS
-       ================================== */
+    /* ================================
+       BUTTON ON-STATE IMAGES
+       ================================ */
+
+    .buttonLight {
+      position: absolute;
+
+      display: block;
+
+      object-fit: contain;
+
+      pointer-events: none;
+
+      opacity: 0;
+
+      z-index: 55;
+
+      transition:
+        opacity 0.07s;
+    }
+
+    .buttonLight.on {
+      opacity: 1;
+    }
+
+
+    /*
+      START / SKIP / TAKE WIN
+    */
+
+    .startButtonLight {
+      left: 62.6%;
+      top: 82.2%;
+
+      width: 11.35%;
+      height: auto;
+    }
+
+
+    /*
+      AUTOMATIC START
+    */
+
+    .autoButtonLight {
+      left: 76.0%;
+      top: 82.15%;
+
+      width: 10.55%;
+      height: auto;
+    }
+
+
+    /* ================================
+       INVISIBLE CLICK HOTSPOTS
+       ================================ */
 
     .frameHotspot {
       position: absolute;
 
       padding: 0;
 
-      background:
-        transparent;
+      background: transparent;
 
       border: none;
 
       cursor: pointer;
 
-      z-index: 60;
+      z-index: 65;
     }
 
-    .spinHotspot {
-      left: 69.1%;
-      top: 86.2%;
+    .startHotspot {
+      left: 62.6%;
+      top: 82.2%;
 
-      width: 8.1%;
-      height: 8.2%;
+      width: 11.35%;
+      height: 9.0%;
     }
 
     .autoHotspot {
-      left: 78.4%;
-      top: 86.2%;
+      left: 76.0%;
+      top: 82.2%;
 
-      width: 8.1%;
-      height: 8.2%;
-    }
-
-    .frameHotspot:hover {
-      background:
-        rgba(
-          255,
-          255,
-          255,
-          0.07
-        );
-    }
-
-    .frameHotspot:active {
-      background:
-        rgba(
-          255,
-          215,
-          80,
-          0.18
-        );
-    }
-
-    .autoHotspot.active {
-      background:
-        rgba(
-          255,
-          215,
-          80,
-          0.2
-        );
+      width: 10.55%;
+      height: 9.5%;
     }
 
     .frameHotspot.disabled {
-      cursor:
-        not-allowed;
-
-      background:
-        rgba(
-          120,
-          0,
-          0,
-          0.2
-        );
+      cursor: not-allowed;
     }
 
 
-    /* ==================================
-       ROUND STATUS
-       ================================== */
+    /* ================================
+       PLAYER / ROUND INFO
+       ================================ */
+
+    .playerBar {
+      width:
+        min(
+          900px,
+          94vw
+        );
+
+      margin:
+        12px
+        auto;
+
+      color: #bbb;
+
+      font-size: 14px;
+    }
+
+    .playerBar strong {
+      color: #eabc55;
+    }
 
     .roundStatus {
       width:
@@ -684,28 +623,24 @@
         );
 
       margin:
-        14px
+        12px
         auto;
 
       display: grid;
 
       grid-template-columns:
-        repeat(
-          3,
-          1fr
-        );
+        repeat(3, 1fr);
 
       gap: 10px;
     }
 
     .statusBox {
-      padding: 12px;
+      padding: 11px;
 
       background: #090909;
 
       border:
-        1px solid
-        #6d5627;
+        1px solid #6d5627;
 
       border-radius: 8px;
     }
@@ -713,7 +648,7 @@
     .statusLabel {
       color: #777;
 
-      font-size: 12px;
+      font-size: 11px;
     }
 
     .statusValue {
@@ -727,34 +662,9 @@
     }
 
 
-    /* ==================================
-       PLAYER BAR
-       ================================== */
-
-    .playerBar {
-      width:
-        min(
-          900px,
-          94vw
-        );
-
-      margin:
-        15px
-        auto;
-
-      color: #bbb;
-
-      font-size: 14px;
-    }
-
-    .playerBar strong {
-      color: #eabc55;
-    }
-
-
-    /* ==================================
+    /* ================================
        LEADERBOARD
-       ================================== */
+       ================================ */
 
     .leaderboard {
       width:
@@ -773,8 +683,7 @@
       background: #090909;
 
       border:
-        2px solid
-        #9e7c32;
+        2px solid #9e7c32;
 
       border-radius: 12px;
     }
@@ -827,8 +736,7 @@
         7px;
 
       border-bottom:
-        1px solid
-        #333;
+        1px solid #333;
 
       font-size: 17px;
     }
@@ -857,9 +765,9 @@
     }
 
 
-    /* ==================================
+    /* ================================
        PAYTABLE
-       ================================== */
+       ================================ */
 
     .paytable {
       width:
@@ -875,8 +783,7 @@
       background: #080808;
 
       border:
-        1px solid
-        #554521;
+        1px solid #554521;
 
       border-radius: 12px;
 
@@ -890,9 +797,9 @@
     }
 
 
-    /* ==================================
-       CORGI PHYSICS
-       ================================== */
+    /* ================================
+       CORGI PARTICLES
+       ================================ */
 
     .fallingCorgi {
       position: fixed;
@@ -913,14 +820,13 @@
 
       object-fit: contain;
 
-      will-change:
-        transform;
+      will-change: transform;
     }
 
 
-    /* ==================================
-       JACKPOT
-       ================================== */
+    /* ================================
+       JACKPOT EFFECT
+       ================================ */
 
     .jackpotFlash {
       animation:
@@ -931,7 +837,6 @@
     }
 
     @keyframes jackpotFlash {
-
       from {
         filter:
           brightness(1);
@@ -942,13 +847,12 @@
           brightness(1.6)
           saturate(1.7);
       }
-
     }
 
 
-    /* ==================================
+    /* ================================
        MOBILE
-       ================================== */
+       ================================ */
 
     @media
     (max-width: 600px) {
@@ -965,7 +869,7 @@
       .symbol {
         font-size:
           clamp(
-            25px,
+            24px,
             8vw,
             42px
           );
@@ -997,9 +901,9 @@
 <body>
 
 
-  <!-- ==================================
+  <!-- ================================
        LOGIN
-       ================================== -->
+       ================================ -->
 
   <div id="loginScreen">
 
@@ -1022,8 +926,8 @@
       <br>
 
       <button
-        id="startButton"
-        class="startButton"
+        id="startLoginButton"
+        class="startLoginButton"
       >
         START GAME
       </button>
@@ -1037,9 +941,9 @@
   </div>
 
 
-  <!-- ==================================
+  <!-- ================================
        GAME
-       ================================== -->
+       ================================ -->
 
   <div id="gameScreen">
 
@@ -1048,40 +952,6 @@
       class="machine"
       id="machine"
     >
-
-
-      <!-- LEFT LINE NUMBERS -->
-
-      <div class="lineNumbers left">
-
-        <div class="lineBadge b4">4</div>
-        <div class="lineBadge b2">2</div>
-        <div class="lineBadge b9">9</div>
-        <div class="lineBadge b6">6</div>
-        <div class="lineBadge b1">1</div>
-        <div class="lineBadge b7">7</div>
-        <div class="lineBadge b8">8</div>
-        <div class="lineBadge b3">3</div>
-        <div class="lineBadge b5">5</div>
-
-      </div>
-
-
-      <!-- RIGHT LINE NUMBERS -->
-
-      <div class="lineNumbers right">
-
-        <div class="lineBadge b4">4</div>
-        <div class="lineBadge b2">2</div>
-        <div class="lineBadge b9">9</div>
-        <div class="lineBadge b6">6</div>
-        <div class="lineBadge b1">1</div>
-        <div class="lineBadge b7">7</div>
-        <div class="lineBadge b8">8</div>
-        <div class="lineBadge b3">3</div>
-        <div class="lineBadge b5">5</div>
-
-      </div>
 
 
       <!-- REELS -->
@@ -1223,17 +1093,17 @@
       </div>
 
 
-      <!-- CREDIT -->
+      <!-- SPINS LEFT -->
 
       <div
-        class="scoreDisplay"
-        id="score"
+        class="spinsLeftDisplay"
+        id="spinsLeftDisplay"
       >
-        0
+        50
       </div>
 
 
-      <!-- LAST WIN -->
+      <!-- WIN -->
 
       <div
         class="winDisplay"
@@ -1243,21 +1113,43 @@
       </div>
 
 
-      <!-- START / FAST -->
+      <!-- BUTTON LIGHT IMAGES -->
+
+      <img
+        id="startButtonLight"
+        class="
+          buttonLight
+          startButtonLight
+        "
+        src="buttonstarton.png"
+        alt=""
+      >
+
+
+      <img
+        id="autoButtonLight"
+        class="
+          buttonLight
+          autoButtonLight
+        "
+        src="buttonautoon.png"
+        alt=""
+      >
+
+
+      <!-- INVISIBLE CLICK AREAS -->
 
       <button
         id="spinButton"
         class="
           frameHotspot
-          spinHotspot
+          startHotspot
         "
         aria-label="
           Start or skip spin
         "
       ></button>
 
-
-      <!-- AUTO -->
 
       <button
         id="autoButton"
@@ -1266,7 +1158,7 @@
           autoHotspot
         "
         aria-label="
-          Automatic spins
+          Toggle automatic spin
         "
       ></button>
 
@@ -1291,7 +1183,7 @@
     </div>
 
 
-    <!-- ROUND INFORMATION -->
+    <!-- ROUND STATUS -->
 
     <div class="roundStatus">
 
@@ -1319,7 +1211,7 @@
 
         <div
           class="statusValue"
-          id="spinsUsed"
+          id="spinsUsedOutside"
         >
           0 / 50
         </div>
@@ -1335,7 +1227,7 @@
 
         <div
           class="statusValue"
-          id="spinsLeft"
+          id="spinsLeftOutside"
         >
           50
         </div>
@@ -1356,17 +1248,11 @@
 
       <div class="leaderHead">
 
-        <span>
-          PLAYER
-        </span>
+        <span>PLAYER</span>
 
-        <span>
-          SCORE
-        </span>
+        <span>SCORE</span>
 
-        <span>
-          SPINS
-        </span>
+        <span>SPINS</span>
 
       </div>
 
@@ -1391,7 +1277,7 @@
     </section>
 
 
-    <!-- PAYTABLE -->
+    <!-- RULES -->
 
     <section class="paytable">
 
@@ -1401,16 +1287,10 @@
 
       <br>
 
-      Everyone gets exactly
-      50 spins.
+      Every player receives
+      exactly 50 spins.
 
       <br>
-
-      Your final score after
-      those 50 spins determines
-      your leaderboard position.
-
-      <br><br>
 
       3 matching = 10 points
 
@@ -1432,14 +1312,13 @@
 
       <br>
 
-      Any Corgi on screen
-      starts Corgi rain.
+      Any visible Corgi starts
+      Corgi rain.
 
       <br>
 
-      Move your mouse into
-      falling Corgis and
-      they will bounce away.
+      Falling Corgis react
+      to your mouse cursor.
 
     </section>
 
@@ -1447,22 +1326,20 @@
   </div>
 
 
-  <!-- ==================================
-       SUPABASE
-       ================================== -->
+  <!-- ================================
+       SUPABASE LIBRARY
+       ================================ -->
 
   <script
-    src="
-      https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2
-    "
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
   ></script>
 
 
   <script>
 
-    /* ==================================
+    /* ================================
        SUPABASE
-       ================================== */
+       ================================ */
 
     const SUPABASE_URL =
       "https://kurxfpmsxivousohtyej.supabase.co";
@@ -1479,9 +1356,9 @@
       );
 
 
-    /* ==================================
+    /* ================================
        SETTINGS
-       ================================== */
+       ================================ */
 
     const SETTINGS = {
 
@@ -1516,9 +1393,9 @@
     };
 
 
-    /* ==================================
+    /* ================================
        SYMBOLS
-       ================================== */
+       ================================ */
 
     const SYMBOLS = [
 
@@ -1579,17 +1456,16 @@
       {
         type: "image",
         value: "CORGI",
-        src:
-          "corgi-jackpot.png",
+        src: "corgi-jackpot.png",
         weight: 5
       }
 
     ];
 
 
-    /* ==================================
-       9 PAYLINES
-       ================================== */
+    /* ================================
+       PAYLINES
+       ================================ */
 
     const PAYLINES = [
 
@@ -1614,9 +1490,9 @@
     ];
 
 
-    /* ==================================
-       STATE
-       ================================== */
+    /* ================================
+       GAME STATE
+       ================================ */
 
     const game = {
 
@@ -1639,9 +1515,9 @@
     };
 
 
-    /* ==================================
+    /* ================================
        ELEMENTS
-       ================================== */
+       ================================ */
 
     const el = {
 
@@ -1660,9 +1536,9 @@
           "nicknameInput"
         ),
 
-      start:
+      startLogin:
         document.getElementById(
-          "startButton"
+          "startLoginButton"
         ),
 
       spin:
@@ -1675,29 +1551,24 @@
           "autoButton"
         ),
 
+      startLight:
+        document.getElementById(
+          "startButtonLight"
+        ),
+
+      autoLight:
+        document.getElementById(
+          "autoButtonLight"
+        ),
+
       reels:
         document.getElementById(
           "reels"
         ),
 
-      score:
+      spinsLeftDisplay:
         document.getElementById(
-          "score"
-        ),
-
-      scoreOutside:
-        document.getElementById(
-          "scoreOutside"
-        ),
-
-      spinsUsed:
-        document.getElementById(
-          "spinsUsed"
-        ),
-
-      spinsLeft:
-        document.getElementById(
-          "spinsLeft"
+          "spinsLeftDisplay"
         ),
 
       lastWin:
@@ -1733,14 +1604,29 @@
       machine:
         document.getElementById(
           "machine"
+        ),
+
+      scoreOutside:
+        document.getElementById(
+          "scoreOutside"
+        ),
+
+      spinsUsedOutside:
+        document.getElementById(
+          "spinsUsedOutside"
+        ),
+
+      spinsLeftOutside:
+        document.getElementById(
+          "spinsLeftOutside"
         )
 
     };
 
 
-    /* ==================================
-       BUILD MACHINE
-       ================================== */
+    /* ================================
+       BUILD REELS
+       ================================ */
 
     function buildMachine() {
 
@@ -1810,9 +1696,9 @@
     }
 
 
-    /* ==================================
+    /* ================================
        SYMBOL RENDERING
-       ================================== */
+       ================================ */
 
     function renderSymbol(
       element,
@@ -1868,22 +1754,22 @@
     }
 
 
-    /* ==================================
+    /* ================================
        RANDOM SYMBOL
-       ================================== */
+       ================================ */
 
     function randomSymbol() {
 
-      const totalWeight =
+      const total =
 
         SYMBOLS.reduce(
 
           (
-            total,
+            sum,
             symbol
           ) =>
 
-            total +
+            sum +
             symbol.weight,
 
           0
@@ -1892,10 +1778,9 @@
 
 
       let number =
-
         Math.random()
         *
-        totalWeight;
+        total;
 
 
       for (
@@ -1948,9 +1833,9 @@
     }
 
 
-    /* ==================================
+    /* ================================
        LOGIN
-       ================================== */
+       ================================ */
 
     async function startGame() {
 
@@ -1973,7 +1858,7 @@
       }
 
 
-      el.start.disabled =
+      el.startLogin.disabled =
         true;
 
 
@@ -2047,12 +1932,9 @@
 
         else {
 
-          game.score =
-            0;
+          game.score = 0;
 
-
-          game.spinsUsed =
-            0;
+          game.spinsUsed = 0;
 
 
           const saved =
@@ -2096,7 +1978,8 @@
           game.player;
 
 
-        el.online.textContent =
+        el.online
+          .textContent =
           "🟢 Online";
 
 
@@ -2126,17 +2009,17 @@
       }
 
 
-      el.start.disabled =
+      el.startLogin.disabled =
         false;
 
     }
 
 
-    /* ==================================
+    /* ================================
        EVENTS
-       ================================== */
+       ================================ */
 
-    el.start.addEventListener(
+    el.startLogin.addEventListener(
       "click",
       startGame
     );
@@ -2162,11 +2045,18 @@
     );
 
 
+    /* ================================
+       START BUTTON
+       ================================ */
+
     el.spin.addEventListener(
 
       "click",
 
       () => {
+
+        flashStartButton();
+
 
         if (
           game.spinning
@@ -2197,6 +2087,38 @@
     );
 
 
+    function flashStartButton() {
+
+      el.startLight
+        .classList
+        .add(
+          "on"
+        );
+
+
+      setTimeout(
+
+        () => {
+
+          el.startLight
+            .classList
+            .remove(
+              "on"
+            );
+
+        },
+
+        170
+
+      );
+
+    }
+
+
+    /* ================================
+       AUTO BUTTON
+       ================================ */
+
     el.auto.addEventListener(
 
       "click",
@@ -2217,10 +2139,10 @@
           !game.autoSpin;
 
 
-        el.auto
+        el.autoLight
           .classList
           .toggle(
-            "active",
+            "on",
             game.autoSpin
           );
 
@@ -2243,15 +2165,9 @@
     );
 
 
-    /* ==================================
-       RESERVE ONE SPIN
-
-       The spin is counted BEFORE
-       the reels begin.
-
-       So refreshing the page cannot
-       give the spin back.
-       ================================== */
+    /* ================================
+       RESERVE SPIN
+       ================================ */
 
     async function reserveSpin() {
 
@@ -2295,9 +2211,9 @@
     }
 
 
-    /* ==================================
+    /* ================================
        SPIN
-       ================================== */
+       ================================ */
 
     async function spin() {
 
@@ -2352,12 +2268,13 @@
       clearWins();
 
 
-      el.message.textContent =
-        `SPIN ${game.spinsUsed} / 50`;
-
-
       el.lastWin.textContent =
         "0";
+
+
+      el.message.textContent =
+
+        `SPIN ${game.spinsUsed} / 50`;
 
 
       const result =
@@ -2375,8 +2292,7 @@
       ) {
 
         await cancellableWait(
-          SETTINGS
-            .reelStopDelay
+          SETTINGS.reelStopDelay
         );
 
 
@@ -2385,29 +2301,19 @@
         ) {
 
           for (
-            let remaining =
-              reel;
-
-            remaining < 5;
-
-            remaining++
+            let r = reel;
+            r < 5;
+            r++
           ) {
 
             clearInterval(
-              intervals[
-                remaining
-              ]
+              intervals[r]
             );
 
 
             stopReel(
-
-              remaining,
-
-              result[
-                remaining
-              ]
-
+              r,
+              result[r]
             );
 
           }
@@ -2419,20 +2325,13 @@
 
 
         clearInterval(
-          intervals[
-            reel
-          ]
+          intervals[reel]
         );
 
 
         stopReel(
-
           reel,
-
-          result[
-            reel
-          ]
-
+          result[reel]
         );
 
       }
@@ -2468,9 +2367,11 @@
           false;
 
 
-        el.auto.classList.remove(
-          "active"
-        );
+        el.autoLight
+          .classList
+          .remove(
+            "on"
+          );
 
 
         finishRound();
@@ -2486,8 +2387,7 @@
       ) {
 
         await wait(
-          SETTINGS
-            .autoSpinDelay
+          SETTINGS.autoSpinDelay
         );
 
 
@@ -2504,9 +2404,9 @@
     }
 
 
-    /* ==================================
+    /* ================================
        REEL ANIMATION
-       ================================== */
+       ================================ */
 
     function startAllReels() {
 
@@ -2553,8 +2453,7 @@
 
             },
 
-            SETTINGS
-              .spinSpeed
+            SETTINGS.spinSpeed
 
           )
 
@@ -2601,20 +2500,17 @@
     }
 
 
-    /* ==================================
+    /* ================================
        EVALUATE SPIN
-       ================================== */
+       ================================ */
 
     async function evaluateSpin(
       result
     ) {
 
-      let totalWin =
-        0;
+      let totalWin = 0;
 
-
-      let winningLines =
-        0;
+      let winningLines = 0;
 
 
       const hasCorgi =
@@ -2624,9 +2520,7 @@
           .some(
 
             symbol =>
-
-              symbol.value
-              ===
+              symbol.value ===
               "CORGI"
 
           );
@@ -2648,7 +2542,7 @@
           lineIndex
         ) => {
 
-          const symbols =
+          const lineSymbols =
 
             payline.map(
 
@@ -2668,7 +2562,7 @@
 
           const win =
             evaluateLine(
-              symbols
+              lineSymbols
             );
 
 
@@ -2700,8 +2594,7 @@
 
 
             if (
-              win.matches ===
-              5
+              win.matches === 5
             ) {
 
               confetti();
@@ -2711,8 +2604,7 @@
 
             if (
 
-              win.matches ===
-              5
+              win.matches === 5
 
               &&
 
@@ -2773,16 +2665,21 @@
       else {
 
         el.message.textContent =
-          `${SETTINGS.maxSpins - game.spinsUsed} SPINS LEFT`;
+
+          `${Math.max(
+            0,
+            SETTINGS.maxSpins -
+            game.spinsUsed
+          )} SPINS LEFT`;
 
       }
 
     }
 
 
-    /* ==================================
+    /* ================================
        ONE PAYLINE
-       ================================== */
+       ================================ */
 
     function evaluateLine(
       line
@@ -2866,8 +2763,7 @@
           ) {
 
             points =
-              SETTINGS
-                .corgiJackpot;
+              SETTINGS.corgiJackpot;
 
           }
 
@@ -2910,9 +2806,9 @@
     }
 
 
-    /* ==================================
-       ROUND FINISHED
-       ================================== */
+    /* ================================
+       ROUND COMPLETE
+       ================================ */
 
     function finishRound() {
 
@@ -2920,10 +2816,10 @@
         false;
 
 
-      el.auto
+      el.autoLight
         .classList
         .remove(
-          "active"
+          "on"
         );
 
 
@@ -2977,9 +2873,9 @@
     }
 
 
-    /* ==================================
-       PAYLINE VISUALS
-       ================================== */
+    /* ================================
+       WIN VISUALS
+       ================================ */
 
     function showWinningPayline(
       index
@@ -2988,8 +2884,7 @@
       document
         .getElementById(
 
-          "line"
-          +
+          "line" +
           (
             index + 1
           )
@@ -3014,22 +2909,20 @@
     ) {
 
       for (
-        let index = start;
+        let i = start;
 
-        index <
+        i <
           start +
           matches;
 
-        index++
+        i++
       ) {
 
         getCell(
 
-          index,
+          i,
 
-          payline[
-            index
-          ]
+          payline[i]
 
         )
         .classList
@@ -3051,10 +2944,11 @@
         .forEach(
 
           cell =>
-
-            cell.classList.remove(
-              "winner"
-            )
+            cell
+              .classList
+              .remove(
+                "winner"
+              )
 
         );
 
@@ -3066,10 +2960,11 @@
         .forEach(
 
           line =>
-
-            line.classList.remove(
-              "active"
-            )
+            line
+              .classList
+              .remove(
+                "active"
+              )
 
         );
 
@@ -3091,9 +2986,9 @@
     }
 
 
-    /* ==================================
-       SAVE PROGRESS
-       ================================== */
+    /* ================================
+       SAVE ONLINE PROGRESS
+       ================================ */
 
     async function saveOnlineProgress() {
 
@@ -3178,9 +3073,9 @@
     }
 
 
-    /* ==================================
+    /* ================================
        LEADERBOARD
-       ================================== */
+       ================================ */
 
     async function updateLeaderboard() {
 
@@ -3224,6 +3119,7 @@
         console.error(
           error
         );
+
 
         return;
 
@@ -3308,7 +3204,9 @@
 
           spins.textContent =
 
-            `${Number(player.spins_used || 0)}/50`;
+            `${Number(
+              player.spins_used || 0
+            )}/50`;
 
 
           row.append(
@@ -3330,43 +3228,50 @@
     }
 
 
-    /* ==================================
+    /* ================================
        DISPLAY
-       ================================== */
+       ================================ */
 
     function updateDisplays() {
 
-      el.score.textContent =
-        game.score;
-
-
-      el.scoreOutside.textContent =
-        game.score;
-
-
-      el.spinsUsed.textContent =
-
-        `${game.spinsUsed} / ${SETTINGS.maxSpins}`;
-
-
-      el.spinsLeft.textContent =
+      const spinsLeft =
 
         Math.max(
 
           0,
 
-          SETTINGS.maxSpins
-          -
+          SETTINGS.maxSpins -
           game.spinsUsed
 
         );
 
+
+      el.spinsLeftDisplay
+        .textContent =
+        spinsLeft;
+
+
+      el.scoreOutside
+        .textContent =
+        game.score;
+
+
+      el.spinsUsedOutside
+        .textContent =
+
+        `${game.spinsUsed} / ${SETTINGS.maxSpins}`;
+
+
+      el.spinsLeftOutside
+        .textContent =
+        spinsLeft;
+
     }
 
 
-    /* ==================================
+    /* ================================
        CORGI PHYSICS
-       ================================== */
+       ================================ */
 
     const corgiParticles =
       [];
@@ -3426,7 +3331,8 @@
       for (
         let index = 0;
 
-        index < amount;
+        index <
+          amount;
 
         index++
       ) {
@@ -3446,11 +3352,6 @@
     function createCorgiParticle(
       index
     ) {
-
-      /*
-        Keep the page responsive
-        even after several jackpots.
-      */
 
       if (
         corgiParticles.length >
@@ -3486,7 +3387,7 @@
         );
 
 
-      const width =
+      const size =
 
         55 +
         Math.random()
@@ -3495,7 +3396,7 @@
 
 
       image.style.width =
-        width +
+        size +
         "px";
 
 
@@ -3530,7 +3431,7 @@
           +
           Math.random()
           *
-          2.5,
+          2.4,
 
         rotation:
           Math.random()
@@ -3547,7 +3448,7 @@
           5,
 
         size:
-          width
+          size
 
       });
 
@@ -3601,15 +3502,9 @@
           ];
 
 
-        /* gravity */
-
         particle.vy +=
           0.025;
 
-
-        /*
-          Cursor repulsion
-        */
 
         if (
           pointer.active
@@ -3617,33 +3512,27 @@
 
           const centerX =
 
-            particle.x
-            +
-            particle.size
-            /
+            particle.x +
+            particle.size /
             2;
 
 
           const centerY =
 
-            particle.y
-            +
-            particle.size
-            /
+            particle.y +
+            particle.size /
             2;
 
 
           const dx =
 
-            centerX
-            -
+            centerX -
             pointer.x;
 
 
           const dy =
 
-            centerY
-            -
+            centerY -
             pointer.y;
 
 
@@ -3651,32 +3540,27 @@
 
             Math.sqrt(
 
-              dx * dx
-              +
+              dx * dx +
               dy * dy
 
             );
 
 
           if (
+
             distance <
               repelRadius
 
             &&
 
             distance > 1
-          ) {
 
-            /*
-              Stronger push
-              when cursor is closer.
-            */
+          ) {
 
             const force =
 
               (
-                repelRadius
-                -
+                repelRadius -
                 distance
               )
               /
@@ -3686,8 +3570,7 @@
             particle.vx +=
 
               (
-                dx
-                /
+                dx /
                 distance
               )
               *
@@ -3699,8 +3582,7 @@
             particle.vy +=
 
               (
-                dy
-                /
+                dy /
                 distance
               )
               *
@@ -3723,8 +3605,6 @@
 
         }
 
-
-        /* gentle air resistance */
 
         particle.vx *=
           0.992;
@@ -3760,16 +3640,10 @@
           )`;
 
 
-        /*
-          Remove once far
-          below / outside screen.
-        */
-
         if (
 
           particle.y >
-            window.innerHeight
-            +
+            window.innerHeight +
             180
 
           ||
@@ -3780,13 +3654,13 @@
           ||
 
           particle.x >
-            window.innerWidth
-            +
+            window.innerWidth +
             300
 
         ) {
 
-          particle.element.remove();
+          particle.element
+            .remove();
 
 
           corgiParticles.splice(
@@ -3820,9 +3694,9 @@
     }
 
 
-    /* ==================================
+    /* ================================
        CONFETTI
-       ================================== */
+       ================================ */
 
     function confetti() {
 
@@ -3837,11 +3711,9 @@
 
 
       for (
-        let index = 0;
-
-        index < 55;
-
-        index++
+        let i = 0;
+        i < 55;
+        i++
       ) {
 
         const thing =
@@ -3880,12 +3752,10 @@
 
         thing.style.fontSize =
 
-          20
-          +
+          20 +
           Math.random()
           *
-          35
-          +
+          35 +
           "px";
 
 
@@ -3899,8 +3769,7 @@
 
         const duration =
 
-          2500
-          +
+          2500 +
           Math.random()
           *
           1800;
@@ -4004,12 +3873,13 @@
     }
 
 
-    /* ==================================
-       ZURICH DAY
-       ================================== */
+    /* ================================
+       ZURICH DATE
+       ================================ */
 
     function getZurichParts(
-      date = new Date()
+      date =
+        new Date()
     ) {
 
       const formatter =
@@ -4096,14 +3966,10 @@
 
       return (
 
-        parts.year
-        +
-        "-"
-        +
-        parts.month
-        +
-        "-"
-        +
+        parts.year +
+        "-" +
+        parts.month +
+        "-" +
         parts.day
 
       );
@@ -4122,13 +3988,6 @@
           now
         );
 
-
-      /*
-        00:00:00 is still
-        the previous competition.
-
-        00:00:01 starts the new day.
-      */
 
       if (
 
@@ -4154,8 +4013,7 @@
 
           new Date(
 
-            now.getTime()
-            -
+            now.getTime() -
             1000
 
           )
@@ -4172,9 +4030,9 @@
     }
 
 
-    /* ==================================
-       NEW DAILY ROUND
-       ================================== */
+    /* ================================
+       NEW DAY
+       ================================ */
 
     async function checkNewDay() {
 
@@ -4195,12 +4053,6 @@
       game.dayKey =
         today;
 
-
-      /*
-        Look for today's player
-        instead of automatically
-        assuming zero.
-      */
 
       try {
 
@@ -4264,17 +4116,25 @@
 
         else {
 
-          game.score =
-            0;
+          game.score = 0;
 
-
-          game.spinsUsed =
-            0;
+          game.spinsUsed = 0;
 
 
           await saveOnlineProgress();
 
         }
+
+
+        game.autoSpin =
+          false;
+
+
+        el.autoLight
+          .classList
+          .remove(
+            "on"
+          );
 
 
         updateDisplays();
@@ -4304,21 +4164,20 @@
     }
 
 
-    /* ==================================
-       WAIT
-       ================================== */
+    /* ================================
+       WAIT HELPERS
+       ================================ */
 
     function wait(
-      milliseconds
+      ms
     ) {
 
       return new Promise(
 
         resolve =>
-
           setTimeout(
             resolve,
-            milliseconds
+            ms
           )
 
       );
@@ -4327,7 +4186,7 @@
 
 
     function cancellableWait(
-      milliseconds
+      ms
     ) {
 
       return new Promise(
@@ -4341,11 +4200,8 @@
           const timer =
 
             setTimeout(
-
               finish,
-
-              milliseconds
-
+              ms
             );
 
 
@@ -4388,9 +4244,9 @@
     }
 
 
-    /* ==================================
+    /* ================================
        STARTUP
-       ================================== */
+       ================================ */
 
     buildMachine();
 
