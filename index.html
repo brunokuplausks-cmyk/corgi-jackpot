@@ -1,23 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>Corgi Jackpot</title>
 
   <style>
+
     * {
       box-sizing: border-box;
     }
 
     body {
       margin: 0;
+
       background:
-        radial-gradient(circle at top, #151515, #000);
+        radial-gradient(
+          circle at top,
+          #151515,
+          #000
+        );
+
       color: white;
-      font-family: Arial, sans-serif;
+
+      font-family:
+        Arial,
+        sans-serif;
+
       text-align: center;
+
       overflow-x: hidden;
     }
 
@@ -26,27 +43,42 @@
       font-family: inherit;
     }
 
-    /* =================================
+
+    /* ==================================
        LOGIN
-       ================================= */
+       ================================== */
 
     #loginScreen {
       min-height: 100vh;
+
       display: flex;
       align-items: center;
       justify-content: center;
+
       padding: 20px;
     }
 
     .loginBox {
       width: min(500px, 94vw);
-      background: #080808;
-      border: 3px solid #b59036;
-      border-radius: 20px;
+
       padding: 40px;
 
+      background: #080808;
+
+      border:
+        3px solid
+        #b59036;
+
+      border-radius: 20px;
+
       box-shadow:
-        0 0 40px rgba(255, 190, 40, 0.15);
+        0 0 40px
+        rgba(
+          255,
+          190,
+          40,
+          0.15
+        );
     }
 
     .loginBox h1 {
@@ -56,20 +88,31 @@
 
     .loginBox input {
       width: 100%;
-      padding: 15px;
+
       margin: 20px 0;
 
+      padding: 15px;
+
+      border:
+        2px solid
+        #9d7c31;
+
       border-radius: 8px;
-      border: 2px solid #9d7c31;
 
       background: #111;
+
       color: white;
 
-      text-align: center;
       font-size: 21px;
+
+      text-align: center;
     }
 
     .startButton {
+      padding:
+        14px
+        35px;
+
       background:
         linear-gradient(
           #e1d6bc,
@@ -78,10 +121,11 @@
 
       color: #111;
 
-      border: 3px solid #222;
-      border-radius: 6px;
+      border:
+        3px solid
+        #222;
 
-      padding: 14px 35px;
+      border-radius: 6px;
 
       font-size: 20px;
       font-weight: bold;
@@ -89,31 +133,41 @@
 
     #loginStatus {
       margin-top: 15px;
+
       color: #aaa;
+
       font-size: 13px;
     }
 
-    /* =================================
-       GAME PAGE
-       ================================= */
+
+    /* ==================================
+       GAME
+       ================================== */
 
     #gameScreen {
       display: none;
+
       width: 100%;
+
       padding:
         18px
         10px
         60px;
     }
 
-    /* =================================
-       MACHINE
-       ================================= */
+
+    /* ==================================
+       MACHINE FRAME
+       ================================== */
 
     .machine {
       position: relative;
 
-      width: min(1100px, 98vw);
+      width:
+        min(
+          1100px,
+          98vw
+        );
 
       margin: auto;
 
@@ -135,9 +189,10 @@
       overflow: hidden;
     }
 
-    /* =================================
-       SLOT WINDOW
-       ================================= */
+
+    /* ==================================
+       SLOT AREA
+       ================================== */
 
     .slotArea {
       position: absolute;
@@ -159,12 +214,19 @@
 
     .reels {
       position: absolute;
+
       inset: 0;
 
       display: grid;
 
       grid-template-columns:
-        repeat(5, minmax(0, 1fr));
+        repeat(
+          5,
+          minmax(
+            0,
+            1fr
+          )
+        );
 
       min-width: 0;
       min-height: 0;
@@ -174,13 +236,20 @@
       display: grid;
 
       grid-template-rows:
-        repeat(3, minmax(0, 1fr));
+        repeat(
+          3,
+          minmax(
+            0,
+            1fr
+          )
+        );
 
       min-width: 0;
       min-height: 0;
 
       border-right:
-        1px solid #5d4924;
+        1px solid
+        #5d4924;
     }
 
     .reelColumn:last-child {
@@ -205,17 +274,22 @@
         );
 
       border-bottom:
-        1px solid #4a391d;
+        1px solid
+        #4a391d;
 
       color: white;
 
       font-size:
-        clamp(28px, 5.2vw, 68px);
+        clamp(
+          28px,
+          5.2vw,
+          68px
+        );
 
       transition:
-        filter 0.15s,
         background 0.15s,
-        transform 0.15s;
+        transform 0.15s,
+        filter 0.15s;
     }
 
     .symbol img {
@@ -246,13 +320,21 @@
     }
 
     @keyframes spinShake {
+
       from {
-        transform: translateY(-7px);
+        transform:
+          translateY(
+            -7px
+          );
       }
 
       to {
-        transform: translateY(7px);
+        transform:
+          translateY(
+            7px
+          );
       }
+
     }
 
     .symbol.winner {
@@ -269,9 +351,10 @@
         gold;
     }
 
-    /* =================================
+
+    /* ==================================
        PAYLINES
-       ================================= */
+       ================================== */
 
     #paylineOverlay {
       position: absolute;
@@ -304,45 +387,20 @@
       opacity: 0.95;
     }
 
-    .line1 {
-      stroke: #4ca3ff;
-    }
+    .line1 { stroke: #4ca3ff; }
+    .line2 { stroke: #ff3838; }
+    .line3 { stroke: #30ce36; }
+    .line4 { stroke: #f1e62e; }
+    .line5 { stroke: #ff7bd8; }
+    .line6 { stroke: #ff8e26; }
+    .line7 { stroke: #b266ff; }
+    .line8 { stroke: #58df83; }
+    .line9 { stroke: #ff55ae; }
 
-    .line2 {
-      stroke: #ff3838;
-    }
 
-    .line3 {
-      stroke: #30ce36;
-    }
-
-    .line4 {
-      stroke: #f1e62e;
-    }
-
-    .line5 {
-      stroke: #ff7bd8;
-    }
-
-    .line6 {
-      stroke: #ff8e26;
-    }
-
-    .line7 {
-      stroke: #b266ff;
-    }
-
-    .line8 {
-      stroke: #58df83;
-    }
-
-    .line9 {
-      stroke: #ff55ae;
-    }
-
-    /* =================================
-       SIDE LINE NUMBERS
-       ================================= */
+    /* ==================================
+       LINE NUMBERS
+       ================================== */
 
     .lineNumbers {
       position: absolute;
@@ -352,8 +410,12 @@
       height: 46%;
 
       display: flex;
-      flex-direction: column;
-      justify-content: space-around;
+
+      flex-direction:
+        column;
+
+      justify-content:
+        space-around;
 
       z-index: 30;
     }
@@ -368,26 +430,40 @@
 
     .lineBadge {
       width:
-        clamp(22px, 3vw, 42px);
+        clamp(
+          22px,
+          3vw,
+          42px
+        );
 
       height:
-        clamp(22px, 3vw, 42px);
+        clamp(
+          22px,
+          3vw,
+          42px
+        );
 
       display: flex;
-      justify-content: center;
+
       align-items: center;
+      justify-content: center;
 
       color: #000;
 
       font-size:
-        clamp(11px, 1.6vw, 20px);
+        clamp(
+          11px,
+          1.6vw,
+          20px
+        );
 
       font-weight: bold;
 
       border-radius: 3px;
 
       box-shadow:
-        0 0 7px #000;
+        0 0 7px
+        #000;
     }
 
     .b1 { background: #58a9ff; }
@@ -400,9 +476,10 @@
     .b8 { background: #5add7e; }
     .b9 { background: #f263d4; }
 
-    /* =================================
+
+    /* ==================================
        MACHINE MESSAGE
-       ================================= */
+       ================================== */
 
     .message {
       position: absolute;
@@ -414,6 +491,7 @@
       height: 6.7%;
 
       display: flex;
+
       align-items: center;
       justify-content: center;
 
@@ -424,7 +502,11 @@
       color: #eabb51;
 
       font-size:
-        clamp(11px, 1.5vw, 20px);
+        clamp(
+          11px,
+          1.5vw,
+          20px
+        );
 
       font-weight: bold;
 
@@ -433,9 +515,10 @@
       z-index: 30;
     }
 
-    /* =================================
-       SCORE / WIN DISPLAYS
-       ================================= */
+
+    /* ==================================
+       CREDIT / WIN
+       ================================== */
 
     .scoreDisplay {
       position: absolute;
@@ -447,6 +530,7 @@
       height: 4.2%;
 
       display: flex;
+
       align-items: center;
       justify-content: flex-end;
 
@@ -459,9 +543,11 @@
         monospace;
 
       font-size:
-        clamp(13px, 2.2vw, 27px);
-
-      line-height: 1;
+        clamp(
+          13px,
+          2.2vw,
+          27px
+        );
 
       text-shadow:
         0 0 6px
@@ -480,6 +566,7 @@
       height: 4.2%;
 
       display: flex;
+
       align-items: center;
       justify-content: flex-end;
 
@@ -492,9 +579,11 @@
         monospace;
 
       font-size:
-        clamp(13px, 2.2vw, 27px);
-
-      line-height: 1;
+        clamp(
+          13px,
+          2.2vw,
+          27px
+        );
 
       text-shadow:
         0 0 6px
@@ -503,18 +592,20 @@
       z-index: 30;
     }
 
-    /* =================================
-       INVISIBLE FRAME BUTTONS
-       ================================= */
+
+    /* ==================================
+       INVISIBLE BUTTON HOTSPOTS
+       ================================== */
 
     .frameHotspot {
       position: absolute;
 
-      background: transparent;
+      padding: 0;
+
+      background:
+        transparent;
 
       border: none;
-
-      padding: 0;
 
       cursor: pointer;
 
@@ -563,16 +654,89 @@
           255,
           215,
           80,
-          0.18
+          0.2
         );
     }
 
-    /* =================================
-       PLAYER
-       ================================= */
+    .frameHotspot.disabled {
+      cursor:
+        not-allowed;
+
+      background:
+        rgba(
+          120,
+          0,
+          0,
+          0.2
+        );
+    }
+
+
+    /* ==================================
+       ROUND STATUS
+       ================================== */
+
+    .roundStatus {
+      width:
+        min(
+          900px,
+          94vw
+        );
+
+      margin:
+        14px
+        auto;
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(
+          3,
+          1fr
+        );
+
+      gap: 10px;
+    }
+
+    .statusBox {
+      padding: 12px;
+
+      background: #090909;
+
+      border:
+        1px solid
+        #6d5627;
+
+      border-radius: 8px;
+    }
+
+    .statusLabel {
+      color: #777;
+
+      font-size: 12px;
+    }
+
+    .statusValue {
+      margin-top: 4px;
+
+      color: #eabe58;
+
+      font-size: 20px;
+
+      font-weight: bold;
+    }
+
+
+    /* ==================================
+       PLAYER BAR
+       ================================== */
 
     .playerBar {
-      width: min(900px, 94vw);
+      width:
+        min(
+          900px,
+          94vw
+        );
 
       margin:
         15px
@@ -587,12 +751,17 @@
       color: #eabc55;
     }
 
-    /* =================================
+
+    /* ==================================
        LEADERBOARD
-       ================================= */
+       ================================== */
 
     .leaderboard {
-      width: min(900px, 94vw);
+      width:
+        min(
+          900px,
+          94vw
+        );
 
       margin:
         10px
@@ -604,35 +773,73 @@
       background: #090909;
 
       border:
-        2px solid #9e7c32;
+        2px solid
+        #9e7c32;
 
       border-radius: 12px;
     }
 
     .leaderboard h2 {
-      color: #e4b44f;
-
       margin:
         0
         0
         15px;
 
+      color: #e4b44f;
+
       letter-spacing: 2px;
     }
 
+    .leaderHead,
     .playerRow {
-      display: flex;
+      display: grid;
 
-      justify-content: space-between;
+      grid-template-columns:
+        1fr
+        100px
+        110px;
 
+      gap: 10px;
+
+      align-items: center;
+    }
+
+    .leaderHead {
+      padding:
+        5px
+        7px
+        10px;
+
+      color: #777;
+
+      font-size: 11px;
+
+      text-align: right;
+    }
+
+    .leaderHead span:first-child {
+      text-align: left;
+    }
+
+    .playerRow {
       padding:
         10px
         7px;
 
       border-bottom:
-        1px solid #333;
+        1px solid
+        #333;
 
       font-size: 17px;
+    }
+
+    .playerRow span:first-child {
+      text-align: left;
+    }
+
+    .playerRow span,
+    .playerRow strong {
+      text-align: right;
     }
 
     .currentPlayerRow {
@@ -642,19 +849,24 @@
     }
 
     .resetInfo {
-      color: #777;
-
       margin-top: 13px;
+
+      color: #777;
 
       font-size: 12px;
     }
 
-    /* =================================
+
+    /* ==================================
        PAYTABLE
-       ================================= */
+       ================================== */
 
     .paytable {
-      width: min(900px, 94vw);
+      width:
+        min(
+          900px,
+          94vw
+        );
 
       margin: auto;
 
@@ -663,7 +875,8 @@
       background: #080808;
 
       border:
-        1px solid #554521;
+        1px solid
+        #554521;
 
       border-radius: 12px;
 
@@ -676,28 +889,38 @@
       color: #e6bb57;
     }
 
-    /* =================================
-       CORGI RAIN
-       ================================= */
+
+    /* ==================================
+       CORGI PHYSICS
+       ================================== */
 
     .fallingCorgi {
       position: fixed;
 
-      top: -140px;
+      left: 0;
+      top: 0;
 
       width:
-        clamp(50px, 7vw, 100px);
+        clamp(
+          50px,
+          7vw,
+          100px
+        );
 
       z-index: 9999;
 
       pointer-events: none;
 
       object-fit: contain;
+
+      will-change:
+        transform;
     }
 
-    /* =================================
+
+    /* ==================================
        JACKPOT
-       ================================= */
+       ================================== */
 
     .jackpotFlash {
       animation:
@@ -708,8 +931,10 @@
     }
 
     @keyframes jackpotFlash {
+
       from {
-        filter: brightness(1);
+        filter:
+          brightness(1);
       }
 
       to {
@@ -717,11 +942,13 @@
           brightness(1.6)
           saturate(1.7);
       }
+
     }
 
-    /* =================================
+
+    /* ==================================
        MOBILE
-       ================================= */
+       ================================== */
 
     @media
     (max-width: 600px) {
@@ -744,17 +971,35 @@
           );
       }
 
+      .roundStatus {
+        width: 95vw;
+
+        grid-template-columns:
+          1fr;
+      }
+
+      .leaderHead,
+      .playerRow {
+        grid-template-columns:
+          1fr
+          70px
+          80px;
+
+        font-size: 13px;
+      }
+
     }
 
   </style>
 </head>
 
+
 <body>
 
 
-  <!-- =================================
+  <!-- ==================================
        LOGIN
-       ================================= -->
+       ================================== -->
 
   <div id="loginScreen">
 
@@ -792,9 +1037,9 @@
   </div>
 
 
-  <!-- =================================
+  <!-- ==================================
        GAME
-       ================================= -->
+       ================================== -->
 
   <div id="gameScreen">
 
@@ -805,13 +1050,9 @@
     >
 
 
-      <!-- =================================
-           LINE NUMBERS LEFT
-           ================================= -->
+      <!-- LEFT LINE NUMBERS -->
 
-      <div
-        class="lineNumbers left"
-      >
+      <div class="lineNumbers left">
 
         <div class="lineBadge b4">4</div>
         <div class="lineBadge b2">2</div>
@@ -826,13 +1067,9 @@
       </div>
 
 
-      <!-- =================================
-           LINE NUMBERS RIGHT
-           ================================= -->
+      <!-- RIGHT LINE NUMBERS -->
 
-      <div
-        class="lineNumbers right"
-      >
+      <div class="lineNumbers right">
 
         <div class="lineBadge b4">4</div>
         <div class="lineBadge b2">2</div>
@@ -847,13 +1084,9 @@
       </div>
 
 
-      <!-- =================================
-           SLOT AREA
-           ================================= -->
+      <!-- REELS -->
 
-      <div
-        class="slotArea"
-      >
+      <div class="slotArea">
 
         <div
           class="reels"
@@ -867,8 +1100,6 @@
           preserveAspectRatio="none"
         >
 
-          <!-- 1 middle -->
-
           <polyline
             id="line1"
             class="payline line1"
@@ -880,9 +1111,6 @@
               450,150
             "
           />
-
-
-          <!-- 2 top -->
 
           <polyline
             id="line2"
@@ -896,9 +1124,6 @@
             "
           />
 
-
-          <!-- 3 bottom -->
-
           <polyline
             id="line3"
             class="payline line3"
@@ -910,9 +1135,6 @@
               450,250
             "
           />
-
-
-          <!-- 4 V -->
 
           <polyline
             id="line4"
@@ -926,9 +1148,6 @@
             "
           />
 
-
-          <!-- 5 inverted V -->
-
           <polyline
             id="line5"
             class="payline line5"
@@ -940,9 +1159,6 @@
               450,250
             "
           />
-
-
-          <!-- 6 -->
 
           <polyline
             id="line6"
@@ -956,9 +1172,6 @@
             "
           />
 
-
-          <!-- 7 -->
-
           <polyline
             id="line7"
             class="payline line7"
@@ -971,9 +1184,6 @@
             "
           />
 
-
-          <!-- 8 -->
-
           <polyline
             id="line8"
             class="payline line8"
@@ -985,9 +1195,6 @@
               450,150
             "
           />
-
-
-          <!-- 9 -->
 
           <polyline
             id="line9"
@@ -1006,9 +1213,7 @@
       </div>
 
 
-      <!-- =================================
-           STATUS MESSAGE
-           ================================= -->
+      <!-- MESSAGE -->
 
       <div
         class="message"
@@ -1018,9 +1223,7 @@
       </div>
 
 
-      <!-- =================================
-           CREDIT NUMBER
-           ================================= -->
+      <!-- CREDIT -->
 
       <div
         class="scoreDisplay"
@@ -1030,9 +1233,7 @@
       </div>
 
 
-      <!-- =================================
-           WIN NUMBER
-           ================================= -->
+      <!-- LAST WIN -->
 
       <div
         class="winDisplay"
@@ -1042,9 +1243,7 @@
       </div>
 
 
-      <!-- =================================
-           INVISIBLE START/SKIP BUTTON
-           ================================= -->
+      <!-- START / FAST -->
 
       <button
         id="spinButton"
@@ -1053,14 +1252,12 @@
           spinHotspot
         "
         aria-label="
-          Start spin or skip animation
+          Start or skip spin
         "
       ></button>
 
 
-      <!-- =================================
-           INVISIBLE AUTO BUTTON
-           ================================= -->
+      <!-- AUTO -->
 
       <button
         id="autoButton"
@@ -1069,7 +1266,7 @@
           autoHotspot
         "
         aria-label="
-          Toggle automatic spin
+          Automatic spins
         "
       ></button>
 
@@ -1077,30 +1274,78 @@
     </div>
 
 
-    <!-- =================================
-         PLAYER BAR
-         ================================= -->
+    <!-- PLAYER -->
 
     <div class="playerBar">
 
       Player:
 
-      <strong
-        id="playerName"
-      ></strong>
+      <strong id="playerName"></strong>
 
       &nbsp; • &nbsp;
 
       <span id="onlineStatus">
-        Online leaderboard
+        Online
       </span>
 
     </div>
 
 
-    <!-- =================================
-         LEADERBOARD
-         ================================= -->
+    <!-- ROUND INFORMATION -->
+
+    <div class="roundStatus">
+
+      <div class="statusBox">
+
+        <div class="statusLabel">
+          SCORE
+        </div>
+
+        <div
+          class="statusValue"
+          id="scoreOutside"
+        >
+          0
+        </div>
+
+      </div>
+
+
+      <div class="statusBox">
+
+        <div class="statusLabel">
+          SPINS USED
+        </div>
+
+        <div
+          class="statusValue"
+          id="spinsUsed"
+        >
+          0 / 50
+        </div>
+
+      </div>
+
+
+      <div class="statusBox">
+
+        <div class="statusLabel">
+          SPINS LEFT
+        </div>
+
+        <div
+          class="statusValue"
+          id="spinsLeft"
+        >
+          50
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- LEADERBOARD -->
 
     <section class="leaderboard">
 
@@ -1108,15 +1353,37 @@
         🏆 TODAY'S LEADERBOARD
       </h2>
 
-      <div
-        id="leaderboardList"
-      >
+
+      <div class="leaderHead">
+
+        <span>
+          PLAYER
+        </span>
+
+        <span>
+          SCORE
+        </span>
+
+        <span>
+          SPINS
+        </span>
+
+      </div>
+
+
+      <div id="leaderboardList">
         Loading...
       </div>
 
+
       <div class="resetInfo">
 
-        Daily leaderboard:
+        Every player receives
+        50 spins per daily round.
+
+        <br>
+
+        New round:
         00:00:01 Europe/Zurich
 
       </div>
@@ -1124,52 +1391,55 @@
     </section>
 
 
-    <!-- =================================
-         PAYTABLE
-         ================================= -->
+    <!-- PAYTABLE -->
 
     <section class="paytable">
 
       <strong>
-        9 PAYLINES
+        DAILY 50-SPIN CHALLENGE
       </strong>
 
       <br>
 
-      3 adjacent matching symbols
-      = 10 points
+      Everyone gets exactly
+      50 spins.
 
       <br>
 
-      4 adjacent matching symbols
-      = 40 points
-
-      <br>
-
-      5 matching symbols
-      = 150 points
-
-      <br>
-
-      5 Corgis
-      = 500 points
+      Your final score after
+      those 50 spins determines
+      your leaderboard position.
 
       <br><br>
 
-      Three horizontal paylines
-      plus six shaped paylines.
+      3 matching = 10 points
 
       <br>
 
-      Any Corgi visible anywhere
+      4 matching = 40 points
+
+      <br>
+
+      5 matching = 150 points
+
+      <br>
+
+      5 Corgis = 500 points
+
+      <br><br>
+
+      9 paylines are active.
+
+      <br>
+
+      Any Corgi on screen
       starts Corgi rain.
 
       <br>
 
-      Press the machine's
-      START/SKIP button again
-      during a spin to reveal
-      the result instantly.
+      Move your mouse into
+      falling Corgis and
+      they will bounce away.
 
     </section>
 
@@ -1177,9 +1447,9 @@
   </div>
 
 
-  <!-- =================================
-       SUPABASE LIBRARY
-       ================================= -->
+  <!-- ==================================
+       SUPABASE
+       ================================== -->
 
   <script
     src="
@@ -1190,9 +1460,9 @@
 
   <script>
 
-    /* =================================
+    /* ==================================
        SUPABASE
-       ================================= */
+       ================================== */
 
     const SUPABASE_URL =
       "https://kurxfpmsxivousohtyej.supabase.co";
@@ -1209,11 +1479,14 @@
       );
 
 
-    /* =================================
+    /* ==================================
        SETTINGS
-       ================================= */
+       ================================== */
 
     const SETTINGS = {
+
+      maxSpins:
+        50,
 
       payouts: {
 
@@ -1243,9 +1516,9 @@
     };
 
 
-    /* =================================
+    /* ==================================
        SYMBOLS
-       ================================= */
+       ================================== */
 
     const SYMBOLS = [
 
@@ -1306,21 +1579,17 @@
       {
         type: "image",
         value: "CORGI",
-        src: "corgi-jackpot.png",
+        src:
+          "corgi-jackpot.png",
         weight: 5
       }
 
     ];
 
 
-    /* =================================
-       PAYLINES
-
-       row:
-       0 = top
-       1 = middle
-       2 = bottom
-       ================================= */
+    /* ==================================
+       9 PAYLINES
+       ================================== */
 
     const PAYLINES = [
 
@@ -1345,15 +1614,17 @@
     ];
 
 
-    /* =================================
-       GAME STATE
-       ================================= */
+    /* ==================================
+       STATE
+       ================================== */
 
     const game = {
 
       player: "",
 
       score: 0,
+
+      spinsUsed: 0,
 
       dayKey: "",
 
@@ -1368,9 +1639,9 @@
     };
 
 
-    /* =================================
+    /* ==================================
        ELEMENTS
-       ================================= */
+       ================================== */
 
     const el = {
 
@@ -1414,6 +1685,21 @@
           "score"
         ),
 
+      scoreOutside:
+        document.getElementById(
+          "scoreOutside"
+        ),
+
+      spinsUsed:
+        document.getElementById(
+          "spinsUsed"
+        ),
+
+      spinsLeft:
+        document.getElementById(
+          "spinsLeft"
+        ),
+
       lastWin:
         document.getElementById(
           "lastWin"
@@ -1452,9 +1738,9 @@
     };
 
 
-    /* =================================
+    /* ==================================
        BUILD MACHINE
-       ================================= */
+       ================================== */
 
     function buildMachine() {
 
@@ -1524,9 +1810,9 @@
     }
 
 
-    /* =================================
-       RENDER SYMBOL
-       ================================= */
+    /* ==================================
+       SYMBOL RENDERING
+       ================================== */
 
     function renderSymbol(
       element,
@@ -1547,18 +1833,18 @@
         "image"
       ) {
 
-        const img =
+        const image =
           document.createElement(
             "img"
           );
 
 
-        img.src =
+        image.src =
           symbol.src;
 
 
-        img.alt =
-          "Corgi jackpot";
+        image.alt =
+          "Corgi";
 
 
         element.classList.add(
@@ -1567,7 +1853,7 @@
 
 
         element.appendChild(
-          img
+          image
         );
 
       }
@@ -1582,22 +1868,23 @@
     }
 
 
-    /* =================================
+    /* ==================================
        RANDOM SYMBOL
-       ================================= */
+       ================================== */
 
     function randomSymbol() {
 
-      const total =
+      const totalWeight =
+
         SYMBOLS.reduce(
 
           (
-            sum,
-            item
+            total,
+            symbol
           ) =>
 
-            sum +
-            item.weight,
+            total +
+            symbol.weight,
 
           0
 
@@ -1605,9 +1892,10 @@
 
 
       let number =
+
         Math.random()
         *
-        total;
+        totalWeight;
 
 
       for (
@@ -1635,10 +1923,6 @@
     }
 
 
-    /* =================================
-       CREATE RESULT
-       ================================= */
-
     function createResult() {
 
       return Array.from(
@@ -1664,9 +1948,9 @@
     }
 
 
-    /* =================================
+    /* ==================================
        LOGIN
-       ================================= */
+       ================================== */
 
     async function startGame() {
 
@@ -1676,7 +1960,9 @@
           .trim();
 
 
-      if (!nickname) {
+      if (
+        !nickname
+      ) {
 
         alert(
           "Enter a nickname."
@@ -1713,7 +1999,7 @@
             )
 
             .select(
-              "score"
+              "score,spins_used"
             )
 
             .eq(
@@ -1729,18 +2015,30 @@
             .maybeSingle();
 
 
-        if (error) {
+        if (
+          error
+        ) {
 
           throw error;
 
         }
 
 
-        if (data) {
+        if (
+          data
+        ) {
 
           game.score =
             Number(
               data.score
+            )
+            ||
+            0;
+
+
+          game.spinsUsed =
+            Number(
+              data.spins_used
             )
             ||
             0;
@@ -1753,7 +2051,23 @@
             0;
 
 
-          await saveOnlineScore();
+          game.spinsUsed =
+            0;
+
+
+          const saved =
+            await saveOnlineProgress();
+
+
+          if (
+            !saved
+          ) {
+
+            throw new Error(
+              "Could not create player."
+            );
+
+          }
 
         }
 
@@ -1767,15 +2081,18 @@
         );
 
 
-        el.loginScreen.style.display =
+        el.loginScreen
+          .style.display =
           "none";
 
 
-        el.gameScreen.style.display =
+        el.gameScreen
+          .style.display =
           "block";
 
 
-        el.playerName.textContent =
+        el.playerName
+          .textContent =
           game.player;
 
 
@@ -1784,6 +2101,9 @@
 
 
         updateDisplays();
+
+
+        updateRoundState();
 
 
         await updateLeaderboard();
@@ -1812,9 +2132,9 @@
     }
 
 
-    /* =================================
+    /* ==================================
        EVENTS
-       ================================= */
+       ================================== */
 
     el.start.addEventListener(
       "click",
@@ -1883,17 +2203,26 @@
 
       () => {
 
+        if (
+          game.spinsUsed >=
+          SETTINGS.maxSpins
+        ) {
+
+          return;
+
+        }
+
+
         game.autoSpin =
           !game.autoSpin;
 
 
-        el.auto.classList.toggle(
-
-          "active",
-
-          game.autoSpin
-
-        );
+        el.auto
+          .classList
+          .toggle(
+            "active",
+            game.autoSpin
+          );
 
 
         if (
@@ -1914,9 +2243,61 @@
     );
 
 
-    /* =================================
+    /* ==================================
+       RESERVE ONE SPIN
+
+       The spin is counted BEFORE
+       the reels begin.
+
+       So refreshing the page cannot
+       give the spin back.
+       ================================== */
+
+    async function reserveSpin() {
+
+      if (
+        game.spinsUsed >=
+        SETTINGS.maxSpins
+      ) {
+
+        return false;
+
+      }
+
+
+      game.spinsUsed++;
+
+
+      updateDisplays();
+
+
+      const saved =
+        await saveOnlineProgress();
+
+
+      if (
+        !saved
+      ) {
+
+        game.spinsUsed--;
+
+
+        updateDisplays();
+
+
+        return false;
+
+      }
+
+
+      return true;
+
+    }
+
+
+    /* ==================================
        SPIN
-       ================================= */
+       ================================== */
 
     async function spin() {
 
@@ -1932,6 +2313,34 @@
       await checkNewDay();
 
 
+      if (
+        game.spinsUsed >=
+        SETTINGS.maxSpins
+      ) {
+
+        finishRound();
+
+        return;
+
+      }
+
+
+      const reserved =
+        await reserveSpin();
+
+
+      if (
+        !reserved
+      ) {
+
+        el.message.textContent =
+          "COULD NOT SAVE SPIN";
+
+        return;
+
+      }
+
+
       game.spinning =
         true;
 
@@ -1944,7 +2353,7 @@
 
 
       el.message.textContent =
-        "SPINNING...";
+        `SPIN ${game.spinsUsed} / 50`;
 
 
       el.lastWin.textContent =
@@ -1976,19 +2385,29 @@
         ) {
 
           for (
-            let r = reel;
-            r < 5;
-            r++
+            let remaining =
+              reel;
+
+            remaining < 5;
+
+            remaining++
           ) {
 
             clearInterval(
-              intervals[r]
+              intervals[
+                remaining
+              ]
             );
 
 
             stopReel(
-              r,
-              result[r]
+
+              remaining,
+
+              result[
+                remaining
+              ]
+
             );
 
           }
@@ -2000,13 +2419,20 @@
 
 
         clearInterval(
-          intervals[reel]
+          intervals[
+            reel
+          ]
         );
 
 
         stopReel(
+
           reel,
-          result[reel]
+
+          result[
+            reel
+          ]
+
         );
 
       }
@@ -2028,6 +2454,31 @@
 
       game.fastFinish =
         false;
+
+
+      updateRoundState();
+
+
+      if (
+        game.spinsUsed >=
+        SETTINGS.maxSpins
+      ) {
+
+        game.autoSpin =
+          false;
+
+
+        el.auto.classList.remove(
+          "active"
+        );
+
+
+        finishRound();
+
+
+        return;
+
+      }
 
 
       if (
@@ -2053,9 +2504,9 @@
     }
 
 
-    /* =================================
+    /* ==================================
        REEL ANIMATION
-       ================================= */
+       ================================== */
 
     function startAllReels() {
 
@@ -2102,7 +2553,8 @@
 
             },
 
-            SETTINGS.spinSpeed
+            SETTINGS
+              .spinSpeed
 
           )
 
@@ -2149,9 +2601,9 @@
     }
 
 
-    /* =================================
-       EVALUATE ALL 9 PAYLINES
-       ================================= */
+    /* ==================================
+       EVALUATE SPIN
+       ================================== */
 
     async function evaluateSpin(
       result
@@ -2165,13 +2617,14 @@
         0;
 
 
-      const anyCorgi =
+      const hasCorgi =
 
         result
           .flat()
           .some(
 
             symbol =>
+
               symbol.value
               ===
               "CORGI"
@@ -2180,7 +2633,7 @@
 
 
       if (
-        anyCorgi
+        hasCorgi
       ) {
 
         corgiRain();
@@ -2195,7 +2648,7 @@
           lineIndex
         ) => {
 
-          const lineSymbols =
+          const symbols =
 
             payline.map(
 
@@ -2204,14 +2657,18 @@
                 reel
               ) =>
 
-                result[reel][row]
+                result[
+                  reel
+                ][
+                  row
+                ]
 
             );
 
 
           const win =
             evaluateLine(
-              lineSymbols
+              symbols
             );
 
 
@@ -2243,7 +2700,8 @@
 
 
             if (
-              win.matches === 5
+              win.matches ===
+              5
             ) {
 
               confetti();
@@ -2253,12 +2711,12 @@
 
             if (
 
-              win.matches === 5
+              win.matches ===
+              5
 
               &&
 
-              win.symbol
-              ===
+              win.symbol ===
               "CORGI"
 
             ) {
@@ -2287,7 +2745,7 @@
       updateDisplays();
 
 
-      await saveOnlineScore();
+      await saveOnlineProgress();
 
 
       await updateLeaderboard();
@@ -2304,7 +2762,7 @@
       }
 
       else if (
-        anyCorgi
+        hasCorgi
       ) {
 
         el.message.textContent =
@@ -2315,16 +2773,16 @@
       else {
 
         el.message.textContent =
-          "GOOD LUCK!";
+          `${SETTINGS.maxSpins - game.spinsUsed} SPINS LEFT`;
 
       }
 
     }
 
 
-    /* =================================
-       CHECK ONE PAYLINE
-       ================================= */
+    /* ==================================
+       ONE PAYLINE
+       ================================== */
 
     function evaluateLine(
       line
@@ -2343,8 +2801,7 @@
       };
 
 
-      let start =
-        0;
+      let start = 0;
 
 
       while (
@@ -2353,7 +2810,8 @@
       ) {
 
         const symbol =
-          line[start].value;
+          line[start]
+            .value;
 
 
         let end =
@@ -2367,8 +2825,8 @@
 
           &&
 
-          line[end].value
-            ===
+          line[end]
+            .value ===
             symbol
 
         ) {
@@ -2403,7 +2861,7 @@
             &&
 
             symbol ===
-              "CORGI"
+            "CORGI"
 
           ) {
 
@@ -2417,7 +2875,9 @@
 
             points =
               SETTINGS
-                .payouts[matches]
+                .payouts[
+                  matches
+                ]
               ||
               0;
 
@@ -2450,23 +2910,93 @@
     }
 
 
-    /* =================================
-       WIN VISUALS
-       ================================= */
+    /* ==================================
+       ROUND FINISHED
+       ================================== */
+
+    function finishRound() {
+
+      game.autoSpin =
+        false;
+
+
+      el.auto
+        .classList
+        .remove(
+          "active"
+        );
+
+
+      el.spin
+        .classList
+        .add(
+          "disabled"
+        );
+
+
+      el.auto
+        .classList
+        .add(
+          "disabled"
+        );
+
+
+      el.message.textContent =
+
+        `ROUND COMPLETE • FINAL SCORE ${game.score}`;
+
+
+      updateDisplays();
+
+    }
+
+
+    function updateRoundState() {
+
+      const finished =
+
+        game.spinsUsed >=
+        SETTINGS.maxSpins;
+
+
+      el.spin
+        .classList
+        .toggle(
+          "disabled",
+          finished
+        );
+
+
+      el.auto
+        .classList
+        .toggle(
+          "disabled",
+          finished
+        );
+
+    }
+
+
+    /* ==================================
+       PAYLINE VISUALS
+       ================================== */
 
     function showWinningPayline(
-      lineIndex
+      index
     ) {
 
       document
         .getElementById(
+
           "line"
           +
           (
-            lineIndex + 1
+            index + 1
           )
+
         )
-        .classList.add(
+        .classList
+        .add(
           "active"
         );
 
@@ -2484,20 +3014,26 @@
     ) {
 
       for (
-        let i = start;
-        i <
-          start + matches;
-        i++
+        let index = start;
+
+        index <
+          start +
+          matches;
+
+        index++
       ) {
 
         getCell(
 
-          i,
+          index,
 
-          payline[i]
+          payline[
+            index
+          ]
 
         )
-        .classList.add(
+        .classList
+        .add(
           "winner"
         );
 
@@ -2515,11 +3051,10 @@
         .forEach(
 
           cell =>
-            cell
-              .classList
-              .remove(
-                "winner"
-              )
+
+            cell.classList.remove(
+              "winner"
+            )
 
         );
 
@@ -2531,40 +3066,36 @@
         .forEach(
 
           line =>
-            line
-              .classList
-              .remove(
-                "active"
-              )
+
+            line.classList.remove(
+              "active"
+            )
 
         );
 
     }
 
 
-    /* =================================
-       CELL LOOKUP
-       ================================= */
-
     function getCell(
       reel,
       row
     ) {
 
-      return document.querySelector(
+      return document
+        .querySelector(
 
-        `[data-reel="${reel}"][data-row="${row}"]`
+          `[data-reel="${reel}"][data-row="${row}"]`
 
-      );
+        );
 
     }
 
 
-    /* =================================
-       SAVE ONLINE SCORE
-       ================================= */
+    /* ==================================
+       SAVE PROGRESS
+       ================================== */
 
-    async function saveOnlineScore() {
+    async function saveOnlineProgress() {
 
       try {
 
@@ -2587,6 +3118,9 @@
 
                 score:
                   game.score,
+
+                spins_used:
+                  game.spinsUsed,
 
                 day_key:
                   game.dayKey,
@@ -2619,6 +3153,9 @@
         el.online.textContent =
           "🟢 Online";
 
+
+        return true;
+
       }
 
       catch (
@@ -2633,14 +3170,17 @@
         el.online.textContent =
           "🔴 Save error";
 
+
+        return false;
+
       }
 
     }
 
 
-    /* =================================
+    /* ==================================
        LEADERBOARD
-       ================================= */
+       ================================== */
 
     async function updateLeaderboard() {
 
@@ -2656,7 +3196,7 @@
           )
 
           .select(
-            "nickname,score"
+            "nickname,score,spins_used"
           )
 
           .eq(
@@ -2667,7 +3207,8 @@
           .order(
             "score",
             {
-              ascending: false
+              ascending:
+                false
             }
           )
 
@@ -2683,7 +3224,6 @@
         console.error(
           error
         );
-
 
         return;
 
@@ -2726,8 +3266,7 @@
 
 
           if (
-            player.nickname
-            ===
+            player.nickname ===
             game.player
           ) {
 
@@ -2750,18 +3289,32 @@
             );
 
 
+          const spins =
+            document.createElement(
+              "span"
+            );
+
+
           name.textContent =
 
             `${index + 1}. ${player.nickname}`;
 
 
           points.textContent =
-            player.score;
+            Number(
+              player.score
+            );
+
+
+          spins.textContent =
+
+            `${Number(player.spins_used || 0)}/50`;
 
 
           row.append(
             name,
-            points
+            points,
+            spins
           );
 
 
@@ -2777,113 +3330,499 @@
     }
 
 
-    /* =================================
+    /* ==================================
        DISPLAY
-       ================================= */
+       ================================== */
 
     function updateDisplays() {
 
       el.score.textContent =
         game.score;
 
+
+      el.scoreOutside.textContent =
+        game.score;
+
+
+      el.spinsUsed.textContent =
+
+        `${game.spinsUsed} / ${SETTINGS.maxSpins}`;
+
+
+      el.spinsLeft.textContent =
+
+        Math.max(
+
+          0,
+
+          SETTINGS.maxSpins
+          -
+          game.spinsUsed
+
+        );
+
     }
 
 
-    /* =================================
-       CORGI RAIN
-       ================================= */
+    /* ==================================
+       CORGI PHYSICS
+       ================================== */
 
-    function corgiRain() {
+    const corgiParticles =
+      [];
+
+
+    const pointer = {
+
+      x: -1000,
+
+      y: -1000,
+
+      active: false
+
+    };
+
+
+    window.addEventListener(
+
+      "pointermove",
+
+      event => {
+
+        pointer.x =
+          event.clientX;
+
+
+        pointer.y =
+          event.clientY;
+
+
+        pointer.active =
+          true;
+
+      }
+
+    );
+
+
+    window.addEventListener(
+
+      "pointerleave",
+
+      () => {
+
+        pointer.active =
+          false;
+
+      }
+
+    );
+
+
+    function corgiRain(
+      amount = 32
+    ) {
 
       for (
-        let i = 0;
-        i < 32;
-        i++
+        let index = 0;
+
+        index < amount;
+
+        index++
       ) {
 
-        const img =
-          document.createElement(
-            "img"
-          );
+        createCorgiParticle(
+          index
+        );
+
+      }
 
 
-        img.src =
-          "corgi-jackpot.png";
+      startCorgiPhysics();
+
+    }
 
 
-        img.className =
-          "fallingCorgi";
+    function createCorgiParticle(
+      index
+    ) {
+
+      /*
+        Keep the page responsive
+        even after several jackpots.
+      */
+
+      if (
+        corgiParticles.length >
+        120
+      ) {
+
+        return;
+
+      }
 
 
-        img.style.left =
+      const image =
+        document.createElement(
+          "img"
+        );
 
+
+      image.src =
+        "corgi-jackpot.png";
+
+
+      image.className =
+        "fallingCorgi";
+
+
+      image.alt =
+        "";
+
+
+      document.body
+        .appendChild(
+          image
+        );
+
+
+      const width =
+
+        55 +
+        Math.random()
+        *
+        45;
+
+
+      image.style.width =
+        width +
+        "px";
+
+
+      corgiParticles.push({
+
+        element:
+          image,
+
+        x:
           Math.random()
           *
-          95
-          +
-          "vw";
+          window.innerWidth,
 
+        y:
+          -120
+          -
+          index
+          *
+          8,
 
-        const duration =
+        vx:
+          (
+            Math.random()
+            -
+            0.5
+          )
+          *
+          1.5,
 
-          2500
+        vy:
+          1.5
           +
           Math.random()
           *
-          1800;
+          2.5,
+
+        rotation:
+          Math.random()
+          *
+          360,
+
+        rotationSpeed:
+          (
+            Math.random()
+            -
+            0.5
+          )
+          *
+          5,
+
+        size:
+          width
+
+      });
+
+    }
 
 
-        img.style.transition =
-
-          `top ${duration}ms linear,
-           transform ${duration}ms linear`;
+    let physicsRunning =
+      false;
 
 
-        document.body
-          .appendChild(
-            img
-          );
+    function startCorgiPhysics() {
+
+      if (
+        physicsRunning
+      ) {
+
+        return;
+
+      }
 
 
-        requestAnimationFrame(
-
-          () => {
-
-            img.style.top =
-              "110vh";
+      physicsRunning =
+        true;
 
 
-            img.style.transform =
+      requestAnimationFrame(
+        updateCorgiPhysics
+      );
 
-              `rotate(${
+    }
+
+
+    function updateCorgiPhysics() {
+
+      const repelRadius =
+        130;
+
+
+      for (
+        let index =
+          corgiParticles.length - 1;
+
+        index >= 0;
+
+        index--
+      ) {
+
+        const particle =
+          corgiParticles[
+            index
+          ];
+
+
+        /* gravity */
+
+        particle.vy +=
+          0.025;
+
+
+        /*
+          Cursor repulsion
+        */
+
+        if (
+          pointer.active
+        ) {
+
+          const centerX =
+
+            particle.x
+            +
+            particle.size
+            /
+            2;
+
+
+          const centerY =
+
+            particle.y
+            +
+            particle.size
+            /
+            2;
+
+
+          const dx =
+
+            centerX
+            -
+            pointer.x;
+
+
+          const dy =
+
+            centerY
+            -
+            pointer.y;
+
+
+          const distance =
+
+            Math.sqrt(
+
+              dx * dx
+              +
+              dy * dy
+
+            );
+
+
+          if (
+            distance <
+              repelRadius
+
+            &&
+
+            distance > 1
+          ) {
+
+            /*
+              Stronger push
+              when cursor is closer.
+            */
+
+            const force =
+
+              (
+                repelRadius
+                -
+                distance
+              )
+              /
+              repelRadius;
+
+
+            particle.vx +=
+
+              (
+                dx
+                /
+                distance
+              )
+              *
+              force
+              *
+              4.5;
+
+
+            particle.vy +=
+
+              (
+                dy
+                /
+                distance
+              )
+              *
+              force
+              *
+              4.5;
+
+
+            particle.rotationSpeed +=
+
+              (
                 Math.random()
-                *
-                900
-              }deg)`;
+                -
+                0.5
+              )
+              *
+              3;
 
           }
 
+        }
+
+
+        /* gentle air resistance */
+
+        particle.vx *=
+          0.992;
+
+
+        particle.vy *=
+          0.998;
+
+
+        particle.x +=
+          particle.vx;
+
+
+        particle.y +=
+          particle.vy;
+
+
+        particle.rotation +=
+          particle.rotationSpeed;
+
+
+        particle.element
+          .style
+          .transform =
+
+          `translate3d(
+            ${particle.x}px,
+            ${particle.y}px,
+            0
+          )
+          rotate(
+            ${particle.rotation}deg
+          )`;
+
+
+        /*
+          Remove once far
+          below / outside screen.
+        */
+
+        if (
+
+          particle.y >
+            window.innerHeight
+            +
+            180
+
+          ||
+
+          particle.x <
+            -300
+
+          ||
+
+          particle.x >
+            window.innerWidth
+            +
+            300
+
+        ) {
+
+          particle.element.remove();
+
+
+          corgiParticles.splice(
+            index,
+            1
+          );
+
+        }
+
+      }
+
+
+      if (
+        corgiParticles.length >
+        0
+      ) {
+
+        requestAnimationFrame(
+          updateCorgiPhysics
         );
 
+      }
 
-        setTimeout(
+      else {
 
-          () =>
-            img.remove(),
-
-          duration +
-          300
-
-        );
+        physicsRunning =
+          false;
 
       }
 
     }
 
 
-    /* =================================
+    /* ==================================
        CONFETTI
-       ================================= */
+       ================================== */
 
     function confetti() {
 
@@ -2898,9 +3837,11 @@
 
 
       for (
-        let i = 0;
-        i < 55;
-        i++
+        let index = 0;
+
+        index < 55;
+
+        index++
       ) {
 
         const thing =
@@ -2957,6 +3898,7 @@
 
 
         const duration =
+
           2500
           +
           Math.random()
@@ -3016,12 +3958,21 @@
 
       confetti();
 
-      corgiRain();
+
+      corgiRain(
+        45
+      );
 
 
       setTimeout(
-        corgiRain,
+
+        () =>
+          corgiRain(
+            45
+          ),
+
         350
+
       );
 
     }
@@ -3029,9 +3980,11 @@
 
     function flashMachine() {
 
-      el.machine.classList.add(
-        "jackpotFlash"
-      );
+      el.machine
+        .classList
+        .add(
+          "jackpotFlash"
+        );
 
 
       setTimeout(
@@ -3051,17 +4004,19 @@
     }
 
 
-    /* =================================
-       ZURICH DAY KEY
-       ================================= */
+    /* ==================================
+       ZURICH DAY
+       ================================== */
 
-    function getActiveZurichDayKey() {
+    function getZurichParts(
+      date = new Date()
+    ) {
 
       const formatter =
 
         new Intl.DateTimeFormat(
 
-          "en-CA",
+          "en-GB",
 
           {
 
@@ -3095,36 +4050,47 @@
         );
 
 
-      const parts =
+      const values =
+        {};
 
-        Object.fromEntries(
 
-          formatter
-            .formatToParts(
-              new Date()
-            )
+      formatter
+        .formatToParts(
+          date
+        )
+        .forEach(
 
-            .filter(
+          part => {
 
-              part =>
+            if (
+              part.type !==
+              "literal"
+            ) {
+
+              values[
                 part.type
-                !==
-                "literal"
+              ] =
+                part.value;
 
-            )
+            }
 
-            .map(
+          }
 
-              part => [
+        );
 
-                part.type,
 
-                part.value
+      return values;
 
-              ]
+    }
 
-            )
 
+    function formatZurichDate(
+      date
+    ) {
+
+      const parts =
+        getZurichParts(
+          date
         );
 
 
@@ -3145,9 +4111,70 @@
     }
 
 
-    /* =================================
-       NEW DAY CHECK
-       ================================= */
+    function getActiveZurichDayKey() {
+
+      const now =
+        new Date();
+
+
+      const parts =
+        getZurichParts(
+          now
+        );
+
+
+      /*
+        00:00:00 is still
+        the previous competition.
+
+        00:00:01 starts the new day.
+      */
+
+      if (
+
+        Number(
+          parts.hour
+        ) === 0
+
+        &&
+
+        Number(
+          parts.minute
+        ) === 0
+
+        &&
+
+        Number(
+          parts.second
+        ) === 0
+
+      ) {
+
+        return formatZurichDate(
+
+          new Date(
+
+            now.getTime()
+            -
+            1000
+
+          )
+
+        );
+
+      }
+
+
+      return formatZurichDate(
+        now
+      );
+
+    }
+
+
+    /* ==================================
+       NEW DAILY ROUND
+       ================================== */
 
     async function checkNewDay() {
 
@@ -3169,35 +4196,129 @@
         today;
 
 
-      game.score =
-        0;
+      /*
+        Look for today's player
+        instead of automatically
+        assuming zero.
+      */
+
+      try {
+
+        const {
+          data,
+          error
+        } =
+
+          await db
+
+            .from(
+              "Players"
+            )
+
+            .select(
+              "score,spins_used"
+            )
+
+            .eq(
+              "nickname",
+              game.player
+            )
+
+            .eq(
+              "day_key",
+              today
+            )
+
+            .maybeSingle();
 
 
-      await saveOnlineScore();
+        if (
+          error
+        ) {
+
+          throw error;
+
+        }
 
 
-      updateDisplays();
+        if (
+          data
+        ) {
+
+          game.score =
+            Number(
+              data.score
+            )
+            ||
+            0;
 
 
-      await updateLeaderboard();
+          game.spinsUsed =
+            Number(
+              data.spins_used
+            )
+            ||
+            0;
+
+        }
+
+        else {
+
+          game.score =
+            0;
+
+
+          game.spinsUsed =
+            0;
+
+
+          await saveOnlineProgress();
+
+        }
+
+
+        updateDisplays();
+
+
+        updateRoundState();
+
+
+        await updateLeaderboard();
+
+
+        el.message.textContent =
+          "NEW DAILY ROUND!";
+
+      }
+
+      catch (
+        error
+      ) {
+
+        console.error(
+          error
+        );
+
+      }
 
     }
 
 
-    /* =================================
-       WAIT HELPERS
-       ================================= */
+    /* ==================================
+       WAIT
+       ================================== */
 
     function wait(
-      ms
+      milliseconds
     ) {
 
       return new Promise(
 
         resolve =>
+
           setTimeout(
             resolve,
-            ms
+            milliseconds
           )
 
       );
@@ -3206,7 +4327,7 @@
 
 
     function cancellableWait(
-      ms
+      milliseconds
     ) {
 
       return new Promise(
@@ -3218,9 +4339,13 @@
 
 
           const timer =
+
             setTimeout(
+
               finish,
-              ms
+
+              milliseconds
+
             );
 
 
@@ -3263,14 +4388,15 @@
     }
 
 
-    /* =================================
+    /* ==================================
        STARTUP
-       ================================= */
+       ================================== */
 
     buildMachine();
 
 
     const savedNickname =
+
       localStorage.getItem(
         "corgiLastNickname"
       );
@@ -3313,4 +4439,5 @@
   </script>
 
 </body>
+
 </html>
