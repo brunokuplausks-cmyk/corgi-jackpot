@@ -12,17 +12,23 @@
   <title>Corgi Jackpot</title>
 
   <style>
+
     * {
       box-sizing: border-box;
     }
 
     body {
       margin: 0;
+
       background:
         radial-gradient(circle at top, #161616, #000);
+
       color: white;
+
       font-family: Arial, sans-serif;
+
       text-align: center;
+
       overflow-x: hidden;
     }
 
@@ -30,24 +36,34 @@
       font-family: inherit;
     }
 
-    /* LOGIN */
+    /* =========================
+       LOGIN
+       ========================= */
 
     #loginScreen {
       min-height: 100vh;
+
       display: flex;
       align-items: center;
       justify-content: center;
+
       padding: 20px;
     }
 
     .loginBox {
       width: min(500px, 94vw);
+
       padding: 40px;
+
       background: #080808;
+
       border: 3px solid #b59036;
+
       border-radius: 20px;
+
       box-shadow:
-        0 0 40px rgba(255, 190, 40, 0.15);
+        0 0 40px
+        rgba(255, 190, 40, 0.15);
     }
 
     .loginBox h1 {
@@ -57,84 +73,122 @@
 
     .loginBox input {
       width: 100%;
+
       margin: 20px 0;
+
       padding: 15px;
+
       border: 2px solid #9d7c31;
+
       border-radius: 8px;
+
       background: #111;
+
       color: white;
+
       text-align: center;
+
       font-size: 21px;
     }
 
     .startLoginButton {
       padding: 14px 35px;
+
       background:
         linear-gradient(
           #e1d6bc,
           #807667
         );
+
       border: 3px solid #222;
+
       border-radius: 6px;
+
       color: #111;
+
       font-size: 20px;
+
       font-weight: bold;
+
       cursor: pointer;
     }
 
     #loginStatus {
       margin-top: 15px;
+
       color: #aaa;
+
       font-size: 13px;
     }
 
-    /* GAME */
+    /* =========================
+       GAME
+       ========================= */
 
     #gameScreen {
       display: none;
+
       width: 100%;
+
       padding: 15px 10px 60px;
     }
 
-    /* MACHINE */
+    /* =========================
+       MACHINE
+       ========================= */
 
     .machine {
       position: relative;
+
       width: min(1100px, 98vw);
+
       margin: auto;
+
       aspect-ratio: 1448 / 1086;
 
       background-image:
         url("slot-frame.png");
 
       background-size: 100% 100%;
+
       background-repeat: no-repeat;
+
       background-position: center;
 
       overflow: hidden;
+
       user-select: none;
     }
 
-    /* REELS */
+    /* =========================
+       REELS
+       ========================= */
 
     .slotArea {
       position: absolute;
+
       left: 14.7%;
       top: 13.8%;
+
       width: 67%;
       height: 44.8%;
 
       overflow: hidden;
+
       background: #030303;
+
       border-radius: 5px;
+
       z-index: 10;
     }
 
     .reels {
       position: absolute;
+
       inset: 0;
 
       display: grid;
+
       grid-template-columns:
         repeat(
           5,
@@ -200,10 +254,13 @@
 
     .symbol img {
       display: block;
+
       width: auto;
       height: auto;
+
       max-width: 82%;
       max-height: 82%;
+
       object-fit: contain;
     }
 
@@ -223,6 +280,7 @@
     }
 
     @keyframes reelShake {
+
       from {
         transform:
           translateY(-6px);
@@ -232,6 +290,7 @@
         transform:
           translateY(6px);
       }
+
     }
 
     .symbol.winner {
@@ -243,26 +302,38 @@
         );
 
       box-shadow:
-        inset 0 0 25px gold;
+        inset
+        0 0 25px
+        gold;
     }
 
-    /* PAYLINES */
+    /* =========================
+       PAYLINES
+       ========================= */
 
     #paylineOverlay {
       position: absolute;
+
       inset: 0;
+
       width: 100%;
       height: 100%;
+
       z-index: 20;
+
       pointer-events: none;
     }
 
     .payline {
       fill: none;
+
       stroke-width: 4;
+
       stroke-linecap: round;
       stroke-linejoin: round;
+
       opacity: 0;
+
       transition:
         opacity 0.18s;
     }
@@ -281,12 +352,16 @@
     .line8 { stroke: #58df83; }
     .line9 { stroke: #ff55ae; }
 
-    /* MESSAGE */
+    /* =========================
+       MESSAGE
+       ========================= */
 
     .message {
       position: absolute;
+
       left: 11.25%;
       top: 61.7%;
+
       width: 49.3%;
       height: 6.4%;
 
@@ -295,6 +370,7 @@
       justify-content: center;
 
       padding: 4px 10px;
+
       overflow: hidden;
 
       color: #e9bd52;
@@ -307,21 +383,29 @@
         );
 
       font-weight: bold;
+
       z-index: 30;
     }
 
-    /* SPINS LEFT */
+    /* =========================
+       SPINS LEFT DISPLAY
+       ========================= */
 
     .spinsLeftDisplay {
       position: absolute;
-      left: 11.2%;
-      top: 71.9%;
-      width: 16.4%;
-      height: 5.6%;
+
+      left: 11.0%;
+      top: 70.85%;
+
+      width: 17.1%;
+      height: 6.5%;
 
       display: flex;
       align-items: center;
       justify-content: center;
+
+      padding: 0;
+      margin: 0;
 
       color: #f2ff26;
 
@@ -339,23 +423,31 @@
       line-height: 1;
 
       text-shadow:
-        0 0 7px #dfff00;
+        0 0 7px
+        #dfff00;
 
       z-index: 30;
     }
 
-    /* TOTAL SCORE */
+    /* =========================
+       TOTAL SCORE / WIN DISPLAY
+       ========================= */
 
     .scoreDisplay {
       position: absolute;
-      left: 39.6%;
-      top: 71.9%;
-      width: 18.1%;
-      height: 5.6%;
+
+      left: 39.65%;
+      top: 70.85%;
+
+      width: 17.2%;
+      height: 6.5%;
 
       display: flex;
       align-items: center;
       justify-content: center;
+
+      padding: 0;
+      margin: 0;
 
       color: #f2ff26;
 
@@ -373,77 +465,126 @@
       line-height: 1;
 
       text-shadow:
-        0 0 7px #dfff00;
+        0 0 7px
+        #dfff00;
 
       z-index: 30;
     }
 
-    /* BUTTON LIGHTS */
-
-    .buttonLight {
-      position: absolute;
-      display: block;
-      pointer-events: none;
-      opacity: 0;
-      z-index: 55;
-      object-fit: fill;
-      transition:
-        opacity 0.07s;
-    }
-
-    .buttonLight.on {
-      opacity: 1;
-    }
-
-    .startButtonLight {
-      left: 62.45%;
-      top: 82.15%;
-      width: 11.45%;
-      height: 8.55%;
-    }
-
-    .autoButtonLight {
-      left: 76.05%;
-      top: 82.15%;
-      width: 10.45%;
-      height: 8.55%;
-    }
-
-    /* CLICK HOTSPOTS */
+    /* =========================
+       BUTTON HOTSPOTS
+       CSS GLOW ONLY
+       ========================= */
 
     .frameHotspot {
       position: absolute;
+
       padding: 0;
-      background: transparent;
+
       border: none;
+
       cursor: pointer;
+
       z-index: 65;
+
+      background: transparent;
+
+      border-radius: 8px;
+
+      transition:
+        box-shadow 0.08s,
+        background 0.08s,
+        filter 0.08s;
     }
+
+    /* START / SKIP */
 
     .startHotspot {
-      left: 62.45%;
-      top: 82.15%;
-      width: 11.45%;
-      height: 8.55%;
+      left: 67.25%;
+      top: 83.55%;
+
+      width: 10.8%;
+      height: 8.6%;
     }
 
+    /* AUTO */
+
     .autoHotspot {
-      left: 76.05%;
-      top: 82.15%;
-      width: 10.45%;
-      height: 8.55%;
+      left: 79.0%;
+      top: 83.55%;
+
+      width: 9.8%;
+      height: 8.6%;
+    }
+
+    /* START PRESSED */
+
+    .startHotspot.pressed {
+      background:
+        rgba(
+          255,
+          220,
+          110,
+          0.15
+        );
+
+      box-shadow:
+        0 0 8px
+        rgba(255, 210, 80, 0.95),
+
+        0 0 20px
+        rgba(255, 190, 40, 0.75),
+
+        inset
+        0 0 14px
+        rgba(255, 245, 190, 0.45);
+    }
+
+    /* AUTO ON */
+
+    .autoHotspot.active {
+      background:
+        rgba(
+          255,
+          220,
+          110,
+          0.18
+        );
+
+      box-shadow:
+        0 0 8px
+        rgba(255, 210, 80, 0.95),
+
+        0 0 22px
+        rgba(255, 190, 40, 0.8),
+
+        inset
+        0 0 15px
+        rgba(255, 245, 190, 0.5);
     }
 
     .frameHotspot.disabled {
       cursor: not-allowed;
     }
 
-    /* PLAYER */
+    /* =========================
+       PLAYER
+       ========================= */
 
     .playerBar {
-      width: min(900px, 94vw);
-      margin: 12px auto 18px;
+      width:
+        min(
+          900px,
+          94vw
+        );
+
+      margin:
+        12px
+        auto
+        18px;
+
       color: #bbb;
+
       font-size: 14px;
     }
 
@@ -451,10 +592,16 @@
       color: #eabc55;
     }
 
-    /* LEADERBOARD */
+    /* =========================
+       LEADERBOARD
+       ========================= */
 
     .leaderboard {
-      width: min(900px, 94vw);
+      width:
+        min(
+          900px,
+          94vw
+        );
 
       margin:
         10px
@@ -535,13 +682,20 @@
 
     .currentPlayerRow {
       color: #f4ca5c;
+
       font-weight: bold;
     }
 
-    /* DAILY CHALLENGE INFO */
+    /* =========================
+       CHALLENGE INFO
+       ========================= */
 
     .challengeInfo {
-      width: min(900px, 94vw);
+      width:
+        min(
+          900px,
+          94vw
+        );
 
       margin: auto;
 
@@ -561,20 +715,28 @@
 
     .challengeInfo strong {
       color: #e6bb57;
+
       font-size: 18px;
     }
 
     .challengeDivider {
       width: 120px;
+
       height: 1px;
+
       margin: 14px auto;
-      background: #5f4a21;
+
+      background:
+        #5f4a21;
     }
 
-    /* CORGI PHYSICS */
+    /* =========================
+       CORGI PARTICLES
+       ========================= */
 
     .fallingCorgi {
       position: fixed;
+
       left: 0;
       top: 0;
 
@@ -591,10 +753,13 @@
 
       object-fit: contain;
 
-      will-change: transform;
+      will-change:
+        transform;
     }
 
-    /* JACKPOT */
+    /* =========================
+       JACKPOT
+       ========================= */
 
     .jackpotFlash {
       animation:
@@ -605,8 +770,10 @@
     }
 
     @keyframes jackpotFlash {
+
       from {
-        filter: brightness(1);
+        filter:
+          brightness(1);
       }
 
       to {
@@ -614,9 +781,12 @@
           brightness(1.6)
           saturate(1.7);
       }
+
     }
 
-    /* MOBILE */
+    /* =========================
+       MOBILE
+       ========================= */
 
     @media
     (max-width: 600px) {
@@ -648,6 +818,7 @@
 
         font-size: 13px;
       }
+
     }
 
   </style>
@@ -810,30 +981,6 @@
       </div>
 
 
-      <!-- BUTTON LIGHTS -->
-
-      <img
-        id="startButtonLight"
-        class="
-          buttonLight
-          startButtonLight
-        "
-        src="buttonstarton.png"
-        alt=""
-      >
-
-
-      <img
-        id="autoButtonLight"
-        class="
-          buttonLight
-          autoButtonLight
-        "
-        src="buttonautoon.png"
-        alt=""
-      >
-
-
       <!-- CLICK AREAS -->
 
       <button
@@ -909,7 +1056,7 @@
     </section>
 
 
-    <!-- DAILY CHALLENGE INFO -->
+    <!-- CHALLENGE -->
 
     <section class="challengeInfo">
 
@@ -1203,16 +1350,6 @@
       auto:
         document.getElementById(
           "autoButton"
-        ),
-
-      startLight:
-        document.getElementById(
-          "startButtonLight"
-        ),
-
-      autoLight:
-        document.getElementById(
-          "autoButtonLight"
         ),
 
       reels:
@@ -1728,10 +1865,10 @@
 
     function flashStartButton() {
 
-      el.startLight
+      el.spin
         .classList
         .add(
-          "on"
+          "pressed"
         );
 
 
@@ -1739,10 +1876,10 @@
 
         () => {
 
-          el.startLight
+          el.spin
             .classList
             .remove(
-              "on"
+              "pressed"
             );
 
         },
@@ -1774,10 +1911,10 @@
           !game.autoSpin;
 
 
-        el.autoLight
+        el.auto
           .classList
           .toggle(
-            "on",
+            "active",
             game.autoSpin
           );
 
@@ -1989,10 +2126,10 @@
           false;
 
 
-        el.autoLight
+        el.auto
           .classList
           .remove(
-            "on"
+            "active"
           );
 
 
@@ -2413,10 +2550,10 @@
         false;
 
 
-      el.autoLight
+      el.auto
         .classList
         .remove(
-          "on"
+          "active"
         );
 
 
@@ -3270,7 +3407,9 @@
 
       for (
         let i = 0;
+
         i < 55;
+
         i++
       ) {
 
@@ -3673,10 +3812,10 @@
           false;
 
 
-        el.autoLight
+        el.auto
           .classList
           .remove(
-            "on"
+            "active"
           );
 
 
