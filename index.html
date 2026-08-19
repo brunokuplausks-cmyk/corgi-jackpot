@@ -26,8 +26,13 @@ body {
 
 body {
   color: white;
-  font-family: Arial, sans-serif;
+
+  font-family:
+    Arial,
+    sans-serif;
+
   text-align: center;
+
   overflow-x: hidden;
 
   background:
@@ -72,10 +77,6 @@ input {
 }
 
 
-/*
-  The complete login design is now your PNG.
-*/
-
 .loginMachine {
 
   position: relative;
@@ -89,7 +90,8 @@ input {
   aspect-ratio:
     1448 / 1086;
 
-  flex: 0 0 auto;
+  flex:
+    0 0 auto;
 
   background:
     url("loginpage.png")
@@ -99,16 +101,13 @@ input {
 }
 
 
-/*
-  Nickname field positioned directly over
-  the empty field built into loginpage.png.
-*/
+/* nickname field */
 
 #nicknameInput {
 
   position: absolute;
 
-  left: 27.0%;
+  left: 27%;
 
   top: 51.55%;
 
@@ -129,14 +128,12 @@ input {
 
   border-radius: 10px;
 
-  background:
-    transparent;
+  background: transparent;
 
   color:
     #f4d77c;
 
-  text-align:
-    center;
+  text-align: center;
 
   font-family:
     "Courier New",
@@ -149,11 +146,9 @@ input {
       29px
     );
 
-  font-weight:
-    bold;
+  font-weight: bold;
 
-  letter-spacing:
-    2px;
+  letter-spacing: 2px;
 
   text-shadow:
     0 0 7px
@@ -167,10 +162,6 @@ input {
 }
 
 
-/*
-  Very subtle highlight only while typing.
-*/
-
 #nicknameInput:focus {
 
   background:
@@ -181,23 +172,10 @@ input {
       0.025
     );
 
-  box-shadow:
-    inset
-    0 0 18px
-    rgba(
-      255,
-      190,
-      40,
-      0.08
-    );
-
 }
 
 
-/*
-  Invisible clickable button over
-  the START GAME button in the image.
-*/
+/* start game hotspot */
 
 #startLoginButton {
 
@@ -205,7 +183,7 @@ input {
 
   left: 32.1%;
 
-  top: 64.0%;
+  top: 64%;
 
   width: 34.1%;
 
@@ -217,32 +195,16 @@ input {
 
   border: 0;
 
-  background: transparent;
+  background:
+    transparent;
 
   cursor: pointer;
 
 }
 
 
-#startLoginButton:active {
-
-  background:
-    radial-gradient(
-      ellipse at center,
-      rgba(
-        255,
-        230,
-        130,
-        0.15
-      ),
-      transparent 70%
-    );
-
-}
-
-
 /* =====================================================
-   GAME PAGE
+   GAME
    ===================================================== */
 
 #gameScreen {
@@ -281,7 +243,7 @@ input {
 
 
 /* =====================================================
-   MAIN MACHINE
+   MACHINE
    ===================================================== */
 
 .machine {
@@ -294,8 +256,7 @@ input {
       98vw
     );
 
-  margin:
-    auto;
+  margin: auto;
 
   aspect-ratio:
     1448 / 1086;
@@ -313,10 +274,7 @@ input {
 
 
 /* =====================================================
-   REEL WINDOW
-
-   IMPORTANT:
-   Everything is strictly contained here.
+   REELS
    ===================================================== */
 
 .slotArea {
@@ -337,20 +295,20 @@ input {
 
   overflow: hidden;
 
-  contain: layout paint;
+  contain:
+    layout paint;
 
-  background: #020202;
+  background:
+    #020202;
 
-  border-radius: 5px;
+  border-radius:
+    5px;
 
-  z-index: 10;
+  z-index:
+    10;
 
 }
 
-
-/*
-  Hard fixed grid.
-*/
 
 .reels {
 
@@ -382,11 +340,6 @@ input {
 }
 
 
-/*
-  Each reel must never grow according
-  to its image dimensions.
-*/
-
 .reelColumn {
 
   width: 100%;
@@ -416,15 +369,11 @@ input {
 
 }
 
+
 .reelColumn:last-child {
   border-right: none;
 }
 
-
-/*
-  Critical fix:
-  fixed cell boundaries.
-*/
 
 .symbol {
 
@@ -464,11 +413,6 @@ input {
 }
 
 
-/*
-  The PNG can NEVER dictate
-  reel-cell dimensions now.
-*/
-
 .symbol img {
 
   display: block;
@@ -496,11 +440,6 @@ input {
 
 }
 
-
-/*
-  Wider graphics such as the jet benefit
-  from a little more horizontal room.
-*/
 
 .symbol[data-symbol="PRIVATE_JET"] img {
 
@@ -530,13 +469,7 @@ input {
 
 
 /*
-  SPINNING FIX
-
-  No translateY.
-  No reelShake.
-  No "waving".
-
-  Only a light visual blur/brightness effect.
+  No vertical movement during spinning.
 */
 
 .symbol.spinning img {
@@ -547,10 +480,6 @@ input {
 
 }
 
-
-/*
-  Winner highlight.
-*/
 
 .symbol.winner {
 
@@ -589,6 +518,7 @@ input {
 
 }
 
+
 .payline {
 
   fill: none;
@@ -606,6 +536,7 @@ input {
     0.18s;
 
 }
+
 
 .payline.active {
   opacity: 0.95;
@@ -674,6 +605,7 @@ input {
 
 }
 
+
 .brokenGlassOverlay.active {
 
   visibility: visible;
@@ -686,6 +618,7 @@ input {
     ease-out;
 
 }
+
 
 @keyframes glassImpact {
 
@@ -735,7 +668,8 @@ input {
 
   overflow: hidden;
 
-  color: #f2ff26;
+  color:
+    #f2ff26;
 
   font-family:
     "Courier New",
@@ -748,7 +682,8 @@ input {
       21px
     );
 
-  letter-spacing: 1px;
+  letter-spacing:
+    1px;
 
   line-height: 1;
 
@@ -783,7 +718,8 @@ input {
 
   justify-content: center;
 
-  color: #f2ff26;
+  color:
+    #f2ff26;
 
   font-family:
     "Courier New",
@@ -808,7 +744,7 @@ input {
 
 
 /* =====================================================
-   WIN / SCORE
+   SCORE
    ===================================================== */
 
 .scoreDisplay {
@@ -829,7 +765,8 @@ input {
 
   justify-content: center;
 
-  color: #f2ff26;
+  color:
+    #f2ff26;
 
   font-family:
     "Courier New",
@@ -854,7 +791,7 @@ input {
 
 
 /* =====================================================
-   MACHINE BUTTONS
+   BUTTONS
    ===================================================== */
 
 .frameHotspot {
@@ -873,6 +810,7 @@ input {
 
 }
 
+
 .startHotspot {
 
   left: 65.3%;
@@ -884,6 +822,7 @@ input {
   height: 9.5%;
 
 }
+
 
 .autoHotspot {
 
@@ -897,13 +836,14 @@ input {
 
 }
 
+
 .frameHotspot.disabled {
   cursor: not-allowed;
 }
 
 
 /* =====================================================
-   LOWER MACHINE
+   INFO MACHINE
    ===================================================== */
 
 .infoMachine {
@@ -958,7 +898,8 @@ input {
 
   overflow-y: auto;
 
-  color: #f2ff26;
+  color:
+    #f2ff26;
 
   font-family:
     "Courier New",
@@ -967,6 +908,7 @@ input {
   z-index: 20;
 
 }
+
 
 .leaderHead,
 .playerRow {
@@ -983,6 +925,7 @@ input {
   align-items: center;
 
 }
+
 
 .leaderHead {
 
@@ -1002,7 +945,8 @@ input {
       0.35
     );
 
-  color: #d5bc61;
+  color:
+    #d5bc61;
 
   font-size:
     clamp(
@@ -1011,9 +955,8 @@ input {
       14px
     );
 
-  letter-spacing: 1px;
-
 }
+
 
 .playerRow {
 
@@ -1030,7 +973,8 @@ input {
       0.10
     );
 
-  color: #f2ff26;
+  color:
+    #f2ff26;
 
   font-size:
     clamp(
@@ -1039,21 +983,14 @@ input {
       18px
     );
 
-  text-shadow:
-    0 0 5px
-    rgba(
-      223,
-      255,
-      0,
-      0.55
-    );
-
 }
+
 
 .leaderHead span:first-child,
 .playerRow span:first-child {
   text-align: left;
 }
+
 
 .leaderHead span:not(:first-child),
 .playerRow span:not(:first-child),
@@ -1061,9 +998,11 @@ input {
   text-align: right;
 }
 
+
 .currentPlayerRow {
 
-  color: #fff36a;
+  color:
+    #fff36a;
 
   text-shadow:
     0 0 8px
@@ -1098,7 +1037,8 @@ input {
 
   justify-content: center;
 
-  color: #f2ff26;
+  color:
+    #f2ff26;
 
   font-family:
     "Courier New",
@@ -1126,6 +1066,7 @@ input {
 
 }
 
+
 .gameInfoLine,
 .gameInfoBonus {
 
@@ -1135,9 +1076,11 @@ input {
 
 }
 
+
 .gameInfoBonus {
   color: #fff36a;
 }
+
 
 .gameInfoSpacer {
   height: 7px;
@@ -1164,6 +1107,7 @@ input {
 
 }
 
+
 .corgiRainHotspot {
 
   left: 26.1%;
@@ -1175,6 +1119,7 @@ input {
   height: 7.9%;
 
 }
+
 
 .destroyHotspot {
 
@@ -1190,7 +1135,7 @@ input {
 
 
 /* =====================================================
-   CORGI PARTICLES
+   CORGI RAIN
    ===================================================== */
 
 .fallingCorgi {
@@ -1220,7 +1165,7 @@ input {
 
 
 /* =====================================================
-   COIN PARTICLES
+   COIN RAIN
    ===================================================== */
 
 .fallingCoin {
@@ -1258,7 +1203,7 @@ input {
 
 
 /* =====================================================
-   JACKPOT FLASH
+   JACKPOT
    ===================================================== */
 
 .jackpotFlash {
@@ -1271,10 +1216,12 @@ input {
 
 }
 
+
 @keyframes jackpotFlash {
 
   from {
-    filter: brightness(1);
+    filter:
+      brightness(1);
   }
 
   to {
@@ -1299,10 +1246,7 @@ input {
   }
 
   .machine,
-  .infoMachine {
-    width: 100vw;
-  }
-
+  .infoMachine,
   .loginMachine {
     width: 100vw;
   }
@@ -1325,6 +1269,39 @@ input {
 
 
 <body>
+
+
+<!-- =====================================================
+     AUDIO
+     ===================================================== -->
+
+<audio
+  id="backgroundMusic"
+  src="elevator_music_1h.mp3"
+  loop
+  preload="auto"
+></audio>
+
+
+<audio
+  id="buttonClickSound"
+  src="button_click.mp3"
+  preload="auto"
+></audio>
+
+
+<audio
+  id="coinRainSound"
+  src="coin_rain.mp3"
+  preload="auto"
+></audio>
+
+
+<audio
+  id="destroyGlassSound"
+  src="destroy_glass.mp3"
+  preload="auto"
+></audio>
 
 
 <!-- =====================================================
@@ -1364,8 +1341,6 @@ input {
     id="machine"
   >
 
-
-    <!-- REELS -->
 
     <div class="slotArea">
 
@@ -1488,8 +1463,6 @@ input {
   </div>
 
 
-  <!-- LOWER MACHINE -->
-
   <section
     class="infoMachine"
     id="infoMachine"
@@ -1579,8 +1552,9 @@ input {
     <button
       id="destroyMachineButton"
       class="infoButtonHotspot destroyHotspot"
-      aria-label="Destroy the machine"
+      aria-label="Destroy machine"
     ></button>
+
 
   </section>
 
@@ -1632,13 +1606,25 @@ const SETTINGS = {
     500,
 
   resetTimeZone:
-    "Europe/Zurich"
+    "Europe/Zurich",
+
+  backgroundMusicVolume:
+    0.20,
+
+  clickVolume:
+    0.55,
+
+  coinVolume:
+    0.58,
+
+  glassVolume:
+    0.75
 
 };
 
 
 /* =====================================================
-   FRAME IMAGES
+   FRAMES
    ===================================================== */
 
 const FRAME_IMAGES = {
@@ -1673,235 +1659,148 @@ const INFO_FRAME_IMAGES = {
 
 
 /* =====================================================
-   SYMBOLS + PAYOUTS
+   SYMBOLS
    ===================================================== */
 
 const SYMBOLS = [
 
   {
-
-    id:
-      "DOG_BOWL",
-
-    src:
-      "dog_bowl.png",
-
-    weight:
-      18,
+    id: "DOG_BOWL",
+    src: "dog_bowl.png",
+    weight: 18,
 
     payouts: {
       3: 10,
       4: 25,
       5: 60
     }
-
   },
 
-
   {
-
-    id:
-      "DOG_TREATS",
-
-    src:
-      "dog_treats.png",
-
-    weight:
-      17,
+    id: "DOG_TREATS",
+    src: "dog_treats.png",
+    weight: 17,
 
     payouts: {
       3: 12,
       4: 30,
       5: 70
     }
-
   },
 
-
   {
-
-    id:
-      "DOG_BONE",
-
-    src:
-      "dog_bone.png",
-
-    weight:
-      15,
+    id: "DOG_BONE",
+    src: "dog_bone.png",
+    weight: 15,
 
     payouts: {
       3: 15,
       4: 40,
       5: 90
     }
-
   },
 
-
   {
-
-    id:
-      "PAW",
-
-    src:
-      "paw.png",
-
-    weight:
-      14,
+    id: "PAW",
+    src: "paw.png",
+    weight: 14,
 
     payouts: {
       3: 18,
       4: 50,
       5: 110
     }
-
   },
 
-
   {
-
-    id:
-      "BELL",
-
-    src:
-      "bell.png",
-
-    weight:
-      12,
+    id: "BELL",
+    src: "bell.png",
+    weight: 12,
 
     payouts: {
       3: 20,
       4: 60,
       5: 140
     }
-
   },
 
-
   {
-
-    id:
-      "MONEY",
-
-    src:
-      "money.png",
-
-    weight:
-      10,
+    id: "MONEY",
+    src: "money.png",
+    weight: 10,
 
     payouts: {
       3: 25,
       4: 75,
       5: 180
     }
-
   },
 
-
   {
-
-    id:
-      "DIAMOND",
-
-    src:
-      "diamond.png",
-
-    weight:
-      8,
+    id: "DIAMOND",
+    src: "diamond.png",
+    weight: 8,
 
     payouts: {
       3: 30,
       4: 90,
       5: 220
     }
-
   },
 
-
   {
-
-    id:
-      "SEVEN",
-
-    src:
-      "seven.png",
-
-    weight:
-      7,
+    id: "SEVEN",
+    src: "seven.png",
+    weight: 7,
 
     payouts: {
       3: 35,
       4: 110,
       5: 280
     }
-
   },
 
-
   {
-
-    id:
-      "CROWN",
-
-    src:
-      "crown.png",
-
-    weight:
-      6,
+    id: "CROWN",
+    src: "crown.png",
+    weight: 6,
 
     payouts: {
       3: 40,
       4: 130,
       5: 350
     }
-
   },
 
-
   {
-
-    id:
-      "PRIVATE_JET",
-
-    src:
-      "private_jet.png",
-
-    weight:
-      5,
+    id: "PRIVATE_JET",
+    src: "private_jet.png",
+    weight: 5,
 
     payouts: {
       3: 50,
       4: 160,
       5: 450
     }
-
   },
 
-
   {
-
-    id:
-      "CORGI",
-
-    src:
-      "corgi-jackpot.png",
-
-    weight:
-      4,
+    id: "CORGI",
+    src: "corgi-jackpot.png",
+    weight: 4,
 
     payouts: {
       3: 70,
       4: 220,
       5: 600
     }
-
   }
 
 ];
 
 
 /* =====================================================
-   COIN GRAPHICS
+   COINS
    ===================================================== */
 
 const COIN_IMAGES = [
@@ -1947,7 +1846,7 @@ const PAYLINES = [
 
 
 /* =====================================================
-   PHRASES
+   TEXT
    ===================================================== */
 
 const MOTIVATION_PHRASES = [
@@ -1977,19 +1876,14 @@ const MOTIVATION_PHRASES = [
   "SPIN LIKE YOU MEAN IT.",
   "THE REELS ARE LISTENING.",
   "YOUR MOMENT IS COMING.",
-  "KEEP THE CORGI DREAM ALIVE.",
   "GOOD THINGS COME TO CORGIS.",
   "THE NEXT ONE FEELS LUCKY.",
   "DON'T DISAPPOINT THE CORGI.",
   "COURAGE. THEN SPIN.",
-  "A GREAT SPIN STARTS HERE.",
   "LET THE CORGI GUIDE YOU.",
-  "YOUR LUCK HAS NOT LEFT.",
   "STAY STRONG. STAY CORGI.",
-  "THE REELS OWE YOU ONE.",
   "KEEP THAT PAW ON THE BUTTON.",
   "THE CORGI SENSES SOMETHING.",
-  "YOUR BIG WIN IS HIDING.",
   "SHOW THE REELS WHO'S BOSS.",
   "THE CORGI BELIEVES IN YOU.",
   "JUST ONE BEAUTIFUL SPIN.",
@@ -1997,7 +1891,6 @@ const MOTIVATION_PHRASES = [
   "PAWS UP. GAME ON.",
   "YOU'RE CLOSER THAN YOU THINK.",
   "MAKE THIS SPIN COUNT.",
-  "THE CORGI DEMANDS COURAGE.",
   "SPIN. SMILE. REPEAT."
 
 ];
@@ -2030,44 +1923,31 @@ const CORGI_PHRASES = [
 
 const game = {
 
-  player:
-    "",
+  player: "",
 
-  score:
-    0,
+  score: 0,
 
-  spinsUsed:
-    0,
+  spinsUsed: 0,
 
-  dayKey:
-    "",
+  dayKey: "",
 
-  spinning:
-    false,
+  spinning: false,
 
-  autoSpin:
-    false,
+  autoSpin: false,
 
-  fastFinish:
-    false,
+  fastFinish: false,
 
-  skipWait:
-    null,
+  skipWait: null,
 
-  startPressed:
-    false,
+  startPressed: false,
 
-  corgiRainMode:
-    false,
+  corgiRainMode: false,
 
-  corgiRainTimer:
-    null,
+  corgiRainTimer: null,
 
-  destroyUsed:
-    false,
+  destroyUsed: false,
 
-  destroyPressed:
-    false
+  destroyPressed: false
 
 };
 
@@ -2156,13 +2036,217 @@ const el = {
   brokenGlass:
     document.getElementById(
       "brokenGlassOverlay"
+    ),
+
+  backgroundMusic:
+    document.getElementById(
+      "backgroundMusic"
+    ),
+
+  buttonClickSound:
+    document.getElementById(
+      "buttonClickSound"
+    ),
+
+  coinRainSound:
+    document.getElementById(
+      "coinRainSound"
+    ),
+
+  destroyGlassSound:
+    document.getElementById(
+      "destroyGlassSound"
     )
 
 };
 
 
 /* =====================================================
-   FRAME STATE
+   AUDIO ENGINE
+   ===================================================== */
+
+/*
+  We clone short effects before playing.
+
+  That means several clicks or effects can
+  overlap without cutting one another off.
+*/
+
+function playSound(
+  sourceAudio,
+  volume = 1
+) {
+
+  if (
+    !sourceAudio
+  ) {
+
+    return;
+
+  }
+
+
+  try {
+
+    const sound =
+      sourceAudio.cloneNode(
+        true
+      );
+
+
+    sound.volume =
+      Math.max(
+        0,
+        Math.min(
+          1,
+          volume
+        )
+      );
+
+
+    sound.play().catch(
+      () => {}
+    );
+
+
+    sound.addEventListener(
+
+      "ended",
+
+      () => {
+
+        sound.remove();
+
+      }
+
+    );
+
+  }
+
+  catch (
+    error
+  ) {
+
+    console.log(
+      "Sound could not play.",
+      error
+    );
+
+  }
+
+}
+
+
+function playButtonClick() {
+
+  playSound(
+
+    el.buttonClickSound,
+
+    SETTINGS.clickVolume
+
+  );
+
+}
+
+
+function playCoinSound(
+  winAmount
+) {
+
+  /*
+    Slight volume variation according
+    to size of the win.
+  */
+
+  let volume =
+    SETTINGS.coinVolume;
+
+
+  if (
+    winAmount >= 250
+  ) {
+
+    volume =
+      0.72;
+
+  }
+
+
+  if (
+    winAmount >= 500
+  ) {
+
+    volume =
+      0.82;
+
+  }
+
+
+  playSound(
+
+    el.coinRainSound,
+
+    volume
+
+  );
+
+}
+
+
+function playGlassSound() {
+
+  playSound(
+
+    el.destroyGlassSound,
+
+    SETTINGS.glassVolume
+
+  );
+
+}
+
+
+/*
+  Background music starts after
+  the player presses START GAME.
+
+  This is necessary because browsers
+  normally block sound autoplay.
+*/
+
+async function startBackgroundMusic() {
+
+  try {
+
+    el.backgroundMusic.volume =
+      SETTINGS.backgroundMusicVolume;
+
+
+    el.backgroundMusic.currentTime =
+      0;
+
+
+    await el.backgroundMusic.play();
+
+  }
+
+  catch (
+    error
+  ) {
+
+    console.log(
+      "Background music was blocked.",
+      error
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   FRAME
    ===================================================== */
 
 function updateFrame() {
@@ -2223,6 +2307,7 @@ function flashStartButton() {
       game.startPressed =
         false;
 
+
       updateFrame();
 
     },
@@ -2268,30 +2353,44 @@ function updateInfoFrame() {
 function destroyStorageKey() {
 
   return (
+
     "corgiDestroy_"
+
     +
+
     game.player
+
     +
+
     "_"
+
     +
+
     game.dayKey
+
   );
 
 }
 
 
 /* =====================================================
-   RANDOM PHRASE
+   RANDOM MESSAGE
    ===================================================== */
 
 function randomMotivation() {
 
   return MOTIVATION_PHRASES[
+
     Math.floor(
+
       Math.random()
+
       *
+
       MOTIVATION_PHRASES.length
+
     )
+
   ];
 
 }
@@ -2300,18 +2399,24 @@ function randomMotivation() {
 function randomCorgiPhrase() {
 
   return CORGI_PHRASES[
+
     Math.floor(
+
       Math.random()
+
       *
+
       CORGI_PHRASES.length
+
     )
+
   ];
 
 }
 
 
 /* =====================================================
-   BUILD REELS
+   BUILD MACHINE
    ===================================================== */
 
 function buildMachine() {
@@ -2361,8 +2466,11 @@ function buildMachine() {
 
 
       renderSymbol(
+
         cell,
+
         randomSymbol()
+
       );
 
 
@@ -2383,7 +2491,7 @@ function buildMachine() {
 
 
 /* =====================================================
-   SYMBOL RENDERER
+   SYMBOLS
    ===================================================== */
 
 function renderSymbol(
@@ -2423,10 +2531,6 @@ function renderSymbol(
 
 }
 
-
-/* =====================================================
-   RANDOM SYMBOL
-   ===================================================== */
 
 function randomSymbol() {
 
@@ -2487,8 +2591,7 @@ function createResult() {
   return Array.from(
 
     {
-      length:
-        5
+      length: 5
     },
 
     () =>
@@ -2496,8 +2599,7 @@ function createResult() {
       Array.from(
 
         {
-          length:
-            3
+          length: 3
         },
 
         randomSymbol
@@ -2530,11 +2632,24 @@ async function startGame() {
       "Enter your nickname."
     );
 
+
     el.nickname.focus();
+
 
     return;
 
   }
+
+
+  /*
+    This click is a user interaction,
+    so we can start audio here.
+  */
+
+  playButtonClick();
+
+
+  startBackgroundMusic();
 
 
   el.startLogin.disabled =
@@ -2751,7 +2866,7 @@ el.nickname.addEventListener(
 
 
 /* =====================================================
-   START / SKIP
+   START
    ===================================================== */
 
 el.spin.addEventListener(
@@ -2759,6 +2874,9 @@ el.spin.addEventListener(
   "click",
 
   () => {
+
+    playButtonClick();
+
 
     flashStartButton();
 
@@ -2802,6 +2920,9 @@ el.auto.addEventListener(
 
   () => {
 
+    playButtonClick();
+
+
     if (
       game.spinsUsed
       >=
@@ -2844,6 +2965,9 @@ el.corgiRainButton.addEventListener(
   "click",
 
   () => {
+
+    playButtonClick();
+
 
     game.corgiRainMode =
       !game.corgiRainMode;
@@ -2929,6 +3053,11 @@ el.destroyMachineButton.addEventListener(
 
   () => {
 
+    /*
+      Don't play click/glass again
+      if button was already used.
+    */
+
     if (
       game.destroyUsed
       ||
@@ -2942,6 +3071,9 @@ el.destroyMachineButton.addEventListener(
       return;
 
     }
+
+
+    playButtonClick();
 
 
     game.destroyUsed =
@@ -2962,6 +3094,14 @@ el.destroyMachineButton.addEventListener(
 
 
     updateInfoFrame();
+
+
+    /*
+      Glass animation and sound
+      happen at exactly the same time.
+    */
+
+    playGlassSound();
 
 
     el.brokenGlass
@@ -3081,6 +3221,7 @@ async function spin() {
     el.message.textContent =
       "COULD NOT SAVE SPIN";
 
+
     return;
 
   }
@@ -3136,8 +3277,11 @@ async function spin() {
 
 
         stopReel(
+
           r,
+
           result[r]
+
         );
 
       }
@@ -3154,8 +3298,11 @@ async function spin() {
 
 
     stopReel(
+
       reel,
+
       result[reel]
+
     );
 
   }
@@ -3227,9 +3374,6 @@ async function spin() {
 
 /* =====================================================
    REEL ANIMATION
-
-   No physical movement anymore.
-   The symbols only refresh in-place.
    ===================================================== */
 
 function startAllReels() {
@@ -3264,8 +3408,11 @@ function startAllReels() {
 
 
             renderSymbol(
+
               cell,
+
               randomSymbol()
+
             );
 
 
@@ -3315,8 +3462,11 @@ function stopReel(
 
 
     renderSymbol(
+
       cell,
+
       symbols[row]
+
     );
 
   }
@@ -3325,7 +3475,7 @@ function stopReel(
 
 
 /* =====================================================
-   EVALUATE SPIN
+   WIN EVALUATION
    ===================================================== */
 
 async function evaluateSpin(
@@ -3343,7 +3493,6 @@ async function evaluateSpin(
       .filter(
 
         symbol =>
-
           symbol.id
           ===
           "CORGI"
@@ -3477,6 +3626,7 @@ async function evaluateSpin(
 
           giantCorgiParty();
 
+
           flashMachine();
 
         }
@@ -3493,9 +3643,8 @@ async function evaluateSpin(
 
 
   /*
-    COIN RAIN
-
-    Only wins greater than 10.
+    Coin visual + coin audio
+    start together.
   */
 
   if (
@@ -3503,6 +3652,11 @@ async function evaluateSpin(
   ) {
 
     coinRain(
+      totalWin
+    );
+
+
+    playCoinSound(
       totalWin
     );
 
@@ -3580,9 +3734,7 @@ async function evaluateSpin(
 
 
 /* =====================================================
-   LEFT-TO-RIGHT RULE
-
-   Matching symbols MUST begin on reel 1.
+   LEFT → RIGHT WIN RULE
    ===================================================== */
 
 function evaluateLine(
@@ -3599,14 +3751,11 @@ function evaluateLine(
 
     return {
 
-      matches:
-        0,
+      matches: 0,
 
-      points:
-        0,
+      points: 0,
 
-      symbol:
-        ""
+      symbol: ""
 
     };
 
@@ -3648,11 +3797,9 @@ function evaluateLine(
 
     return {
 
-      matches:
-        0,
+      matches: 0,
 
-      points:
-        0,
+      points: 0,
 
       symbol:
         firstSymbol.id
@@ -3691,7 +3838,7 @@ function evaluateLine(
 
 
 /* =====================================================
-   ROUND COMPLETE
+   ROUND
    ===================================================== */
 
 function finishRound() {
@@ -3754,7 +3901,7 @@ function updateRoundState() {
 
 
 /* =====================================================
-   WIN VISUALS
+   WIN DISPLAY
    ===================================================== */
 
 function showWinningPayline(
@@ -3862,7 +4009,7 @@ function getCell(
 
 
 /* =====================================================
-   DATABASE SAVE
+   DATABASE
    ===================================================== */
 
 async function saveOnlineProgress() {
@@ -3987,6 +4134,7 @@ async function updateLeaderboard() {
       error
     );
 
+
     return;
 
   }
@@ -4004,6 +4152,7 @@ async function updateLeaderboard() {
 
     el.leaderboard.textContent =
       "No players yet.";
+
 
     return;
 
@@ -4324,10 +4473,9 @@ function createCoinParticle() {
     false;
 
 
-  document.body
-    .appendChild(
-      image
-    );
+  document.body.appendChild(
+    image
+  );
 
 
   let size;
@@ -4467,10 +4615,7 @@ function createCoinParticle() {
       *
       Math.PI
       *
-      2,
-
-    size:
-      size
+      2
 
   });
 
@@ -4617,14 +4762,11 @@ const corgiParticles =
 
 const pointer = {
 
-  x:
-    -1000,
+  x: -1000,
 
-  y:
-    -1000,
+  y: -1000,
 
-  active:
-    false
+  active: false
 
 };
 
@@ -5252,7 +5394,7 @@ function flashMachine() {
 
 
 /* =====================================================
-   ZURICH DATE
+   TIME
    ===================================================== */
 
 function getZurichParts(
@@ -5344,13 +5486,21 @@ function formatZurichDate(
   return (
 
     parts.year
+
     +
+
     "-"
+
     +
+
     parts.month
+
     +
+
     "-"
+
     +
+
     parts.day
 
   );
@@ -5395,7 +5545,9 @@ function getActiveZurichDayKey() {
       new Date(
 
         now.getTime()
+
         -
+
         1000
 
       )
@@ -5568,13 +5720,15 @@ async function checkNewDay() {
     updateRoundState();
 
 
-    el.brokenGlass.classList.toggle(
+    el.brokenGlass
+      .classList
+      .toggle(
 
-      "active",
+        "active",
 
-      game.destroyUsed
+        game.destroyUsed
 
-    );
+      );
 
 
     await updateLeaderboard();
@@ -5599,7 +5753,7 @@ async function checkNewDay() {
 
 
 /* =====================================================
-   WAIT HELPERS
+   WAIT
    ===================================================== */
 
 function wait(
@@ -5679,7 +5833,7 @@ function cancellableWait(
 
 
 /* =====================================================
-   PRELOAD ASSETS
+   PRELOAD
    ===================================================== */
 
 Object
@@ -5771,7 +5925,27 @@ COIN_IMAGES.forEach(
 
 
 /* =====================================================
-   START
+   AUDIO INITIAL SETTINGS
+   ===================================================== */
+
+el.backgroundMusic.volume =
+  SETTINGS.backgroundMusicVolume;
+
+
+el.buttonClickSound.volume =
+  SETTINGS.clickVolume;
+
+
+el.coinRainSound.volume =
+  SETTINGS.coinVolume;
+
+
+el.destroyGlassSound.volume =
+  SETTINGS.glassVolume;
+
+
+/* =====================================================
+   STARTUP
    ===================================================== */
 
 buildMachine();
@@ -5807,6 +5981,7 @@ setInterval(
     ) {
 
       await checkNewDay();
+
 
       await updateLeaderboard();
 
